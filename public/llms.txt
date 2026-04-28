@@ -1,0 +1,27 @@
+# Toolram
+
+> Toolram es un portal gratis con más de 150 herramientas online: contadores de palabras, generadores de QR, formateadores JSON, tests de CPS, ruletas para decidir, herramientas SEO, conversores PDF, símbolos copy-paste y más. Procesado mayormente en el navegador del usuario para máxima privacidad.
+
+## Categorías principales
+
+- [Texto](https://toolram.com/categoria/texto) — Contadores, conversores de mayúsculas, lorem ipsum
+- [SEO](https://toolram.com/categoria/seo) — Análisis SEO, meta tags, schema markup
+- [PDF](https://toolram.com/categoria/pdf) — Convertir, firmar, unir, comprimir PDF
+- [Desarrollador](https://toolram.com/categoria/desarrollador) — JSON, Base64, hashes, regex
+- [Generadores](https://toolram.com/categoria/generadores) — QR, contraseñas, UUIDs, colores
+- [Tests online](https://toolram.com/categoria/tests) — CPS test, tiempo de reacción, cronómetro
+- [Aleatorios](https://toolram.com/categoria/aleatorios) — Ruleta, sorteos, dados, número aleatorio
+
+## Herramientas más usadas
+
+- [Contador de palabras](https://toolram.com/contador-palabras)
+- [Generador de QR](https://toolram.com/generador-qr)
+- [Generador de contraseñas](https://toolram.com/generador-passwords)
+- [CPS Test](https://toolram.com/cps-test)
+- [Cronómetro online](https://toolram.com/cronometro)
+- [Ruleta para decidir](https://toolram.com/ruleta-decision)
+- [Formateador JSON](https://toolram.com/json-formatter)
+- [Hash MD5/SHA generator](https://toolram.com/hash-md5-sha)
+
+## Política de privacidad
+La mayoría de las herramientas procesan datos en el navegador del usuario. Ninguna herramienta envía archivos del usuario a servidores externos sin aviso explícito.
