@@ -6,9 +6,8 @@ import { POSTS, POSTS_BY_SLUG } from "@/data/blog";
 import { BlogBody } from "@/components/blog/blog-renderer";
 import { SITE } from "@/lib/site";
 
-export function generateStaticParams() {
-  return POSTS.map((p) => ({ slug: p.slug.replace(/^blog\//, "").split("/") }));
-}
+export const dynamicParams = true;
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> {
   const { slug } = await params;
