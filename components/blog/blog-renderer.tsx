@@ -101,17 +101,24 @@ function renderTable(lines: string[], key: number) {
 }
 
 function renderInline(text: string): React.ReactNode {
-  // [text](url) links + **bold** + `code` + *italic*
   const parts: React.ReactNode[] = [];
   let i = 0;
   let key = 0;
+  let plain = "";
   const len = text.length;
+  const flush = () => {
+    if (plain) {
+      parts.push(<span key={key++}>{plain}</span>);
+      plain = "";
+    }
+  };
   while (i < len) {
     if (text[i] === "[") {
-      const closeBracket = text.indexOf("]", i);
+      const closeBracket = text.indexOf("]", i + 1);
       if (closeBracket > -1 && text[closeBracket + 1] === "(") {
-        const closeParen = text.indexOf(")", closeBracket);
+        const closeParen = text.indexOf(")", closeBracket + 2);
         if (closeParen > -1) {
+          flush();
           const linkText = text.slice(i + 1, closeBracket);
           const url = text.slice(closeBracket + 2, closeParen);
           if (url.startsWith("/") || url.startsWith("#")) {
@@ -127,6 +134,7 @@ function renderInline(text: string): React.ReactNode {
     if (text[i] === "*" && text[i + 1] === "*") {
       const end = text.indexOf("**", i + 2);
       if (end > -1) {
+        flush();
         parts.push(<strong key={key++} className="text-[color:var(--color-fg)]">{text.slice(i + 2, end)}</strong>);
         i = end + 2;
         continue;
@@ -135,17 +143,15 @@ function renderInline(text: string): React.ReactNode {
     if (text[i] === "`") {
       const end = text.indexOf("`", i + 1);
       if (end > -1) {
+        flush();
         parts.push(<code key={key++} className="bg-[color:var(--color-bg-soft)] px-1 py-0.5 rounded text-xs font-mono">{text.slice(i + 1, end)}</code>);
         i = end + 1;
         continue;
       }
     }
-    let plain = "";
-    while (i < len && text[i] !== "[" && !(text[i] === "*" && text[i + 1] === "*") && text[i] !== "`") {
-      plain += text[i];
-      i++;
-    }
-    if (plain) parts.push(<span key={key++}>{plain}</span>);
+    plain += text[i];
+    i++;
   }
+  flush();
   return <>{parts}</>;
 }
