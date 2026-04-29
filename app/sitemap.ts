@@ -5,6 +5,8 @@ import { FANCY_STYLES } from "@/lib/fancy-text";
 import { SYMBOL_CATEGORIES } from "@/data/symbols";
 import { GLOSSARY } from "@/data/glossary";
 import { ALTERNATIVES } from "@/data/alternatives";
+import { TOOL_EN, GLOSSARY_EN } from "@/lib/i18n";
+import { POSTS } from "@/data/blog";
 import { SITE } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -70,5 +72,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
     priority: 0.85
   }));
-  return [...staticPages, ...categoryPages, ...toolPages, ...calcPages, ...fancyPages, ...symbolPages, ...glossaryPages, ...altPages];
+  // English pages
+  const enHome = [{ url: `${SITE.url}/en`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.95 }];
+  const enAllTools = [{ url: `${SITE.url}/en/all-tools`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.85 }];
+  const enToolPages = Object.keys(TOOL_EN).map((slug) => ({
+    url: `${SITE.url}/en/${slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.85
+  }));
+  const enGlossPages = Object.keys(GLOSSARY_EN).map((slug) => ({
+    url: `${SITE.url}/en/${slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.7
+  }));
+
+  const blogIndex = [{ url: `${SITE.url}/blog`, lastModified: now, changeFrequency: "daily" as const, priority: 0.85 }];
+  const blogPosts = POSTS.map((p) => ({
+    url: `${SITE.url}/${p.slug}`,
+    lastModified: new Date(p.updatedAt),
+    changeFrequency: "monthly" as const,
+    priority: 0.8
+  }));
+
+  return [
+    ...staticPages, ...categoryPages, ...toolPages, ...calcPages, ...fancyPages, ...symbolPages, ...glossaryPages, ...altPages,
+    ...blogIndex, ...blogPosts,
+    ...enHome, ...enAllTools, ...enToolPages, ...enGlossPages
+  ];
 }

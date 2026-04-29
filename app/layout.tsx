@@ -29,7 +29,6 @@ export const metadata: Metadata = {
   creator: "Toolram",
   publisher: "Toolram",
   formatDetection: { email: false, address: false, telephone: false },
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "es_ES",
@@ -45,7 +44,20 @@ export const metadata: Metadata = {
     description: SITE.description,
     site: SITE.twitter
   },
-  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } }
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
+  verification: {
+    google: "Pb94jU8X9iYqyUJO7OFPAQttY1WEACieVFWPPliAB88"
+  },
+  alternates: {
+    canonical: "/",
+    languages: {
+      "es": "/",
+      "es-MX": "/",
+      "es-ES": "/",
+      "en": "/en",
+      "x-default": "/"
+    }
+  }
 };
 
 export const viewport: Viewport = {
