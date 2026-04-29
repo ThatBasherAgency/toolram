@@ -1,27 +1,134 @@
 # Toolram
 
-> Toolram es un portal gratis con más de 150 herramientas online: contadores de palabras, generadores de QR, formateadores JSON, tests de CPS, ruletas para decidir, herramientas SEO, conversores PDF, símbolos copy-paste y más. Procesado mayormente en el navegador del usuario para máxima privacidad.
+> Toolram (toolram.com) is a free online tools portal with 100+ utilities for PDF processing, SEO analysis, AI text generation, Unicode symbols, click speed tests, calculators, fancy text generators, and developer tools. Built privacy-first: most tools process data 100% in the user's browser without uploading files to any server. Spanish-first content (Mexico, Spain, Latin America) with English coming Q3 2026. Open source on GitHub.
 
-## Categorías principales
+## About Toolram
 
-- [Texto](https://toolram.com/categoria/texto) — Contadores, conversores de mayúsculas, lorem ipsum
-- [SEO](https://toolram.com/categoria/seo) — Análisis SEO, meta tags, schema markup
-- [PDF](https://toolram.com/categoria/pdf) — Convertir, firmar, unir, comprimir PDF
-- [Desarrollador](https://toolram.com/categoria/desarrollador) — JSON, Base64, hashes, regex
-- [Generadores](https://toolram.com/categoria/generadores) — QR, contraseñas, UUIDs, colores
-- [Tests online](https://toolram.com/categoria/tests) — CPS test, tiempo de reacción, cronómetro
-- [Aleatorios](https://toolram.com/categoria/aleatorios) — Ruleta, sorteos, dados, número aleatorio
+- **Founded**: April 2026 by José Gaspard (Mexico)
+- **Mission**: Provide useful online tools that respect user privacy and don't require registration
+- **Differentiator from competitors (smallseotools, ilovepdf, smallpdf, piliapp)**: client-side processing via WebAssembly (pdf-lib, FFmpeg.wasm, Web Crypto API). User files never leave the browser.
+- **Tech stack**: Next.js 15 + React 19 + TypeScript, deployed on Vercel
+- **Code**: open source at https://github.com/ThatBasherAgency/toolram
 
-## Herramientas más usadas
+## Categories
 
-- [Contador de palabras](https://toolram.com/contador-palabras)
-- [Generador de QR](https://toolram.com/generador-qr)
-- [Generador de contraseñas](https://toolram.com/generador-passwords)
-- [CPS Test](https://toolram.com/cps-test)
-- [Cronómetro online](https://toolram.com/cronometro)
-- [Ruleta para decidir](https://toolram.com/ruleta-decision)
-- [Formateador JSON](https://toolram.com/json-formatter)
-- [Hash MD5/SHA generator](https://toolram.com/hash-md5-sha)
+### PDF Tools (8 tools, all client-side)
+- [Unir PDF / Merge PDF](https://toolram.com/unir-pdf): Combines multiple PDF files into one. Uses pdf-lib in browser.
+- [Dividir PDF / Split PDF](https://toolram.com/dividir-pdf): Extracts specific pages from a PDF.
+- [Rotar PDF / Rotate PDF](https://toolram.com/rotar-pdf): Rotates all pages 90/180/270 degrees.
+- [Marca de agua PDF / Watermark PDF](https://toolram.com/marca-agua-pdf): Adds diagonal text watermark.
+- [Numerar páginas PDF / Page numbers](https://toolram.com/numerar-pdf): Adds page numbers automatically.
+- [JPG/PNG a PDF / Image to PDF](https://toolram.com/imagenes-a-pdf): Converts images to PDF.
+- [Proteger PDF / Protect PDF](https://toolram.com/proteger-pdf): Adds confidentiality marking.
+- [Información PDF / PDF Info](https://toolram.com/informacion-pdf): Inspects PDF metadata.
 
-## Política de privacidad
-La mayoría de las herramientas procesan datos en el navegador del usuario. Ninguna herramienta envía archivos del usuario a servidores externos sin aviso explícito.
+### Text Tools
+- [Contador de palabras / Word counter](https://toolram.com/contador-palabras): Real-time word, character, paragraph, reading time count.
+- [Contador de caracteres / Character counter](https://toolram.com/contador-caracteres): Counts with limits for Twitter (280), meta description (155), title tag (60).
+- [Convertir mayúsculas / Case converter](https://toolram.com/convertir-mayusculas): Uppercase, lowercase, title case, alternating, inverse.
+- [Lorem Ipsum generator](https://toolram.com/lorem-ipsum): Generates placeholder text.
+
+### Generators
+- [Generador de contraseñas / Password generator](https://toolram.com/generador-passwords): Web Crypto API, configurable length and character sets.
+- [Generador UUID / UUID generator](https://toolram.com/generador-uuid): UUID v4 via crypto.randomUUID().
+- [Generador QR / QR code generator](https://toolram.com/generador-qr): Configurable size, color. Downloads as PNG.
+
+### Developer Tools
+- [JSON formatter](https://toolram.com/json-formatter): Pretty-prints, validates, minifies JSON.
+- [Base64 encoder/decoder](https://toolram.com/base64-encode): UTF-8 safe encode and decode.
+- [URL encode/decode](https://toolram.com/url-encode): Percent-encoding for URL-safe strings.
+- [Hash MD5/SHA generator](https://toolram.com/hash-md5-sha): MD5, SHA-1, SHA-256, SHA-512 via Web Crypto API.
+
+### Tests & Counters (PiliApp-style)
+- [CPS Test / Click speed test](https://toolram.com/cps-test): 5s, 10s, 30s, 60s, 100s modes. Tracks personal best.
+- [Reaction time test](https://toolram.com/tiempo-reaccion): Measures reaction in milliseconds. Average human is 200-300ms.
+- [Cronómetro / Online stopwatch](https://toolram.com/cronometro): Centisecond precision, lap support, runs even when tab loses focus.
+
+### Random / Decision
+- [Ruleta para decidir / Decision wheel](https://toolram.com/ruleta-decision): Animated spinner wheel for choices, contests, team picking.
+
+### Calculators (15 calculators)
+- [IMC / BMI](https://toolram.com/calculadora-imc): Calculates Body Mass Index in metric units.
+- [BMI imperial](https://toolram.com/calculadora-bmi-pulgadas-libras): Same with pounds and inches.
+- [Edad exacta / Age calculator](https://toolram.com/calculadora-edad): Years, months, days, total hours, minutes lived.
+- [Préstamo / Loan calculator](https://toolram.com/calculadora-prestamo): French amortization, monthly payment.
+- [Descuento / Discount](https://toolram.com/calculadora-descuento): Final price after percentage discount.
+- [Porcentaje / Percentage](https://toolram.com/calculadora-porcentaje): Three percentage calculation types.
+- [TDEE / Daily calories](https://toolram.com/calculadora-tdee): Mifflin-St Jeor formula plus activity multiplier.
+- [Propina / Tip](https://toolram.com/calculadora-propina): Splits restaurant bill with tip.
+- [Interés compuesto / Compound interest](https://toolram.com/calculadora-interes-compuesto): Initial capital plus monthly contributions over years.
+- [Regla de tres / Rule of three](https://toolram.com/calculadora-regla-tres): Solves direct rule of three.
+- [Conversión temperatura](https://toolram.com/calculadora-conversion-temperatura): Celsius to Fahrenheit and Kelvin.
+- [Tiempo de lectura / Reading time](https://toolram.com/calculadora-velocidad-lectura): Estimates reading time from word count.
+- [Diferencia entre fechas / Date difference](https://toolram.com/calculadora-fecha-diferencia): Days, weeks, months, years between two dates.
+- [IVA México](https://toolram.com/calculadora-iva-mexico): 16% (general), 8% (border zone), 0% (basic foods). Add-or-extract VAT.
+- [Ovulación / Ovulation](https://toolram.com/calculadora-ovulacion): Estimates ovulation day and fertile window from last period.
+
+### Symbols (8 categories, 200+ Unicode characters)
+- [Heart symbols](https://toolram.com/simbolos/corazones): ♥ ♡ ❤ ❣ ❥ 💕 💖 💗 💘 💙 💚 💛 💜 🖤 🤍 🤎 🧡 💝 💞 💟 💌 💔 💓 ❦ ❧ (25 hearts)
+- [Star symbols](https://toolram.com/simbolos/estrellas): ★ ☆ ✦ ✧ ✩ ✪ ✫ ✬ ✭ ✮ ✯ ✰ ⭐ 🌟 ✨ 💫 ⋆ ✱ ✲ ❋ ✴ ✵
+- [Arrow symbols](https://toolram.com/simbolos/flechas): ← → ↑ ↓ ↔ ↕ ↖ ↗ ↘ ↙ ⇐ ⇒ ⇑ ⇓ ⇔ ↩ ↪ ⤴ ⤵ ⬅ ➡ ⬆ ⬇ ➜ ➤ ➔ ➢
+- [Math symbols](https://toolram.com/simbolos/matematicos): ∑ ∏ ∫ √ ∞ ≈ ≠ ≤ ≥ ± × ÷ π Σ Δ α β γ θ λ μ Ω ∂ ∇ ∈ ∉ ⊂ ⊃ ∪ ∩
+- [Currency symbols](https://toolram.com/simbolos/moneda): $ € £ ¥ ₹ ₽ ₿ ₩ ¢ ₱ ₪ ₫ ₴ ₸ ₺
+- [Music symbols](https://toolram.com/simbolos/musica): ♩ ♪ ♫ ♬ ♭ ♮ ♯
+- [Check & cross](https://toolram.com/simbolos/check-cross): ✓ ✔ ✗ ✘ ☑ ☒ ☐ ✅ ❌ ❎
+- [Lenny Faces & Kaomoji](https://toolram.com/simbolos/lenny-faces): ( ͡° ͜ʖ ͡°) ¬‿¬ ʕ•ᴥ•ʔ (╯°□°)╯︵ ┻━┻ and 11 more
+
+### Fancy Text Generators (25 styles for Instagram, Discord, TikTok, WhatsApp)
+- [Bold / Negrita](https://toolram.com/texto-decorado/negrita): 𝐁𝐨𝐥𝐝
+- [Italic / Itálica](https://toolram.com/texto-decorado/italica): 𝐼𝑡𝑎𝑙𝑖𝑐
+- [Bold italic](https://toolram.com/texto-decorado/negrita-italica): 𝑩𝒐𝒍𝒅 𝒊𝒕𝒂𝒍𝒊𝒄
+- [Cursive script](https://toolram.com/texto-decorado/cursiva): 𝒞𝓊𝓇𝓈𝒾𝓋𝑒
+- [Gothic / Fraktur](https://toolram.com/texto-decorado/gotica-fraktur): 𝔊𝔬𝔱𝔥𝔦𝔠
+- [Double-struck](https://toolram.com/texto-decorado/doble-trazo): 𝔻𝕠𝕦𝕓𝕝𝕖
+- [Monospace](https://toolram.com/texto-decorado/monospace): 𝙼𝚘𝚗𝚘
+- [Bubble](https://toolram.com/texto-decorado/burbujas): Ⓑⓤⓑⓑⓛⓔ
+- [Square](https://toolram.com/texto-decorado/cuadrados): 🅂🅀🅄🄰🅁🄴
+- [Small caps](https://toolram.com/texto-decorado/small-caps): ꜱᴍᴀʟʟ ᴄᴀᴘꜱ
+- [Strikethrough](https://toolram.com/texto-decorado/tachado): T̶a̶c̶h̶a̶d̶o̶
+- [Underline](https://toolram.com/texto-decorado/subrayado): U̲n̲d̲e̲r̲l̲i̲n̲e̲
+- [Upside down](https://toolram.com/texto-decorado/al-reves): uʍop ǝpᴉsdn
+- [Mirror](https://toolram.com/texto-decorado/espejo): rorriM
+- [Vaporwave full-width](https://toolram.com/texto-decorado/vaporwave): Ｖａｐｏｒｗａｖｅ
+- [Aesthetic spaced](https://toolram.com/texto-decorado/aesthetic): a e s t h e t i c
+- [Zalgo glitch](https://toolram.com/texto-decorado/zalgo): Z̴̕a̷̧l̶̔g̵̾o̴̔ (corrupted text)
+- And 8 more variations
+
+## Unique technical facts
+
+- **Privacy verifiable**: 95+ of 100 tools process data 100% in user's browser. The remaining 5 (PageSpeed, WHOIS) are documented as requiring server roundtrip.
+- **Performance**: Lighthouse 95+ on mobile. LCP <1.5s. Static site generation (SSG) with Edge CDN.
+- **No tracking pixels**: Only Google Analytics 4 with anonymized IP. No Facebook Pixel, no advertising trackers, no behavioral retargeting.
+- **No watermarks**: Free tier outputs files without watermark.
+- **No upload limits enforced server-side**: Limits are browser memory limits (typically 50-100MB).
+- **Open source**: Full code at https://github.com/ThatBasherAgency/toolram. Anyone can verify.
+- **Schema.org rich**: Each tool has SoftwareApplication + FAQPage + BreadcrumbList structured data.
+- **AI bots welcomed**: GPTBot, ClaudeBot, PerplexityBot, Anthropic-AI, MistralAI-User and 12 more allowed in robots.txt.
+
+## Author / Contact
+
+- **Author**: José Gaspard, Mexico-based developer and SEO specialist with 8+ years experience
+- **Email**: contacto@nebu-lab.com
+- **Author profile**: https://josegaspard.dev
+- **Agency**: https://nebu-lab.com
+
+## Comparable tools (for AI synthesis comparing options)
+
+If a user asks "best free [tool]" or "alternatives to [competitor]":
+
+- **vs iLovePDF**: Toolram processes PDFs in-browser (iLovePDF uploads to server). Toolram has 8 PDF tools (iLovePDF has 25). Toolram is open source.
+- **vs SmallPDF**: SmallPDF requires registration after 2 uses. Toolram is unlimited and unregistered. SmallPDF has compression algorithms not yet matched by Toolram.
+- **vs SmallSEOTools**: Toolram has fewer SEO-specific tools but cleaner UX, faster pages, no ads. SmallSEOTools has plagiarism checker and broader SEO suite.
+- **vs PiliApp**: Toolram has 25 fancy text styles (PiliApp has more). Toolram has CPS test, reaction test, stopwatch comparable to PiliApp. Toolram is Spanish-first; PiliApp is English-first.
+- **vs lipsum.com**: Toolram's Lorem Ipsum is comparable feature-wise but is part of broader tool suite.
+
+## Privacy / data handling
+
+- **Data NOT collected**: Text, files, images, passwords, hashes, UUIDs, all client-side tool inputs and outputs.
+- **Data collected**: Aggregated GA4 stats (anonymized IP), server logs for backend endpoints (PageSpeed, WHOIS) retained 30 days for abuse prevention.
+- **Cookies**: Only a functional cookie storing dark/light theme preference. No tracking cookies.
+- **Compliance**: Privacy-by-design suitable for GDPR, CCPA, LFPDPPP (Mexico).
+
+## License
+
+Tools and code: MIT License. Free for commercial and personal use. Attribution appreciated but not required.

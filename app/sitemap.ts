@@ -3,6 +3,8 @@ import { CATEGORIES, TOOLS } from "@/lib/tools-registry";
 import { CALCULATORS } from "@/lib/calculators";
 import { FANCY_STYLES } from "@/lib/fancy-text";
 import { SYMBOL_CATEGORIES } from "@/data/symbols";
+import { GLOSSARY } from "@/data/glossary";
+import { ALTERNATIVES } from "@/data/alternatives";
 import { SITE } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -11,12 +13,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/herramientas",
     "/sobre",
+    "/sobre/jose-gaspard",
     "/privacidad",
     "/contacto",
     "/buscar",
     "/simbolos",
     "/texto-decorado",
-    "/calculadoras"
+    "/calculadoras",
+    "/glosario",
+    "/alternativas"
   ].map((p) => ({
     url: `${SITE.url}${p}`,
     lastModified: now,
@@ -53,5 +58,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
     priority: 0.8
   }));
-  return [...staticPages, ...categoryPages, ...toolPages, ...calcPages, ...fancyPages, ...symbolPages];
+  const glossaryPages = GLOSSARY.map((g) => ({
+    url: `${SITE.url}/${g.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.75
+  }));
+  const altPages = ALTERNATIVES.map((a) => ({
+    url: `${SITE.url}/${a.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.85
+  }));
+  return [...staticPages, ...categoryPages, ...toolPages, ...calcPages, ...fancyPages, ...symbolPages, ...glossaryPages, ...altPages];
 }
