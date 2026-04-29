@@ -3,30 +3,37 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight, Home } from "lucide-react";
 import { CATEGORIES, TOOLS, TOOLS_BY_SLUG, relatedTools } from "@/lib/tools-registry";
+import { CALCULATORS, CALCS_BY_SLUG } from "@/lib/calculators";
 import { ToolRenderer } from "@/components/tools/tool-renderer";
+import { CalculatorRunner } from "@/components/tools/calculator-runner";
 import { ToolCard } from "@/components/tools/tool-card";
 import { SITE } from "@/lib/site";
 import { ToolJsonLd } from "@/components/seo/tool-json-ld";
 
 export function generateStaticParams() {
-  return TOOLS.map((t) => ({ slug: t.slug }));
+  return [
+    ...TOOLS.map((t) => ({ slug: t.slug })),
+    ...CALCULATORS.map((c) => ({ slug: c.slug }))
+  ];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const tool = TOOLS_BY_SLUG[slug];
-  if (!tool) return {};
-  const title = `${tool.name} online gratis`;
-  const desc = tool.shortDesc;
+  const calc = CALCS_BY_SLUG[slug];
+  const subject = tool || calc;
+  if (!subject) return {};
+  const title = `${subject.name} online gratis`;
+  const desc = subject.shortDesc;
   return {
     title,
     description: desc,
-    alternates: { canonical: `/${tool.slug}` },
+    alternates: { canonical: `/${subject.slug}` },
     openGraph: {
       title: `${title} | ${SITE.name}`,
       description: desc,
       type: "article",
-      url: `${SITE.url}/${tool.slug}`
+      url: `${SITE.url}/${subject.slug}`
     }
   };
 }
@@ -34,6 +41,45 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const tool = TOOLS_BY_SLUG[slug];
+  const calc = CALCS_BY_SLUG[slug];
+
+  if (calc && !tool) {
+    return (
+      <article className="max-w-4xl mx-auto px-4 py-8">
+        <nav className="flex items-center gap-1.5 text-xs text-[color:var(--color-fg-soft)] mb-4">
+          <Link href="/" className="hover:text-[color:var(--color-brand)] inline-flex items-center gap-1"><Home className="w-3 h-3" /> Inicio</Link>
+          <ChevronRight className="w-3 h-3" />
+          <Link href="/calculadoras" className="hover:text-[color:var(--color-brand)]">Calculadoras</Link>
+          <ChevronRight className="w-3 h-3" />
+          <span className="text-[color:var(--color-fg)]">{calc.name}</span>
+        </nav>
+        <header className="mb-6">
+          <span className="text-xs px-2 py-0.5 rounded-full bg-[color:var(--color-brand-soft)] text-[color:var(--color-brand)] inline-block mb-2">🧮 Calculadora</span>
+          <h1 className="text-3xl md:text-4xl font-bold mb-2">{calc.name}</h1>
+          <p className="text-lg text-[color:var(--color-fg-soft)]">{calc.shortDesc}</p>
+        </header>
+        <div className="card !p-4 md:!p-6 mb-8">
+          <CalculatorRunner slug={calc.slug} />
+        </div>
+        <section className="prose prose-sm max-w-none mb-8">
+          <h2 className="text-xl font-bold mb-2">Sobre {calc.name}</h2>
+          <p className="text-[color:var(--color-fg-soft)] leading-relaxed">{calc.longDesc}</p>
+        </section>
+        <section>
+          <h2 className="text-xl font-bold mb-3">Otras calculadoras</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {CALCULATORS.filter((c) => c.slug !== slug).slice(0, 6).map((c) => (
+              <Link key={c.slug} href={`/${c.slug}`} className="card group">
+                <div className="font-medium group-hover:text-[color:var(--color-brand)]">{c.name}</div>
+                <div className="text-xs text-[color:var(--color-fg-soft)]">{c.shortDesc}</div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </article>
+    );
+  }
+
   if (!tool) notFound();
   const cat = CATEGORIES[tool.category];
   const related = relatedTools(tool.slug, 4);

@@ -30,8 +30,11 @@ export function Header() {
         </Link>
         <nav className="hidden md:flex items-center gap-1 text-sm">
           <Link href="/herramientas" className="px-3 py-1.5 rounded hover:bg-[color:var(--color-bg-soft)]">Todas</Link>
+          <Link href="/simbolos" className="px-3 py-1.5 rounded hover:bg-[color:var(--color-bg-soft)]">Símbolos</Link>
+          <Link href="/texto-decorado" className="px-3 py-1.5 rounded hover:bg-[color:var(--color-bg-soft)]">Texto decorado</Link>
+          <Link href="/calculadoras" className="px-3 py-1.5 rounded hover:bg-[color:var(--color-bg-soft)]">Calculadoras</Link>
           {Object.entries(CATEGORIES)
-            .slice(0, 6)
+            .slice(0, 3)
             .map(([key, cat]) => (
               <Link key={key} href={`/categoria/${cat.slug}`} className="px-3 py-1.5 rounded hover:bg-[color:var(--color-bg-soft)]">
                 {cat.name}

@@ -1,10 +1,23 @@
 import type { MetadataRoute } from "next";
 import { CATEGORIES, TOOLS } from "@/lib/tools-registry";
+import { CALCULATORS } from "@/lib/calculators";
+import { FANCY_STYLES } from "@/lib/fancy-text";
+import { SYMBOL_CATEGORIES } from "@/data/symbols";
 import { SITE } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const staticPages = ["", "/herramientas", "/sobre", "/privacidad", "/contacto", "/buscar"].map((p) => ({
+  const staticPages = [
+    "",
+    "/herramientas",
+    "/sobre",
+    "/privacidad",
+    "/contacto",
+    "/buscar",
+    "/simbolos",
+    "/texto-decorado",
+    "/calculadoras"
+  ].map((p) => ({
     url: `${SITE.url}${p}`,
     lastModified: now,
     changeFrequency: "weekly" as const,
@@ -22,5 +35,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
     priority: 0.9
   }));
-  return [...staticPages, ...categoryPages, ...toolPages];
+  const calcPages = CALCULATORS.map((c) => ({
+    url: `${SITE.url}/${c.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.85
+  }));
+  const fancyPages = FANCY_STYLES.map((s) => ({
+    url: `${SITE.url}/texto-decorado/${s.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.8
+  }));
+  const symbolPages = SYMBOL_CATEGORIES.map((c) => ({
+    url: `${SITE.url}/simbolos/${c.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.8
+  }));
+  return [...staticPages, ...categoryPages, ...toolPages, ...calcPages, ...fancyPages, ...symbolPages];
 }

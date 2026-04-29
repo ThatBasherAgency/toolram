@@ -220,6 +220,90 @@ export const TOOLS: Tool[] = [
     keywords: ["ruleta para decidir", "spinner wheel", "ruleta sorteos"],
     popularity: 94,
     related: ["numero-aleatorio", "cara-cruz"]
+  },
+  {
+    slug: "unir-pdf",
+    category: "pdf",
+    name: "Unir PDF (Merge)",
+    shortDesc: "Une varios PDFs en uno solo. Procesado en tu navegador.",
+    longDesc: "Selecciona múltiples archivos PDF, ordénalos arrastrando y descarga un único PDF combinado. Tus archivos nunca salen de tu navegador — todo el procesamiento ocurre localmente con la librería pdf-lib.",
+    keywords: ["unir pdf", "merge pdf", "combinar pdf"],
+    popularity: 97,
+    faqs: [
+      { q: "¿Hay límite de archivos?", a: "No hay límite explícito. En la práctica, depende de la RAM de tu navegador (típicamente 50-100 PDFs medianos)." },
+      { q: "¿Se suben mis archivos a un servidor?", a: "No. Todo el merge ocurre en tu navegador con WebAssembly." }
+    ],
+    related: ["dividir-pdf", "rotar-pdf", "marca-agua-pdf"]
+  },
+  {
+    slug: "dividir-pdf",
+    category: "pdf",
+    name: "Dividir PDF / extraer páginas",
+    shortDesc: "Extrae páginas específicas de un PDF (ej: 1-3, 5, 7-9).",
+    longDesc: "Sube un PDF, indica qué páginas quieres extraer (rangos y páginas sueltas separadas por coma) y descarga un PDF con solo esas páginas.",
+    keywords: ["dividir pdf", "split pdf", "extraer paginas pdf"],
+    popularity: 90,
+    related: ["unir-pdf", "rotar-pdf", "informacion-pdf"]
+  },
+  {
+    slug: "rotar-pdf",
+    category: "pdf",
+    name: "Rotar PDF",
+    shortDesc: "Rota todas las páginas de un PDF 90°, 180° o 270°.",
+    longDesc: "Útil cuando un PDF llegó escaneado en orientación incorrecta. Aplica la rotación a todas las páginas y descarga el resultado.",
+    keywords: ["rotar pdf", "rotate pdf"],
+    popularity: 75,
+    related: ["unir-pdf", "dividir-pdf"]
+  },
+  {
+    slug: "marca-agua-pdf",
+    category: "pdf",
+    name: "Marca de agua en PDF",
+    shortDesc: "Agrega texto en diagonal como marca de agua a tu PDF.",
+    longDesc: "Estampa cualquier texto (ej: CONFIDENCIAL, BORRADOR, DRAFT) como marca de agua diagonal sobre todas las páginas. Configurable: opacidad, tamaño y color.",
+    keywords: ["marca de agua pdf", "watermark pdf"],
+    popularity: 78,
+    related: ["unir-pdf", "numerar-pdf", "proteger-pdf"]
+  },
+  {
+    slug: "numerar-pdf",
+    category: "pdf",
+    name: "Numerar páginas de PDF",
+    shortDesc: "Agrega números de página automáticamente.",
+    longDesc: "Coloca el formato '1/N' al pie de cada página. Posición configurable (abajo centro, abajo derecha o arriba derecha). Ideal para entregables académicos o legales.",
+    keywords: ["numerar pdf", "page numbers pdf"],
+    popularity: 70,
+    related: ["unir-pdf", "marca-agua-pdf"]
+  },
+  {
+    slug: "imagenes-a-pdf",
+    category: "pdf",
+    name: "JPG/PNG a PDF",
+    shortDesc: "Convierte una o varias imágenes en un único PDF.",
+    longDesc: "Selecciona JPGs o PNGs, ordénalos como quieras y descarga un PDF que contiene cada imagen como página. Útil para enviar contratos firmados con foto, comprobantes, screenshots agrupados.",
+    keywords: ["jpg a pdf", "png a pdf", "imagen a pdf"],
+    popularity: 92,
+    related: ["unir-pdf", "informacion-pdf"]
+  },
+  {
+    slug: "proteger-pdf",
+    category: "pdf",
+    name: "Marcar PDF como protegido",
+    shortDesc: "Agrega marca visible de confidencialidad a un PDF.",
+    longDesc: "Esta versión client-side agrega una marca visible de confidencialidad y metadata. Para encriptación con contraseña AES real estamos preparando un microservicio backend (fase 2).",
+    keywords: ["proteger pdf", "protect pdf"],
+    popularity: 60,
+    related: ["marca-agua-pdf", "unir-pdf"]
+  },
+  {
+    slug: "informacion-pdf",
+    category: "pdf",
+    name: "Información de PDF",
+    shortDesc: "Inspecciona páginas, tamaño, autor y metadata de un PDF.",
+    longDesc: "Súper útil para verificar de cuántas páginas es un PDF antes de imprimir, o para ver quién lo creó.",
+    keywords: ["info pdf", "pdf metadata"],
+    popularity: 55,
+    related: ["unir-pdf", "dividir-pdf"]
   }
 ];
 

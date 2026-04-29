@@ -17,7 +17,15 @@ const map = {
   "cps-test": dynamic(() => import("./cps-test").then((m) => m.CpsTest), { ssr: false }),
   "tiempo-reaccion": dynamic(() => import("./reaction-test").then((m) => m.ReactionTest), { ssr: false }),
   cronometro: dynamic(() => import("./stopwatch").then((m) => m.Stopwatch), { ssr: false }),
-  "ruleta-decision": dynamic(() => import("./decision-wheel").then((m) => m.DecisionWheel), { ssr: false })
+  "ruleta-decision": dynamic(() => import("./decision-wheel").then((m) => m.DecisionWheel), { ssr: false }),
+  "unir-pdf": dynamic(() => import("./pdf-merge").then((m) => m.PdfMerge), { ssr: false }),
+  "dividir-pdf": dynamic(() => import("./pdf-split").then((m) => m.PdfSplit), { ssr: false }),
+  "rotar-pdf": dynamic(() => import("./pdf-rotate").then((m) => m.PdfRotate), { ssr: false }),
+  "marca-agua-pdf": dynamic(() => import("./pdf-watermark").then((m) => m.PdfWatermark), { ssr: false }),
+  "numerar-pdf": dynamic(() => import("./pdf-page-numbers").then((m) => m.PdfPageNumbers), { ssr: false }),
+  "imagenes-a-pdf": dynamic(() => import("./jpg-to-pdf").then((m) => m.JpgToPdf), { ssr: false }),
+  "proteger-pdf": dynamic(() => import("./pdf-protect").then((m) => m.PdfProtect), { ssr: false }),
+  "informacion-pdf": dynamic(() => import("./pdf-info").then((m) => m.PdfInfo), { ssr: false })
 } as const;
 
 export function ToolRenderer({ slug }: { slug: string }) {
