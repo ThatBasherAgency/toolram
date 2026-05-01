@@ -70,10 +70,10 @@ export function ImageWatermark() {
     <div className="space-y-6">
       <StepBar step={file ? 2 : 1} total={2} />
       {!file ? (
-        <DropZone accept="image/*" onFile={load} icon="image" accentColor={ACCENT} buttonLabel="Seleccionar imagen" />
+        <DropZone accept="image/*" onFile={load} illustration="image" accentColor={ACCENT} buttonLabel="Seleccionar imagen" />
       ) : (
         <>
-          <DropZone accept="image/*" onFile={load} loaded={{ name: file.name, size: file.size, thumbnail: src ?? undefined }} onClear={reset} icon="image" accentColor={ACCENT} />
+          <DropZone accept="image/*" onFile={load} loaded={{ name: file.name, size: file.size, thumbnail: src ?? undefined }} onClear={reset} illustration="image" accentColor={ACCENT} />
 
           <div className="card !p-0 overflow-hidden">
             <div className="bg-[color:var(--color-bg-soft)] flex items-center justify-center p-4">

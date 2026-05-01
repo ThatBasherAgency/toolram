@@ -68,10 +68,10 @@ export function PdfReorder() {
     <div className="space-y-6">
       <StepBar step={file ? 2 : 1} />
       {!file ? (
-        <DropZone accept="application/pdf" onFile={load} icon="pdf" accentColor={ACCENT} buttonLabel="Seleccionar PDF" />
+        <DropZone accept="application/pdf" onFile={load} illustration="pdf" accentColor={ACCENT} buttonLabel="Seleccionar PDF" />
       ) : (
         <>
-          <DropZone accept="application/pdf" onFile={load} loaded={{ name: file.name, size: file.size, thumbnail: thumbs[0] }} onClear={reset} icon="pdf" accentColor={ACCENT} />
+          <DropZone accept="application/pdf" onFile={load} loaded={{ name: file.name, size: file.size, thumbnail: thumbs[0] }} onClear={reset} illustration="pdf" accentColor={ACCENT} />
 
           {thumbs.length > 0 && (
             <>

@@ -156,10 +156,10 @@ export function PdfSign() {
       <StepBar step={file ? 2 : 1} />
 
       {!file ? (
-        <DropZone accept="application/pdf" onFile={loadFile} icon="pdf" accentColor={ACCENT} buttonLabel="Seleccionar PDF" helpText="🔒 100% privado · pdf-lib + Canvas en tu navegador" />
+        <DropZone accept="application/pdf" onFile={loadFile} illustration="pdf" accentColor={ACCENT} buttonLabel="Seleccionar PDF" helpText="🔒 100% privado · pdf-lib + Canvas en tu navegador" />
       ) : (
         <>
-          <DropZone accept="application/pdf" onFile={loadFile} loaded={{ name: file.name, size: file.size, thumbnail: thumbs[0] }} onClear={reset} icon="pdf" accentColor={ACCENT} />
+          <DropZone accept="application/pdf" onFile={loadFile} loaded={{ name: file.name, size: file.size, thumbnail: thumbs[0] }} onClear={reset} illustration="pdf" accentColor={ACCENT} />
 
           {loadingThumbs && <ProcessingBar label="Generando preview de páginas…" />}
 

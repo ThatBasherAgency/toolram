@@ -60,10 +60,10 @@ export function PdfToJpg() {
       <StepBar step={done ? 3 : file ? 2 : 1} />
 
       {!file ? (
-        <DropZone accept="application/pdf" onFile={load} icon="pdf" accentColor={ACCENT} buttonLabel="Seleccionar PDF" helpText="🔒 Conversión 100% local con pdf.js" />
+        <DropZone accept="application/pdf" onFile={load} illustration="pdf" accentColor={ACCENT} buttonLabel="Seleccionar PDF" helpText="🔒 Conversión 100% local con pdf.js" />
       ) : (
         <>
-          <DropZone accept="application/pdf" onFile={load} loaded={{ name: file.name, size: file.size }} onClear={reset} icon="pdf" accentColor={ACCENT} />
+          <DropZone accept="application/pdf" onFile={load} loaded={{ name: file.name, size: file.size }} onClear={reset} illustration="pdf" accentColor={ACCENT} />
 
           {!done && (
             <>

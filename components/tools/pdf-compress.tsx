@@ -71,10 +71,10 @@ export function PdfCompress() {
     <div className="space-y-6">
       <StepBar step={file ? 2 : 1} total={2} />
       {!file ? (
-        <DropZone accept="application/pdf" onFile={load} icon="pdf" accentColor={ACCENT} buttonLabel="Seleccionar PDF" helpText="🔒 Optimización 100% local sin pérdida de calidad" />
+        <DropZone accept="application/pdf" onFile={load} illustration="pdf" accentColor={ACCENT} buttonLabel="Seleccionar PDF" helpText="🔒 Optimización 100% local sin pérdida de calidad" />
       ) : (
         <>
-          <DropZone accept="application/pdf" onFile={load} loaded={{ name: file.name, size: file.size }} onClear={reset} icon="pdf" accentColor={ACCENT} />
+          <DropZone accept="application/pdf" onFile={load} loaded={{ name: file.name, size: file.size }} onClear={reset} illustration="pdf" accentColor={ACCENT} />
           {processing ? (
             <ProcessingBar label="Comprimiendo PDF…" />
           ) : (

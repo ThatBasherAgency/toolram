@@ -306,6 +306,95 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
   if (!tool) notFound();
   const cat = CATEGORIES[tool.category];
   const related = relatedTools(tool.slug, 4);
+  const POWER_TOOLS: Record<string, string> = {
+    "firmar-pdf": "oklch(0.55 0.22 30)",
+    "editar-pdf": "oklch(0.6 0.2 240)",
+    "reordenar-pdf": "oklch(0.55 0.2 280)",
+    "pdf-a-jpg": "oklch(0.65 0.2 50)",
+    "comprimir-pdf": "oklch(0.6 0.2 145)",
+    "quitar-fondo-imagen": "oklch(0.6 0.22 320)",
+    "recortar-imagen": "oklch(0.65 0.2 130)",
+    "marca-agua-imagen": "oklch(0.6 0.18 200)",
+    "analizador-meta": "oklch(0.5 0.2 220)",
+    "comparador-textos": "oklch(0.6 0.22 30)"
+  };
+  const accent = POWER_TOOLS[tool.slug];
+
+  if (accent) {
+    return (
+      <>
+        <ToolJsonLd tool={tool} />
+        <div className="min-h-screen">
+          <div className="max-w-5xl mx-auto px-4 pt-6">
+            <nav className="flex items-center gap-1.5 text-xs text-[color:var(--color-fg-soft)] mb-8">
+              <Link href="/" className="hover:opacity-80 inline-flex items-center gap-1" style={{ color: accent }}><Home className="w-3 h-3" /> Inicio</Link>
+              <ChevronRight className="w-3 h-3" />
+              <Link href={`/categoria/${cat.slug}`} className="hover:opacity-80" style={{ color: accent }}>{cat.name}</Link>
+              <ChevronRight className="w-3 h-3" />
+              <span className="text-[color:var(--color-fg)] font-semibold">{tool.name}</span>
+            </nav>
+
+            <div className="text-center mb-10 md:mb-14">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-3 leading-[1.05]">
+                <span style={{ background: `linear-gradient(135deg, ${accent}, color-mix(in oklch, ${accent} 50%, black))`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+                  {tool.name}
+                </span>
+              </h1>
+              <p className="text-lg md:text-xl text-[color:var(--color-fg-soft)] max-w-2xl mx-auto">{tool.shortDesc}</p>
+            </div>
+
+            <div className="mb-16">
+              <ToolRenderer slug={tool.slug} />
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12 max-w-3xl mx-auto">
+              {[
+                { i: "🔒", t: "100% privado" },
+                { i: "⚡", t: "Sin esperas" },
+                { i: "📱", t: "Funciona en móvil" },
+                { i: "🎁", t: "Gratis siempre" }
+              ].map((b) => (
+                <div key={b.t} className="text-center py-3 px-2 rounded-xl bg-[color:var(--color-bg-soft)]">
+                  <div className="text-2xl mb-1">{b.i}</div>
+                  <div className="text-xs font-semibold text-[color:var(--color-fg-soft)]">{b.t}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="border-t border-[color:var(--color-border)] bg-[color:var(--color-bg-soft)]/40 py-12 md:py-16">
+            <div className="max-w-3xl mx-auto px-4 space-y-10">
+              <section>
+                <h2 className="text-2xl font-bold mb-3">Sobre {tool.name}</h2>
+                <p className="text-base text-[color:var(--color-fg-soft)] leading-relaxed">{tool.longDesc}</p>
+              </section>
+
+              {tool.faqs && tool.faqs.length > 0 && (
+                <section>
+                  <h2 className="text-2xl font-bold mb-4">Preguntas frecuentes</h2>
+                  <div className="space-y-2">
+                    {tool.faqs.map((f, i) => (
+                      <details key={i} className="rounded-xl bg-[color:var(--color-bg)] border border-[color:var(--color-border)] p-4 group">
+                        <summary className="font-semibold cursor-pointer flex items-center justify-between">{f.q}<span className="text-xl group-open:rotate-45 transition">+</span></summary>
+                        <p className="text-sm text-[color:var(--color-fg-soft)] mt-3 leading-relaxed">{f.a}</p>
+                      </details>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              <section>
+                <h2 className="text-2xl font-bold mb-4">Herramientas relacionadas</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                  {related.map((t) => <ToolCard key={t.slug} tool={t} />)}
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

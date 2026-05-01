@@ -61,10 +61,10 @@ export function RemoveBackground() {
       <StepBar step={out ? 3 : file ? 2 : 1} />
 
       {!file ? (
-        <DropZone accept="image/*" onFile={load} icon="image" accentColor={ACCENT} buttonLabel="Seleccionar imagen" helpText="🤖 IA U²-Net en tu navegador · privado · sin API" />
+        <DropZone accept="image/*" onFile={load} illustration="image" accentColor={ACCENT} buttonLabel="Seleccionar imagen" helpText="🤖 IA U²-Net en tu navegador · privado · sin API" />
       ) : (
         <>
-          <DropZone accept="image/*" onFile={load} loaded={{ name: file.name, size: file.size, thumbnail: src ?? undefined }} onClear={reset} icon="image" accentColor={ACCENT} />
+          <DropZone accept="image/*" onFile={load} loaded={{ name: file.name, size: file.size, thumbnail: src ?? undefined }} onClear={reset} illustration="image" accentColor={ACCENT} />
 
           {!out && !processing && (
             <PrimaryAction onClick={process} color={ACCENT}>
