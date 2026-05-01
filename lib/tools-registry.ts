@@ -593,6 +593,53 @@ export const TOOLS: Tool[] = [
     keywords: ["yaml a json", "json a yaml", "yaml json converter"],
     popularity: 80,
     related: ["json-formatter", "css-formatter", "jwt-decoder"]
+  },
+  {
+    slug: "prompt-builder",
+    category: "ai",
+    name: "Generador de prompts para IA",
+    shortDesc: "Construí prompts estructurados para ChatGPT, Claude o Gemini.",
+    longDesc:
+      "Plantilla guiada con rol, tarea, audiencia, tono, formato, ejemplos few-shot y restricciones. Te devuelve un prompt en formato markdown listo para pegar en ChatGPT, Claude, Gemini, Mistral o cualquier LLM. Construido localmente — no enviamos tu prompt a ningún servidor.",
+    keywords: ["generador prompts", "prompt builder", "prompts chatgpt"],
+    popularity: 92,
+    faqs: [
+      { q: "¿Sirve para imágenes (Midjourney/DALL·E)?", a: "Esta versión está optimizada para LLMs de texto. Para imágenes necesitás describir composición, estilo y detalles visuales." }
+    ],
+    related: ["plantillas-prompts", "contador-tokens", "generador-titulos-seo"]
+  },
+  {
+    slug: "contador-tokens",
+    category: "ai",
+    name: "Contador de tokens IA",
+    shortDesc: "Estima tokens y costo para GPT-4o, Claude, Gemini y más.",
+    longDesc:
+      "Pegá tu texto y elegí modelo. Te mostramos tokens estimados (basados en chars/token promedio del modelo), porcentaje del context window que ocupás y costo estimado en USD como input y output. Útil para presupuestar batch jobs o validar que tu prompt entra en el contexto.",
+    keywords: ["contador tokens", "token counter", "tokenizer gpt claude"],
+    popularity: 88,
+    related: ["prompt-builder", "contador-palabras", "json-formatter"]
+  },
+  {
+    slug: "generador-titulos-seo",
+    category: "ai",
+    name: "Generador de títulos SEO",
+    shortDesc: "15 variantes de títulos SEO a partir de una keyword.",
+    longDesc:
+      "Aplicamos 15 plantillas comprobadas con CTR alto (números, año, pregunta, comparativa, secretos, guía, listado) sobre tu keyword. Indicador de longitud para que ningún título supere los 60 caracteres recomendados por Google.",
+    keywords: ["generador titulos seo", "title generator", "ideas de titulos"],
+    popularity: 85,
+    related: ["generador-meta-tags", "previsualizador-serp", "densidad-keywords"]
+  },
+  {
+    slug: "plantillas-prompts",
+    category: "ai",
+    name: "Plantillas de prompts (biblioteca)",
+    shortDesc: "18 prompts curados para SEO, redacción, código, marketing y aprendizaje.",
+    longDesc:
+      "Biblioteca de plantillas de prompts probados, agrupadas en 6 categorías: SEO, Redacción, Programación, Marketing, Análisis y Aprender. Filtro por texto y por categoría. Cada plantilla copiable con un click — solo reemplazá los placeholders [EN MAYÚSCULAS] con tu contenido.",
+    keywords: ["plantillas prompts", "prompts curados", "prompts chatgpt español"],
+    popularity: 90,
+    related: ["prompt-builder", "contador-tokens", "generador-titulos-seo"]
   }
 ];
 

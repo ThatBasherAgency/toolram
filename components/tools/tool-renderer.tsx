@@ -50,7 +50,11 @@ const map = {
   "jwt-decoder": dynamic(() => import("./jwt-decoder").then((m) => m.JwtDecoder), { ssr: false }),
   "diff-checker": dynamic(() => import("./diff-checker").then((m) => m.DiffChecker), { ssr: false }),
   "css-formatter": dynamic(() => import("./css-formatter").then((m) => m.CssFormatter), { ssr: false }),
-  "yaml-json-converter": dynamic(() => import("./yaml-json").then((m) => m.YamlJsonConverter), { ssr: false })
+  "yaml-json-converter": dynamic(() => import("./yaml-json").then((m) => m.YamlJsonConverter), { ssr: false }),
+  "prompt-builder": dynamic(() => import("./prompt-builder").then((m) => m.PromptBuilder), { ssr: false }),
+  "contador-tokens": dynamic(() => import("./token-counter").then((m) => m.TokenCounter), { ssr: false }),
+  "generador-titulos-seo": dynamic(() => import("./title-generator").then((m) => m.TitleGenerator), { ssr: false }),
+  "plantillas-prompts": dynamic(() => import("./prompt-templates").then((m) => m.PromptTemplates), { ssr: false })
 } as const;
 
 export function ToolRenderer({ slug }: { slug: string }) {
