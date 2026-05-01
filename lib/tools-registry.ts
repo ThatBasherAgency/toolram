@@ -479,6 +479,120 @@ export const TOOLS: Tool[] = [
     keywords: ["quitar tildes", "remove accents", "slug generator"],
     popularity: 78,
     related: ["convertir-mayusculas", "texto-invertido", "url-encode"]
+  },
+  {
+    slug: "generador-meta-tags",
+    category: "seo",
+    name: "Generador de Meta Tags",
+    shortDesc: "Title, description, Open Graph y Twitter Card listos para pegar en <head>.",
+    longDesc:
+      "Completá título, descripción, URL canónica e imagen y obtené el bloque HTML completo con meta description, Open Graph (Facebook, LinkedIn) y Twitter Card. Indicadores de longitud de title (60) y description (160) en tiempo real para no pasarte de los límites de Google.",
+    keywords: ["generador meta tags", "open graph generator", "twitter card", "meta tags seo"],
+    popularity: 90,
+    faqs: [
+      { q: "¿Cuál es el largo recomendado del title?", a: "Google muestra ~600 píxeles, equivalente a 50-60 caracteres." },
+      { q: "¿Qué tamaño de imagen OG?", a: "1200×630 píxeles es el estándar para que se vea bien en Facebook y LinkedIn." }
+    ],
+    related: ["generador-robots", "previsualizador-serp", "generador-schema-faq"]
+  },
+  {
+    slug: "generador-robots",
+    category: "seo",
+    name: "Generador de robots.txt",
+    shortDesc: "Crea tu robots.txt con presets para WordPress, e-commerce y bloqueo de IA.",
+    longDesc:
+      "Generador interactivo de robots.txt con 5 presets: todo permitido, todo bloqueado, WordPress, e-commerce con filtros y bloqueo de scrapers de IA (GPTBot, Google-Extended, CCBot, anthropic-ai). Editable manualmente y con campo dedicado para sitemap.",
+    keywords: ["robots.txt generator", "generar robots txt", "bloquear gptbot"],
+    popularity: 85,
+    related: ["generador-meta-tags", "generador-sitemap", "previsualizador-serp"]
+  },
+  {
+    slug: "densidad-keywords",
+    category: "seo",
+    name: "Análisis de densidad de keywords",
+    shortDesc: "Detecta palabras y bigramas más usados en un texto.",
+    longDesc:
+      "Pegá el contenido de tu artículo o página y obtené las 30 palabras y 15 bigramas más frecuentes con porcentaje de densidad. Filtra stopwords en español (artículos, preposiciones, conjunciones) para mostrar solo términos relevantes para SEO.",
+    keywords: ["densidad keywords", "keyword density", "analizador palabras clave"],
+    popularity: 82,
+    related: ["contador-palabras", "generador-meta-tags", "previsualizador-serp"]
+  },
+  {
+    slug: "previsualizador-serp",
+    category: "seo",
+    name: "Previsualizador de Google SERP",
+    shortDesc: "Visualiza cómo se verá tu título y descripción en los resultados de Google.",
+    longDesc:
+      "Pegá title, URL y description y mirá una preview fiel del aspecto de tu resultado en Google. Indicadores de color advierten cuando te pasás de los límites recomendados (60 chars title, 160 chars description) que harían que Google trunque tu snippet.",
+    keywords: ["serp preview", "previsualizador google", "google snippet preview"],
+    popularity: 88,
+    related: ["generador-meta-tags", "densidad-keywords", "generador-schema-faq"]
+  },
+  {
+    slug: "generador-schema-faq",
+    category: "seo",
+    name: "Generador de Schema FAQ (JSON-LD)",
+    shortDesc: "Crea structured data FAQPage para rich results en Google.",
+    longDesc:
+      "Agregá tus preguntas y respuestas y obtené el JSON-LD listo para pegar en <head>. Compatible con FAQPage schema de Schema.org, lo que puede activar el rich result de FAQ en Google con ítems desplegables que aumentan el CTR significativamente.",
+    keywords: ["schema faq generator", "faqpage json-ld", "structured data faq"],
+    popularity: 80,
+    related: ["generador-meta-tags", "previsualizador-serp", "generador-robots"]
+  },
+  {
+    slug: "generador-sitemap",
+    category: "seo",
+    name: "Generador de sitemap.xml",
+    shortDesc: "Convierte una lista de URLs en un sitemap XML válido.",
+    longDesc:
+      "Pegá tus URLs (una por línea), elegí frecuencia de cambio y prioridad, y obtené un sitemap.xml válido para enviar a Google Search Console y Bing Webmaster Tools. Soporta hasta 50.000 URLs por archivo (límite del estándar Sitemap Protocol).",
+    keywords: ["generador sitemap", "sitemap generator", "sitemap xml"],
+    popularity: 78,
+    related: ["generador-robots", "generador-meta-tags"]
+  },
+  {
+    slug: "jwt-decoder",
+    category: "developer",
+    name: "Decodificador JWT",
+    shortDesc: "Inspecciona header, payload, exp e iat de un JSON Web Token.",
+    longDesc:
+      "Pegá un JWT y mostramos su header, payload, fechas de emisión (iat) y expiración (exp), e indicador de si está vigente o expirado. Decodificación 100% local — la firma no se verifica (eso requiere la clave secreta del servidor).",
+    keywords: ["jwt decoder", "decodificar jwt", "json web token"],
+    popularity: 86,
+    related: ["base64-encode", "json-formatter", "timestamp-converter"]
+  },
+  {
+    slug: "diff-checker",
+    category: "developer",
+    name: "Comparador de texto (Diff)",
+    shortDesc: "Encuentra diferencias línea por línea entre dos textos.",
+    longDesc:
+      "Pegá dos versiones de un texto y obtené un diff con líneas eliminadas (rojo), agregadas (verde) e iguales. Útil para revisar cambios en código, contratos legales, configuraciones o cualquier texto. Algoritmo basado en LCS (Longest Common Subsequence).",
+    keywords: ["diff checker", "comparar texto", "text diff online"],
+    popularity: 85,
+    related: ["json-formatter", "regex-tester", "css-formatter"]
+  },
+  {
+    slug: "css-formatter",
+    category: "developer",
+    name: "Formateador y minificador CSS",
+    shortDesc: "Formatea CSS legible o minificalo para producción.",
+    longDesc:
+      "Dos modos: formatear CSS minificado para hacerlo legible (con indentación de 2 espacios) o minificar CSS extenso para reducir bytes en producción. Muestra el porcentaje de reducción al minificar.",
+    keywords: ["css formatter", "css minifier", "formatear css"],
+    popularity: 82,
+    related: ["json-formatter", "diff-checker", "yaml-json-converter"]
+  },
+  {
+    slug: "yaml-json-converter",
+    category: "developer",
+    name: "Convertidor YAML ↔ JSON",
+    shortDesc: "Convierte entre formatos YAML y JSON en ambas direcciones.",
+    longDesc:
+      "Útil para configuración: GitHub Actions usa YAML, package.json usa JSON. Soporta tipos básicos (strings, números, booleans, null), listas y objetos anidados. Para YAML avanzado (anchors, multi-line) usar parser server-side.",
+    keywords: ["yaml a json", "json a yaml", "yaml json converter"],
+    popularity: 80,
+    related: ["json-formatter", "css-formatter", "jwt-decoder"]
   }
 ];
 

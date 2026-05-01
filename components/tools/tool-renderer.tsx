@@ -40,7 +40,17 @@ const map = {
   "regex-tester": dynamic(() => import("./regex-tester").then((m) => m.RegexTester), { ssr: false }),
   "convertidor-color": dynamic(() => import("./color-converter").then((m) => m.ColorConverter), { ssr: false }),
   "texto-invertido": dynamic(() => import("./text-reverse").then((m) => m.TextReverse), { ssr: false }),
-  "eliminar-acentos": dynamic(() => import("./remove-accents").then((m) => m.RemoveAccents), { ssr: false })
+  "eliminar-acentos": dynamic(() => import("./remove-accents").then((m) => m.RemoveAccents), { ssr: false }),
+  "generador-meta-tags": dynamic(() => import("./meta-tags-generator").then((m) => m.MetaTagsGenerator), { ssr: false }),
+  "generador-robots": dynamic(() => import("./robots-generator").then((m) => m.RobotsGenerator), { ssr: false }),
+  "densidad-keywords": dynamic(() => import("./keyword-density").then((m) => m.KeywordDensity), { ssr: false }),
+  "previsualizador-serp": dynamic(() => import("./serp-preview").then((m) => m.SerpPreview), { ssr: false }),
+  "generador-schema-faq": dynamic(() => import("./faq-schema-generator").then((m) => m.FaqSchemaGenerator), { ssr: false }),
+  "generador-sitemap": dynamic(() => import("./sitemap-generator").then((m) => m.SitemapGenerator), { ssr: false }),
+  "jwt-decoder": dynamic(() => import("./jwt-decoder").then((m) => m.JwtDecoder), { ssr: false }),
+  "diff-checker": dynamic(() => import("./diff-checker").then((m) => m.DiffChecker), { ssr: false }),
+  "css-formatter": dynamic(() => import("./css-formatter").then((m) => m.CssFormatter), { ssr: false }),
+  "yaml-json-converter": dynamic(() => import("./yaml-json").then((m) => m.YamlJsonConverter), { ssr: false })
 } as const;
 
 export function ToolRenderer({ slug }: { slug: string }) {
