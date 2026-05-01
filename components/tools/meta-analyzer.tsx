@@ -1,16 +1,13 @@
 "use client";
 import { useMemo, useState } from "react";
+import { Check, X, AlertTriangle, Search } from "lucide-react";
 
 type Field = { ok: boolean; value: string; note?: string };
 
 function analyze(html: string) {
   if (!html.trim()) return null;
   let doc: Document | null = null;
-  try {
-    doc = new DOMParser().parseFromString(html, "text/html");
-  } catch {
-    return null;
-  }
+  try { doc = new DOMParser().parseFromString(html, "text/html"); } catch { return null; }
   const get = (sel: string, attr = "content") => doc?.querySelector(sel)?.getAttribute(attr) || "";
   const title = doc.querySelector("title")?.textContent?.trim() || "";
   const desc = get('meta[name="description"]');
@@ -44,21 +41,21 @@ function analyze(html: string) {
   }).filter(Boolean);
 
   const fields: Record<string, Field> = {
-    "Title": { ok: !!title && title.length <= 60, value: title || "(falta)", note: title ? `${title.length} chars` : "Crítico — falta el title" },
-    "Meta description": { ok: !!desc && desc.length >= 80 && desc.length <= 160, value: desc || "(falta)", note: desc ? `${desc.length} chars` : "Recomendado 80-160 chars" },
-    "Canonical": { ok: !!canonical, value: canonical || "(falta)" },
-    "Robots": { ok: true, value: robots || "(no especificado, default index,follow)" },
-    "Viewport": { ok: !!viewport, value: viewport || "(falta — móvil roto)" },
-    "Charset": { ok: !!charset, value: charset || "(falta)" },
-    "Lang HTML": { ok: !!lang, value: lang || "(falta — declarar es/en/etc)" },
-    "Open Graph title": { ok: !!ogTitle, value: ogTitle || "(falta)" },
-    "Open Graph description": { ok: !!ogDesc, value: ogDesc || "(falta)" },
-    "Open Graph image": { ok: !!ogImage, value: ogImage || "(falta — sin preview en redes)" },
-    "Open Graph URL": { ok: !!ogUrl, value: ogUrl || "(falta)" },
-    "Open Graph type": { ok: !!ogType, value: ogType || "(falta)" },
-    "Twitter card": { ok: !!twCard, value: twCard || "(falta)" },
-    "Twitter title": { ok: !!twTitle || !!ogTitle, value: twTitle || "(usa OG)" },
-    "Twitter image": { ok: !!twImage || !!ogImage, value: twImage || "(usa OG)" }
+    "Title tag": { ok: !!title && title.length <= 60, value: title || "—", note: title ? `${title.length}/60 chars` : "Crítico — falta el title" },
+    "Meta description": { ok: !!desc && desc.length >= 80 && desc.length <= 160, value: desc || "—", note: desc ? `${desc.length}/160 chars` : "Recomendado 80-160 chars" },
+    "Canonical URL": { ok: !!canonical, value: canonical || "—" },
+    "Robots": { ok: true, value: robots || "default index,follow" },
+    "Viewport (móvil)": { ok: !!viewport, value: viewport || "—" },
+    "Charset": { ok: !!charset, value: charset || "—" },
+    "Lang HTML": { ok: !!lang, value: lang || "—" },
+    "Open Graph title": { ok: !!ogTitle, value: ogTitle || "—" },
+    "Open Graph description": { ok: !!ogDesc, value: ogDesc || "—" },
+    "Open Graph image": { ok: !!ogImage, value: ogImage || "—" },
+    "Open Graph URL": { ok: !!ogUrl, value: ogUrl || "—" },
+    "Open Graph type": { ok: !!ogType, value: ogType || "—" },
+    "Twitter card": { ok: !!twCard, value: twCard || "—" },
+    "Twitter title": { ok: !!twTitle || !!ogTitle, value: twTitle || (ogTitle ? "(usa OG)" : "—") },
+    "Twitter image": { ok: !!twImage || !!ogImage, value: twImage || (ogImage ? "(usa OG)" : "—") }
   };
   const okCount = Object.values(fields).filter((f) => f.ok).length;
   const total = Object.keys(fields).length;
@@ -67,65 +64,91 @@ function analyze(html: string) {
 }
 
 export function MetaAnalyzer() {
-  const [html, setHtml] = useState(`<html lang="es">\n<head>\n  <title>Ejemplo — Página de prueba</title>\n  <meta name="description" content="Una descripción de ejemplo para mostrar cómo funciona el analizador.">\n  <meta property="og:title" content="Ejemplo">\n  <link rel="canonical" href="https://ejemplo.com/">\n</head>\n<body><h1>Hola</h1><img src="x.jpg"></body></html>`);
+  const [html, setHtml] = useState("");
   const result = useMemo(() => analyze(html), [html]);
 
   return (
-    <div className="space-y-4">
-      <div className="card !p-3 text-xs">📋 Pegá el HTML completo de una página (View Source / Ctrl+U) para auditar sus meta tags. Por restricciones CORS no podemos hacer fetch directo desde el navegador a otros dominios.</div>
-      <textarea className="input font-mono text-xs" rows={8} value={html} onChange={(e) => setHtml(e.target.value)} placeholder="Pegá el HTML..." />
+    <div className="space-y-6">
+      <div className="rounded-2xl bg-gradient-to-br from-[oklch(0.95_0.05_220)] to-[oklch(0.94_0.04_280)] dark:from-[oklch(0.25_0.05_220)] dark:to-[oklch(0.22_0.04_280)] p-6 border border-[color:var(--color-border)]">
+        <div className="flex items-start gap-3">
+          <div className="w-12 h-12 rounded-xl bg-[oklch(0.5_0.2_220)] text-white flex items-center justify-center flex-shrink-0"><Search className="w-6 h-6" /></div>
+          <div>
+            <h3 className="font-bold mb-1">Pegá el HTML completo</h3>
+            <p className="text-sm text-[color:var(--color-fg-soft)]">Abrí cualquier página, hacé Ctrl+U (Cmd+U en Mac) y copiá todo el código fuente. Por restricciones CORS no podemos hacer fetch directo.</p>
+          </div>
+        </div>
+      </div>
+
+      <textarea className="input font-mono text-xs min-h-[200px]" rows={10} value={html} onChange={(e) => setHtml(e.target.value)} placeholder="<!DOCTYPE html>&#10;<html>...&#10;</html>" />
+
       {result && (
         <>
-          <div className="card !p-4 text-center">
-            <div className={`text-5xl font-bold ${result.score >= 80 ? "text-[color:var(--color-success)]" : result.score >= 50 ? "text-[color:var(--color-warning)]" : "text-[color:var(--color-danger)]"}`}>{result.score}</div>
-            <div className="text-xs uppercase">Score SEO básico</div>
+          <div className="rounded-2xl p-8 text-center text-white shadow-2xl" style={{ background: result.score >= 80 ? "linear-gradient(135deg, oklch(0.6 0.18 145), oklch(0.5 0.2 165))" : result.score >= 50 ? "linear-gradient(135deg, oklch(0.7 0.18 75), oklch(0.6 0.2 50))" : "linear-gradient(135deg, oklch(0.6 0.22 25), oklch(0.55 0.24 10))" }}>
+            <div className="text-6xl md:text-8xl font-bold tabular-nums">{result.score}</div>
+            <div className="text-sm uppercase tracking-widest opacity-90 mt-2">Score SEO On-Page</div>
+            <div className="text-xs opacity-75 mt-1">{Object.values(result.fields).filter((f) => f.ok).length} de {Object.keys(result.fields).length} checks pasan</div>
           </div>
-          <div className="grid md:grid-cols-2 gap-3">
-            <div className="card !p-3">
-              <div className="text-xs uppercase text-[color:var(--color-fg-soft)] mb-2">Meta tags ({Object.keys(result.fields).length})</div>
-              <ul className="space-y-1 text-xs">
-                {Object.entries(result.fields).map(([k, f]) => (
-                  <li key={k} className="flex items-start gap-2">
-                    <span className={f.ok ? "text-[color:var(--color-success)]" : "text-[color:var(--color-danger)]"}>{f.ok ? "✓" : "✗"}</span>
-                    <div>
-                      <div className="font-medium">{k}</div>
-                      <div className="text-[color:var(--color-fg-soft)] break-all">{f.value}</div>
-                      {f.note && <div className="text-[color:var(--color-fg-soft)] italic">{f.note}</div>}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="card !p-3 space-y-3">
-              <div>
-                <div className="text-xs uppercase text-[color:var(--color-fg-soft)] mb-1">Estructura</div>
-                <div className="text-sm">H1: {result.h1.length} {result.h1.length === 1 ? "✓" : result.h1.length === 0 ? "✗ (falta)" : "⚠️ múltiples"}</div>
-                <div className="text-sm">H2: {result.h2.length}</div>
-                <div className="text-sm">Imágenes: {result.images} {result.imagesNoAlt > 0 ? `(${result.imagesNoAlt} sin alt ⚠️)` : "✓"}</div>
-                <div className="text-sm">Enlaces internos: {result.internal} · externos: {result.external}</div>
-              </div>
-              <div>
-                <div className="text-xs uppercase text-[color:var(--color-fg-soft)] mb-1">Schema.org JSON-LD</div>
-                {result.schema.length === 0 ? (
-                  <div className="text-sm text-[color:var(--color-fg-soft)]">Sin structured data ⚠️</div>
-                ) : (
-                  <ul className="text-sm">
-                    {result.schema.map((s, i) => (
-                      <li key={i}>✓ {(s as Record<string, string>)["@type"] || "Schema"}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-              {result.h1.length > 0 && (
-                <div>
-                  <div className="text-xs uppercase text-[color:var(--color-fg-soft)] mb-1">H1 detectados</div>
-                  {result.h1.map((h, i) => <div key={i} className="text-xs italic">"{h}"</div>)}
+
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <div className="text-sm font-bold uppercase tracking-wide text-[color:var(--color-fg-soft)]">Meta tags</div>
+              {Object.entries(result.fields).map(([k, f]) => (
+                <div key={k} className={`rounded-xl border p-3 flex items-start gap-3 ${f.ok ? "bg-[color:var(--color-success)]/5 border-[color:var(--color-success)]/30" : "bg-[color:var(--color-danger)]/5 border-[color:var(--color-danger)]/30"}`}>
+                  <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-white ${f.ok ? "bg-[color:var(--color-success)]" : "bg-[color:var(--color-danger)]"}`}>
+                    {f.ok ? <Check className="w-3.5 h-3.5" /> : <X className="w-3.5 h-3.5" />}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-semibold text-sm">{k}</div>
+                    <div className="text-xs text-[color:var(--color-fg-soft)] truncate">{f.value}</div>
+                    {f.note && <div className="text-[10px] mt-0.5 italic text-[color:var(--color-fg-soft)]">{f.note}</div>}
+                  </div>
                 </div>
+              ))}
+            </div>
+
+            <div className="space-y-3">
+              <div className="text-sm font-bold uppercase tracking-wide text-[color:var(--color-fg-soft)]">Estructura</div>
+              <Stat label="Encabezados H1" value={result.h1.length} status={result.h1.length === 1 ? "ok" : result.h1.length === 0 ? "err" : "warn"} note={result.h1.length === 0 ? "Falta H1" : result.h1.length > 1 ? "Múltiples H1 (mala práctica)" : "Perfecto"} />
+              <Stat label="Encabezados H2" value={result.h2.length} status={result.h2.length >= 1 ? "ok" : "warn"} />
+              <Stat label="Imágenes" value={`${result.images} (${result.imagesNoAlt} sin alt)`} status={result.imagesNoAlt === 0 ? "ok" : "warn"} note={result.imagesNoAlt > 0 ? "Imágenes sin atributo alt afectan SEO y accesibilidad" : ""} />
+              <Stat label="Enlaces internos" value={result.internal} status={result.internal >= 3 ? "ok" : "warn"} />
+              <Stat label="Enlaces externos" value={result.external} status="ok" />
+
+              <div className="text-sm font-bold uppercase tracking-wide text-[color:var(--color-fg-soft)] pt-2">Schema.org</div>
+              {result.schema.length === 0 ? (
+                <div className="rounded-xl border border-[color:var(--color-warning)]/40 bg-[color:var(--color-warning)]/5 p-3 text-sm flex items-center gap-2"><AlertTriangle className="w-4 h-4 text-[color:var(--color-warning)]" /> Sin structured data — perdiendo rich results</div>
+              ) : (
+                <div className="rounded-xl border border-[color:var(--color-success)]/40 bg-[color:var(--color-success)]/5 p-3">
+                  <div className="text-sm font-semibold mb-1 text-[color:var(--color-success)]">✓ {result.schema.length} schema{result.schema.length === 1 ? "" : "s"} detectado{result.schema.length === 1 ? "" : "s"}</div>
+                  <ul className="text-xs space-y-0.5">
+                    {result.schema.map((s, i) => <li key={i}>• {(s as Record<string, string>)["@type"] || "Schema"}</li>)}
+                  </ul>
+                </div>
+              )}
+
+              {result.h1.length > 0 && (
+                <>
+                  <div className="text-sm font-bold uppercase tracking-wide text-[color:var(--color-fg-soft)] pt-2">H1 detectados</div>
+                  {result.h1.map((h, i) => <div key={i} className="rounded-lg bg-[color:var(--color-bg-soft)] p-2 text-sm italic">"{h}"</div>)}
+                </>
               )}
             </div>
           </div>
         </>
       )}
+    </div>
+  );
+}
+
+function Stat({ label, value, status, note }: { label: string; value: string | number; status: "ok" | "warn" | "err"; note?: string }) {
+  const color = status === "ok" ? "var(--color-success)" : status === "warn" ? "var(--color-warning)" : "var(--color-danger)";
+  return (
+    <div className="rounded-xl border p-3 flex items-center justify-between" style={{ borderColor: `color-mix(in oklch, ${color} 30%, transparent)`, background: `color-mix(in oklch, ${color} 5%, transparent)` }}>
+      <div>
+        <div className="text-sm font-semibold">{label}</div>
+        {note && <div className="text-xs text-[color:var(--color-fg-soft)] italic">{note}</div>}
+      </div>
+      <div className="text-xl font-bold tabular-nums" style={{ color }}>{value}</div>
     </div>
   );
 }

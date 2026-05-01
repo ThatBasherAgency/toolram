@@ -1,6 +1,9 @@
 "use client";
 import { useState } from "react";
-import { Download } from "lucide-react";
+import { Download, ImageIcon } from "lucide-react";
+import { DropZone, PrimaryAction, ProcessingBar, StepBar, SuccessPanel } from "./ui/drop-zone";
+
+const ACCENT = "oklch(0.65 0.2 50)";
 
 export function PdfToJpg() {
   const [file, setFile] = useState<File | null>(null);
@@ -8,31 +11,40 @@ export function PdfToJpg() {
   const [processing, setProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [scale, setScale] = useState(2);
+  const [done, setDone] = useState(false);
 
-  async function process(f: File) {
+  async function load(f: File) {
     setFile(f);
+    setPages([]);
+    setDone(false);
+  }
+  function reset() { setFile(null); setPages([]); setDone(false); setProgress(0); }
+
+  async function process() {
+    if (!file) return;
     setProcessing(true);
     setProgress(0);
     setPages([]);
-    const pdfjs = await import("pdfjs-dist");
-    pdfjs.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
-
-    const buf = await f.arrayBuffer();
-    const doc = await pdfjs.getDocument({ data: buf }).promise;
-    const out: string[] = [];
-    for (let i = 1; i <= doc.numPages; i++) {
-      const page = await doc.getPage(i);
-      const viewport = page.getViewport({ scale });
-      const canvas = document.createElement("canvas");
-      canvas.width = viewport.width;
-      canvas.height = viewport.height;
-      const ctx = canvas.getContext("2d")!;
-      await page.render({ canvasContext: ctx, viewport, canvas } as Parameters<typeof page.render>[0]).promise;
-      out.push(canvas.toDataURL("image/jpeg", 0.9));
-      setProgress(Math.round((i / doc.numPages) * 100));
-    }
-    setPages(out);
-    setProcessing(false);
+    try {
+      const pdfjs = await import("pdfjs-dist");
+      pdfjs.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+      const buf = await file.arrayBuffer();
+      const doc = await pdfjs.getDocument({ data: buf }).promise;
+      const out: string[] = [];
+      for (let i = 1; i <= doc.numPages; i++) {
+        const page = await doc.getPage(i);
+        const viewport = page.getViewport({ scale });
+        const canvas = document.createElement("canvas");
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        const ctx = canvas.getContext("2d")!;
+        await page.render({ canvasContext: ctx, viewport, canvas } as Parameters<typeof page.render>[0]).promise;
+        out.push(canvas.toDataURL("image/jpeg", 0.92));
+        setProgress(Math.round((i / doc.numPages) * 100));
+      }
+      setPages(out);
+      setDone(true);
+    } finally { setProcessing(false); }
   }
 
   function downloadOne(src: string, i: number) {
@@ -41,45 +53,70 @@ export function PdfToJpg() {
     a.download = `${file?.name.replace(/\.pdf$/i, "") || "pdf"}-pagina-${i + 1}.jpg`;
     a.click();
   }
-
-  function downloadAll() {
-    pages.forEach((src, i) => setTimeout(() => downloadOne(src, i), i * 200));
-  }
+  function downloadAll() { pages.forEach((src, i) => setTimeout(() => downloadOne(src, i), i * 200)); }
 
   return (
-    <div className="space-y-4">
-      <div className="card !p-3 text-xs">🔒 Conversión 100% local con pdf.js. Cada página del PDF se renderiza como JPG en alta resolución.</div>
-      <label className="block text-sm">Calidad / resolución
-        <select className="input mt-1" value={scale} onChange={(e) => setScale(+e.target.value)}>
-          <option value={1}>Estándar (72 DPI)</option>
-          <option value={2}>Alta (144 DPI) — recomendado</option>
-          <option value={3}>Ultra (216 DPI)</option>
-          <option value={4}>Print-ready (288 DPI) — más lento</option>
-        </select>
-      </label>
-      <input type="file" accept="application/pdf" className="input" onChange={(e) => e.target.files?.[0] && process(e.target.files[0])} disabled={processing} />
-      {processing && (
-        <div className="card !p-3">
-          <div className="text-xs mb-2">Procesando… {progress}%</div>
-          <div className="h-2 bg-[color:var(--color-border)] rounded overflow-hidden">
-            <div className="h-full bg-[color:var(--color-brand)] transition-all" style={{ width: `${progress}%` }} />
-          </div>
-        </div>
-      )}
-      {pages.length > 0 && (
+    <div className="space-y-6">
+      <StepBar step={done ? 3 : file ? 2 : 1} />
+
+      {!file ? (
+        <DropZone accept="application/pdf" onFile={load} icon="pdf" accentColor={ACCENT} buttonLabel="Seleccionar PDF" helpText="🔒 Conversión 100% local con pdf.js" />
+      ) : (
         <>
-          <button onClick={downloadAll} className="btn btn-primary w-full"><Download className="w-4 h-4" /> Descargar las {pages.length} imágenes</button>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {pages.map((src, i) => (
-              <div key={i} className="card !p-2">
-                <img src={src} alt={`Página ${i + 1}`} className="w-full rounded mb-2" />
-                <div className="flex items-center justify-between text-xs">
-                  <span>Página {i + 1}</span>
-                  <button onClick={() => downloadOne(src, i)} className="btn btn-ghost h-6 !px-2"><Download className="w-3 h-3" /></button>
+          <DropZone accept="application/pdf" onFile={load} loaded={{ name: file.name, size: file.size }} onClear={reset} icon="pdf" accentColor={ACCENT} />
+
+          {!done && (
+            <>
+              <div className="card !p-4">
+                <div className="text-sm font-semibold mb-3 flex items-center gap-2"><ImageIcon className="w-4 h-4" /> Calidad de imagen</div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                  {[
+                    { v: 1, l: "72 DPI", n: "Web rápido" },
+                    { v: 2, l: "144 DPI", n: "Recomendado" },
+                    { v: 3, l: "216 DPI", n: "Alta resolución" },
+                    { v: 4, l: "288 DPI", n: "Print-ready" }
+                  ].map((o) => (
+                    <button key={o.v} onClick={() => setScale(o.v)} className={`rounded-xl border-2 p-3 text-center transition ${scale === o.v ? "shadow-md" : "hover:bg-[color:var(--color-bg-soft)]"}`} style={{ borderColor: scale === o.v ? ACCENT : "var(--color-border)", background: scale === o.v ? `${ACCENT}10` : "" }}>
+                      <div className="font-bold text-sm">{o.l}</div>
+                      <div className="text-xs text-[color:var(--color-fg-soft)]">{o.n}</div>
+                    </button>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
+
+              {processing && <ProcessingBar label={`Renderizando páginas… ${progress}%`} percent={progress} />}
+
+              <PrimaryAction onClick={process} disabled={processing} color={ACCENT}>
+                <ImageIcon className="w-5 h-5" /> Convertir a JPG
+              </PrimaryAction>
+            </>
+          )}
+
+          {done && (
+            <>
+              <SuccessPanel>
+                <p className="text-sm text-[color:var(--color-fg-soft)]">{pages.length} página{pages.length === 1 ? "" : "s"} convertida{pages.length === 1 ? "" : "s"} a JPG.</p>
+                <button onClick={downloadAll} className="w-full py-4 rounded-2xl font-bold text-white text-lg shadow-xl flex items-center justify-center gap-2" style={{ background: ACCENT }}>
+                  <Download className="w-5 h-5" /> Descargar todas ({pages.length})
+                </button>
+                <button onClick={reset} className="text-sm text-[color:var(--color-fg-soft)] hover:underline">Procesar otro PDF</button>
+              </SuccessPanel>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                {pages.map((src, i) => (
+                  <div key={i} className="rounded-xl border border-[color:var(--color-border)] overflow-hidden shadow hover:shadow-xl transition group">
+                    <div className="relative">
+                      <img src={src} alt={`Página ${i + 1}`} className="block w-full" />
+                      <button onClick={() => downloadOne(src, i)} className="absolute inset-0 bg-black/0 group-hover:bg-black/40 flex items-center justify-center transition">
+                        <span className="opacity-0 group-hover:opacity-100 transition px-3 py-2 rounded-lg bg-white text-black text-sm font-semibold inline-flex items-center gap-1"><Download className="w-4 h-4" /> Descargar</span>
+                      </button>
+                    </div>
+                    <div className="px-3 py-2 text-center text-sm font-semibold">Página {i + 1}</div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </>
       )}
     </div>
