@@ -304,6 +304,181 @@ export const TOOLS: Tool[] = [
     keywords: ["info pdf", "pdf metadata"],
     popularity: 55,
     related: ["unir-pdf", "dividir-pdf"]
+  },
+  {
+    slug: "redimensionar-imagen",
+    category: "image",
+    name: "Redimensionar imagen",
+    shortDesc: "Cambia el ancho y alto de fotos JPG, PNG o WebP en tu navegador.",
+    longDesc:
+      "Subí una imagen, definí ancho/alto en píxeles (manteniendo o no la proporción), elegí formato de salida (JPG, PNG o WebP) y calidad. Ideal para preparar fotos para web, redes sociales o emails sin perder privacidad — todo se procesa con Canvas en tu navegador.",
+    keywords: ["redimensionar imagen", "resize image online", "cambiar tamaño foto"],
+    popularity: 90,
+    faqs: [
+      { q: "¿Pierdo calidad al redimensionar?", a: "Si reducís dimensiones, sí (es inevitable). Para minimizar pérdida usá WebP a 85-90% de calidad." },
+      { q: "¿Hay límite de tamaño?", a: "El límite lo pone tu RAM. En PCs modernas funciona bien con imágenes hasta 30-50 MP." }
+    ],
+    related: ["comprimir-imagen", "convertir-imagen", "imagenes-a-pdf"]
+  },
+  {
+    slug: "comprimir-imagen",
+    category: "image",
+    name: "Comprimir imagen",
+    shortDesc: "Reduce el peso de tus fotos JPG y PNG sin subirlas a un servidor.",
+    longDesc:
+      "Bajá el tamaño en KB de cualquier foto ajustando el nivel de calidad. Usa el algoritmo nativo del navegador (Canvas + toBlob) — privado, instantáneo y sin marca de agua. Resultado típico: 60-80% menos peso con calidad visual aceptable.",
+    keywords: ["comprimir imagen", "compress image", "reducir peso jpg"],
+    popularity: 95,
+    related: ["redimensionar-imagen", "convertir-imagen"]
+  },
+  {
+    slug: "convertir-imagen",
+    category: "image",
+    name: "Convertir imagen JPG/PNG/WebP",
+    shortDesc: "Cambia entre JPG, PNG y WebP sin instalar nada.",
+    longDesc:
+      "Convertí entre los tres formatos web más usados. WebP suele pesar 25-35% menos que JPG con misma calidad y soporta transparencia como PNG. PNG conserva 100% de calidad sin compresión con pérdida.",
+    keywords: ["convertir jpg a png", "png a webp", "convertir imagen"],
+    popularity: 88,
+    related: ["redimensionar-imagen", "comprimir-imagen"]
+  },
+  {
+    slug: "conversor-temperatura",
+    category: "converter",
+    name: "Conversor de temperatura",
+    shortDesc: "Convierte entre Celsius, Fahrenheit y Kelvin al instante.",
+    longDesc:
+      "Pegá un valor en cualquiera de las tres escalas y obtené el equivalente en las otras dos. Útil para recetas internacionales, ciencia, viajes a EE.UU. y trabajo de laboratorio.",
+    keywords: ["convertir celsius fahrenheit", "kelvin a celsius", "conversor temperatura"],
+    popularity: 78,
+    faqs: [
+      { q: "¿Cuál es la fórmula exacta?", a: "°F = °C × 9/5 + 32. Para Kelvin: K = °C + 273.15." }
+    ],
+    related: ["conversor-unidades", "calculadora-imc"]
+  },
+  {
+    slug: "conversor-unidades",
+    category: "converter",
+    name: "Conversor de unidades",
+    shortDesc: "Longitud, peso, volumen, área y tiempo en una sola herramienta.",
+    longDesc:
+      "Convertí entre sistema métrico y anglosajón: metros↔pies, kg↔libras, litros↔galones, hectáreas↔acres, segundos↔años y mucho más. Cinco grupos con 30+ unidades, todo client-side.",
+    keywords: ["conversor unidades", "metros a pies", "kg a libras", "convertir unidades"],
+    popularity: 85,
+    related: ["conversor-temperatura", "timestamp-converter"]
+  },
+  {
+    slug: "timestamp-converter",
+    category: "developer",
+    name: "Conversor de Timestamp Unix",
+    shortDesc: "Convierte timestamps Unix a fechas legibles y viceversa.",
+    longDesc:
+      "Pegá un timestamp Unix (segundos desde 1970) y obtené la fecha en formato local, UTC e ISO. O pegá una fecha y obtené el timestamp en segundos y milisegundos. El reloj actual se actualiza en tiempo real.",
+    keywords: ["unix timestamp converter", "epoch a fecha", "timestamp converter"],
+    popularity: 80,
+    related: ["json-formatter", "url-encode"]
+  },
+  {
+    slug: "typing-test",
+    category: "test",
+    name: "Test de velocidad de tipeo (WPM)",
+    shortDesc: "Mide tu velocidad escribiendo en palabras por minuto y tu precisión.",
+    longDesc:
+      "Escribí la frase aleatoria que aparece en pantalla lo más rápido y preciso posible. Al terminar te mostramos tu WPM (Words Per Minute) y porcentaje de precisión. Promedio adulto: 38-45 WPM. Tipistas profesionales: 65-75 WPM.",
+    keywords: ["typing test español", "test velocidad tipeo", "wpm test"],
+    popularity: 92,
+    faqs: [
+      { q: "¿Qué es un buen WPM?", a: "Adulto promedio: 38-45 WPM. Programador: 50-65 WPM. Profesional/data entry: 70-90 WPM." }
+    ],
+    related: ["cps-test", "tiempo-reaccion"]
+  },
+  {
+    slug: "temporizador",
+    category: "test",
+    name: "Temporizador online (countdown)",
+    shortDesc: "Cuenta regresiva con alarma. Configurá horas, minutos y segundos.",
+    longDesc:
+      "Temporizador con alarma sonora cuando llega a cero. Presets rápidos para Pomodoro (25 min), descansos cortos (5 min) o cocción de huevos (3, 5, 10 min). Pausa, reset y sigue corriendo aunque cambies de pestaña.",
+    keywords: ["temporizador online", "countdown timer", "alarma online"],
+    popularity: 90,
+    related: ["cronometro", "cps-test"]
+  },
+  {
+    slug: "numero-aleatorio",
+    category: "random",
+    name: "Generador de número aleatorio",
+    shortDesc: "Genera 1 o varios números entre un rango. Sin repetir si querés.",
+    longDesc:
+      "Definí un rango mínimo y máximo, cantidad de números (1 a 1000) y si pueden repetirse o no. Útil para sorteos, lotería, asignar ganadores, simulaciones y juegos. Aleatoriedad nativa del navegador.",
+    keywords: ["generador numero aleatorio", "random number generator", "número al azar"],
+    popularity: 87,
+    related: ["ruleta-decision", "cara-cruz", "dados"]
+  },
+  {
+    slug: "cara-cruz",
+    category: "random",
+    name: "Cara o cruz online",
+    shortDesc: "Lanza una moneda virtual. ¿Cara o cruz? Decidí al azar.",
+    longDesc:
+      "Lanza una moneda virtual animada con resultado 50/50. Llevá registro de las últimas 20 tiradas y verificá la distribución (la ley de los grandes números acerca al 50/50 con suficientes lanzamientos).",
+    keywords: ["cara o cruz online", "lanzar moneda", "coin flip online"],
+    popularity: 91,
+    related: ["dados", "ruleta-decision", "numero-aleatorio"]
+  },
+  {
+    slug: "dados",
+    category: "random",
+    name: "Tirar dados online",
+    shortDesc: "Tira hasta 20 dados de 4, 6, 8, 10, 12, 20 o 100 caras.",
+    longDesc:
+      "Lanzador de dados virtual para mesa de rol (D&D, Pathfinder), board games, decisiones grupales o cualquier juego que necesite azar. Soporta D4, D6, D8, D10, D12, D20 y D100. Mostramos suma total cuando tirás varios.",
+    keywords: ["tirar dados online", "dice roller", "d20 online"],
+    popularity: 89,
+    related: ["cara-cruz", "ruleta-decision", "numero-aleatorio"]
+  },
+  {
+    slug: "regex-tester",
+    category: "developer",
+    name: "Tester de Expresiones Regulares",
+    shortDesc: "Probá patrones regex en tiempo real con resaltado de coincidencias.",
+    longDesc:
+      "Pegá un patrón regex con sus flags (g, i, m, s, u, y) y un texto de prueba. Las coincidencias se resaltan al instante. Soporta JavaScript regex (la misma sintaxis que usás en código). Incluye cheatsheet rápido.",
+    keywords: ["regex tester", "regex online", "expresiones regulares"],
+    popularity: 82,
+    related: ["json-formatter", "base64-encode"]
+  },
+  {
+    slug: "convertidor-color",
+    category: "developer",
+    name: "Conversor de color HEX/RGB/HSL",
+    shortDesc: "Convierte entre HEX, RGB, HSL y formato Tailwind. Color picker incluido.",
+    longDesc:
+      "Pegá un color en HEX, ajustá con el picker o copiá los formatos equivalentes en RGB, HSL, CSS variable y clase Tailwind arbitraria. Útil para diseñadores y devs front-end.",
+    keywords: ["hex a rgb", "rgb a hsl", "color converter", "color picker"],
+    popularity: 84,
+    related: ["regex-tester", "timestamp-converter"]
+  },
+  {
+    slug: "texto-invertido",
+    category: "text",
+    name: "Texto invertido / al revés",
+    shortDesc: "Invierte caracteres, palabras o líneas de un texto.",
+    longDesc:
+      "Cuatro modos: caracteres invertidos (espejo letra por letra), palabras invertidas (orden inverso de palabras), cada palabra invertida individualmente y líneas en orden inverso. Útil para crear acertijos, contraseñas mnemotécnicas o efectos visuales.",
+    keywords: ["texto invertido", "texto al revés", "reverse text"],
+    popularity: 75,
+    related: ["convertir-mayusculas", "eliminar-acentos", "contador-palabras"]
+  },
+  {
+    slug: "eliminar-acentos",
+    category: "text",
+    name: "Eliminar tildes y acentos",
+    shortDesc: "Quita tildes, diéresis, ñ y crea slugs URL-friendly.",
+    longDesc:
+      "Tres salidas: texto sin tildes (mantiene ñ), sin tildes ni ñ (transliterado a ASCII puro) y slug URL-friendly listo para usar en links. Útil para normalizar nombres, generar URLs SEO o exportar a sistemas que no soportan UTF-8.",
+    keywords: ["quitar tildes", "remove accents", "slug generator"],
+    popularity: 78,
+    related: ["convertir-mayusculas", "texto-invertido", "url-encode"]
   }
 ];
 

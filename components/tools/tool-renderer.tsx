@@ -25,7 +25,22 @@ const map = {
   "numerar-pdf": dynamic(() => import("./pdf-page-numbers").then((m) => m.PdfPageNumbers), { ssr: false }),
   "imagenes-a-pdf": dynamic(() => import("./jpg-to-pdf").then((m) => m.JpgToPdf), { ssr: false }),
   "proteger-pdf": dynamic(() => import("./pdf-protect").then((m) => m.PdfProtect), { ssr: false }),
-  "informacion-pdf": dynamic(() => import("./pdf-info").then((m) => m.PdfInfo), { ssr: false })
+  "informacion-pdf": dynamic(() => import("./pdf-info").then((m) => m.PdfInfo), { ssr: false }),
+  "redimensionar-imagen": dynamic(() => import("./image-resize").then((m) => m.ImageResize), { ssr: false }),
+  "comprimir-imagen": dynamic(() => import("./image-compress").then((m) => m.ImageCompress), { ssr: false }),
+  "convertir-imagen": dynamic(() => import("./image-convert").then((m) => m.ImageConvert), { ssr: false }),
+  "conversor-temperatura": dynamic(() => import("./temperature-converter").then((m) => m.TemperatureConverter), { ssr: false }),
+  "conversor-unidades": dynamic(() => import("./unit-converter").then((m) => m.UnitConverter), { ssr: false }),
+  "timestamp-converter": dynamic(() => import("./timestamp-converter").then((m) => m.TimestampConverter), { ssr: false }),
+  "typing-test": dynamic(() => import("./typing-test").then((m) => m.TypingTest), { ssr: false }),
+  temporizador: dynamic(() => import("./timer").then((m) => m.Timer), { ssr: false }),
+  "numero-aleatorio": dynamic(() => import("./random-number").then((m) => m.RandomNumber), { ssr: false }),
+  "cara-cruz": dynamic(() => import("./coin-flip").then((m) => m.CoinFlip), { ssr: false }),
+  dados: dynamic(() => import("./dice-roller").then((m) => m.DiceRoller), { ssr: false }),
+  "regex-tester": dynamic(() => import("./regex-tester").then((m) => m.RegexTester), { ssr: false }),
+  "convertidor-color": dynamic(() => import("./color-converter").then((m) => m.ColorConverter), { ssr: false }),
+  "texto-invertido": dynamic(() => import("./text-reverse").then((m) => m.TextReverse), { ssr: false }),
+  "eliminar-acentos": dynamic(() => import("./remove-accents").then((m) => m.RemoveAccents), { ssr: false })
 } as const;
 
 export function ToolRenderer({ slug }: { slug: string }) {
