@@ -54,7 +54,17 @@ const map = {
   "prompt-builder": dynamic(() => import("./prompt-builder").then((m) => m.PromptBuilder), { ssr: false }),
   "contador-tokens": dynamic(() => import("./token-counter").then((m) => m.TokenCounter), { ssr: false }),
   "generador-titulos-seo": dynamic(() => import("./title-generator").then((m) => m.TitleGenerator), { ssr: false }),
-  "plantillas-prompts": dynamic(() => import("./prompt-templates").then((m) => m.PromptTemplates), { ssr: false })
+  "plantillas-prompts": dynamic(() => import("./prompt-templates").then((m) => m.PromptTemplates), { ssr: false }),
+  "firmar-pdf": dynamic(() => import("./pdf-sign").then((m) => m.PdfSign), { ssr: false }),
+  "editar-pdf": dynamic(() => import("./pdf-edit").then((m) => m.PdfEdit), { ssr: false }),
+  "reordenar-pdf": dynamic(() => import("./pdf-reorder").then((m) => m.PdfReorder), { ssr: false }),
+  "pdf-a-jpg": dynamic(() => import("./pdf-to-jpg").then((m) => m.PdfToJpg), { ssr: false }),
+  "comprimir-pdf": dynamic(() => import("./pdf-compress").then((m) => m.PdfCompress), { ssr: false }),
+  "quitar-fondo-imagen": dynamic(() => import("./remove-background").then((m) => m.RemoveBackground), { ssr: false }),
+  "recortar-imagen": dynamic(() => import("./image-crop").then((m) => m.ImageCrop), { ssr: false }),
+  "marca-agua-imagen": dynamic(() => import("./image-watermark").then((m) => m.ImageWatermark), { ssr: false }),
+  "analizador-meta": dynamic(() => import("./meta-analyzer").then((m) => m.MetaAnalyzer), { ssr: false }),
+  "comparador-textos": dynamic(() => import("./plagio-comparador").then((m) => m.PlagioComparador), { ssr: false })
 } as const;
 
 export function ToolRenderer({ slug }: { slug: string }) {

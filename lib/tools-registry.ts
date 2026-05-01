@@ -640,6 +640,127 @@ export const TOOLS: Tool[] = [
     keywords: ["plantillas prompts", "prompts curados", "prompts chatgpt español"],
     popularity: 90,
     related: ["prompt-builder", "contador-tokens", "generador-titulos-seo"]
+  },
+  {
+    slug: "firmar-pdf",
+    category: "pdf",
+    name: "Firmar PDF online",
+    shortDesc: "Dibujá tu firma con el mouse o dedo y aplicala a cualquier página de tu PDF.",
+    longDesc:
+      "Subí un PDF, dibujá tu firma directamente en el navegador, posicionala en la página y descarga el PDF firmado. 100% privado: ni el documento ni la firma se suben a un servidor — todo procesado con pdf-lib + Canvas API. Funciona en móvil con dedo o stylus, y en escritorio con mouse o trackpad.",
+    keywords: ["firmar pdf online", "firma digital pdf", "sign pdf free", "firma electronica pdf"],
+    popularity: 99,
+    faqs: [
+      { q: "¿La firma tiene validez legal?", a: "Es una firma electrónica simple, válida para documentos no críticos. Para firmas con valor jurídico fuerte (contratos notariales) consultá tu legislación local — usualmente requieren certificado digital." },
+      { q: "¿Puedo firmar varias páginas?", a: "En esta versión aplicás una firma por documento. Para múltiples firmas, repetí el proceso o usá el editor de PDF combinado." }
+    ],
+    related: ["editar-pdf", "marca-agua-pdf", "unir-pdf"]
+  },
+  {
+    slug: "editar-pdf",
+    category: "pdf",
+    name: "Editar PDF online",
+    shortDesc: "Agregá texto a cualquier página y posición de tu PDF sin instalar nada.",
+    longDesc:
+      "Editor minimalista de PDFs: subí el archivo, agregá uno o varios bloques de texto en la posición exacta (porcentaje X/Y), color y tamaño que quieras, y descargá el resultado. Útil para completar formularios escaneados, agregar notas o tachar datos. Procesamiento client-side con pdf-lib.",
+    keywords: ["editar pdf online", "edit pdf free", "agregar texto pdf"],
+    popularity: 96,
+    related: ["firmar-pdf", "marca-agua-pdf", "informacion-pdf"]
+  },
+  {
+    slug: "reordenar-pdf",
+    category: "pdf",
+    name: "Reordenar páginas de PDF",
+    shortDesc: "Mové páginas arriba/abajo o eliminalas, sin tocar el original.",
+    longDesc:
+      "Subí un PDF y obtené una vista de todas sus páginas en grid. Cambiá el orden con flechas, eliminá las que no necesités y descargá un nuevo PDF con el orden final. Tu archivo original permanece intacto.",
+    keywords: ["reordenar pdf", "ordenar paginas pdf", "rearrange pdf pages"],
+    popularity: 88,
+    related: ["unir-pdf", "dividir-pdf", "rotar-pdf"]
+  },
+  {
+    slug: "pdf-a-jpg",
+    category: "pdf",
+    name: "PDF a JPG (extraer páginas)",
+    shortDesc: "Convertí cada página del PDF en una imagen JPG de alta resolución.",
+    longDesc:
+      "Renderizamos cada página de tu PDF como JPG usando pdf.js (la misma librería que usa Firefox y Chrome). Elegí entre 4 niveles de calidad (72 a 288 DPI) y descargá una imagen a la vez o todas a la vez. Procesamiento 100% local.",
+    keywords: ["pdf a jpg", "pdf to image", "extraer imagenes pdf", "pdf a imagen"],
+    popularity: 94,
+    faqs: [
+      { q: "¿Qué resolución necesito?", a: "Para web: 144 DPI. Para impresión: 288 DPI. Para previews/miniaturas: 72 DPI." }
+    ],
+    related: ["imagenes-a-pdf", "dividir-pdf", "informacion-pdf"]
+  },
+  {
+    slug: "comprimir-pdf",
+    category: "pdf",
+    name: "Comprimir PDF",
+    shortDesc: "Reduce el peso de tu PDF optimizando streams y eliminando metadata.",
+    longDesc:
+      "Optimizamos el PDF reorganizando object streams, eliminando metadata redundante (autor, productor, palabras clave) y aplicando compresión nativa de pdf-lib. Para PDFs con imágenes muy pesadas embebidas se recomienda comprimir las imágenes con la herramienta dedicada antes de generar el PDF.",
+    keywords: ["comprimir pdf", "reducir tamaño pdf", "compress pdf"],
+    popularity: 95,
+    related: ["unir-pdf", "pdf-a-jpg", "imagenes-a-pdf"]
+  },
+  {
+    slug: "quitar-fondo-imagen",
+    category: "image",
+    name: "Quitar fondo de imagen con IA",
+    shortDesc: "Quita el fondo de cualquier foto con IA — 100% en tu navegador, sin API.",
+    longDesc:
+      "Modelo de segmentación U²-Net optimizado que corre en tu propio navegador (~13 MB la primera vez, después cacheado). Detecta el sujeto principal y devuelve PNG con transparencia. Ideal para productos, retratos, mascotas u objetos con fondo claro. La imagen jamás se sube a ningún servidor.",
+    keywords: ["quitar fondo imagen", "remove background", "remover fondo foto"],
+    popularity: 99,
+    faqs: [
+      { q: "¿Por qué la primera vez tarda tanto?", a: "Se descarga el modelo de IA (~13 MB) la primera vez. Luego queda cacheado y los siguientes usos son instantáneos." },
+      { q: "¿Funciona en móvil?", a: "Sí, pero requiere un dispositivo con suficiente RAM (recomendado: 4 GB+). En móviles low-end puede ser lento." }
+    ],
+    related: ["recortar-imagen", "marca-agua-imagen", "convertir-imagen"]
+  },
+  {
+    slug: "recortar-imagen",
+    category: "image",
+    name: "Recortar imagen online",
+    shortDesc: "Recortá fotos arrastrando una caja redimensionable. Descargá el PNG.",
+    longDesc:
+      "Subí una imagen, mové y redimensioná la caja de recorte tirando de las esquinas, y descargá el resultado en PNG sin pérdida. Útil para preparar avatares, banners, miniaturas y secciones de pantallas.",
+    keywords: ["recortar imagen", "crop image online", "cropper online"],
+    popularity: 92,
+    related: ["redimensionar-imagen", "marca-agua-imagen", "comprimir-imagen"]
+  },
+  {
+    slug: "marca-agua-imagen",
+    category: "image",
+    name: "Marca de agua en imagen",
+    shortDesc: "Estampá texto como marca de agua: posición fija o patrón anti-screenshot.",
+    longDesc:
+      "Agregá tu copyright o marca como texto sobre cualquier foto. Modo posición fija (esquinas o centro) para una marca discreta, o modo mosaico (tile) que cubre toda la imagen para protegerla contra captura de pantalla. Configurá tamaño, color, opacidad, ángulo de rotación.",
+    keywords: ["marca de agua imagen", "watermark image", "copyright foto"],
+    popularity: 87,
+    related: ["recortar-imagen", "redimensionar-imagen", "marca-agua-pdf"]
+  },
+  {
+    slug: "analizador-meta",
+    category: "seo",
+    name: "Analizador de Meta Tags y SEO On-Page",
+    shortDesc: "Auditá title, meta tags, OG, schema, headings e imágenes de cualquier HTML.",
+    longDesc:
+      "Pegá el código HTML de una página (View Source o Ctrl+U) y obtené un score SEO básico evaluando 15 meta tags, presencia de H1/H2, imágenes sin alt, cantidad de enlaces internos vs externos y schema.org JSON-LD detectados. Útil para auditar tu propio sitio o el de la competencia.",
+    keywords: ["analizador meta tags", "seo on-page checker", "meta tag analyzer"],
+    popularity: 90,
+    related: ["generador-meta-tags", "previsualizador-serp", "densidad-keywords"]
+  },
+  {
+    slug: "comparador-textos",
+    category: "seo",
+    name: "Comparador de textos / detector de plagio",
+    shortDesc: "Detecta similitud entre dos textos: Jaccard + frases idénticas resaltadas.",
+    longDesc:
+      "Pegá dos textos (un original y uno sospechoso) y te mostramos: porcentaje de similitud Jaccard (con shingles de 5 palabras), cantidad de oraciones idénticas y resaltado visual de las frases en común. Útil para revisar plagio interno entre artículos, paráfrasis de IA débiles o duplicados en e-commerce.",
+    keywords: ["detector plagio", "comparar textos", "similitud jaccard", "plagiarism check"],
+    popularity: 87,
+    related: ["analizador-meta", "densidad-keywords", "diff-checker"]
   }
 ];
 
