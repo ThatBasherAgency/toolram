@@ -1,0 +1,115 @@
+"use client";
+import { useRef, type ReactNode } from "react";
+import { ChevronLeft } from "lucide-react";
+import Link from "next/link";
+
+type Props = {
+  toolName: string;
+  fileName: string;
+  thumbs: string[];
+  activePage: number;
+  onActivePageChange: (n: number) => void;
+  pageContent: ReactNode;
+  onPageClick?: (xPct: number, yPct: number) => void;
+  sidebar: ReactNode;
+  actionLabel: string;
+  onAction: () => void;
+  actionDisabled?: boolean;
+  accent: string;
+  loading?: string | null;
+  onClose?: () => void;
+  pageContainerRef?: React.RefObject<HTMLDivElement | null>;
+};
+
+export function PdfEditor({ toolName, fileName, thumbs, activePage, onActivePageChange, pageContent, onPageClick, sidebar, actionLabel, onAction, actionDisabled, accent, loading, onClose, pageContainerRef }: Props) {
+  const internalRef = useRef<HTMLDivElement>(null);
+  const containerRef = pageContainerRef || internalRef;
+
+  function handlePageClick(e: React.MouseEvent) {
+    if (!onPageClick) return;
+    const r = containerRef.current?.getBoundingClientRect();
+    if (!r) return;
+    const xPct = ((e.clientX - r.left) / r.width) * 100;
+    const yPct = ((e.clientY - r.top) / r.height) * 100;
+    onPageClick(xPct, yPct);
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 bg-[color:var(--color-bg)] flex flex-col">
+      <header className="flex items-center justify-between px-3 md:px-5 h-14 border-b border-[color:var(--color-border)] bg-white dark:bg-[color:var(--color-bg-soft)] flex-shrink-0">
+        <div className="flex items-center gap-3 min-w-0">
+          <Link href="/" className="text-sm font-medium hover:opacity-70 inline-flex items-center gap-1 flex-shrink-0">
+            <ChevronLeft className="w-4 h-4" /> Toolram
+          </Link>
+          <span className="text-[color:var(--color-fg-soft)] hidden md:inline">·</span>
+          <span className="font-bold text-base hidden md:inline" style={{ color: accent }}>{toolName}</span>
+        </div>
+        <div className="text-sm truncate max-w-[40%] text-[color:var(--color-fg-soft)] mx-2">{fileName}</div>
+        {onClose && <button onClick={onClose} className="text-sm font-medium px-3 py-1 rounded-lg hover:bg-[color:var(--color-bg-soft)]">Cerrar</button>}
+      </header>
+
+      <div className="flex-1 flex overflow-hidden min-h-0">
+        <aside className="hidden md:flex flex-col w-[140px] lg:w-[180px] bg-[color:var(--color-bg-soft)] border-r border-[color:var(--color-border)] overflow-y-auto p-3 gap-2 flex-shrink-0">
+          {thumbs.map((t, i) => (
+            <button
+              key={i}
+              onClick={() => onActivePageChange(i + 1)}
+              className="relative rounded-lg overflow-hidden border-2 transition shadow-sm hover:shadow-md flex-shrink-0"
+              style={{ borderColor: activePage === i + 1 ? accent : "transparent" }}
+            >
+              <img src={t} alt={`Página ${i + 1}`} className="block w-full bg-white" />
+              <div className="absolute bottom-1 right-1 text-[10px] font-bold px-1.5 py-0.5 rounded text-white shadow" style={{ background: activePage === i + 1 ? accent : "rgba(0,0,0,0.7)" }}>
+                {i + 1}
+              </div>
+            </button>
+          ))}
+        </aside>
+
+        <main className="flex-1 overflow-auto bg-[oklch(0.94_0_0)] dark:bg-[oklch(0.12_0_0)] flex items-start justify-center p-4 md:p-8 min-w-0">
+          <div ref={containerRef} className="relative inline-block shadow-2xl bg-white max-w-full" onClick={handlePageClick} style={{ cursor: onPageClick ? "crosshair" : "default" }}>
+            {pageContent}
+          </div>
+        </main>
+
+        <aside className="hidden lg:flex flex-col w-[300px] bg-white dark:bg-[color:var(--color-bg-soft)] border-l border-[color:var(--color-border)] overflow-y-auto p-5 flex-shrink-0">
+          {sidebar}
+        </aside>
+      </div>
+
+      <div className="md:hidden border-t border-[color:var(--color-border)] bg-[color:var(--color-bg-soft)] overflow-x-auto p-2 flex gap-2 flex-shrink-0">
+        {thumbs.map((t, i) => (
+          <button key={i} onClick={() => onActivePageChange(i + 1)} className="relative rounded overflow-hidden border-2 flex-shrink-0 w-14" style={{ borderColor: activePage === i + 1 ? accent : "transparent" }}>
+            <img src={t} alt="" className="block w-full bg-white" />
+            <div className="absolute bottom-0 right-0 text-[9px] font-bold px-1 text-white" style={{ background: activePage === i + 1 ? accent : "rgba(0,0,0,0.7)" }}>{i + 1}</div>
+          </button>
+        ))}
+      </div>
+
+      <details className="lg:hidden border-t border-[color:var(--color-border)] bg-white dark:bg-[color:var(--color-bg-soft)]">
+        <summary className="px-4 h-12 flex items-center justify-between font-semibold cursor-pointer">Opciones <span className="text-xl">⌃</span></summary>
+        <div className="px-4 pb-4 max-h-[40vh] overflow-y-auto">{sidebar}</div>
+      </details>
+
+      <footer className="border-t border-[color:var(--color-border)] bg-white dark:bg-[color:var(--color-bg-soft)] px-3 md:px-5 py-3 flex items-center justify-between gap-3 flex-shrink-0">
+        <div className="text-xs text-[color:var(--color-fg-soft)] hidden md:block">
+          Página {activePage} de {thumbs.length}
+        </div>
+        {loading ? (
+          <div className="flex-1 md:flex-initial flex items-center justify-end gap-2 text-sm font-medium">
+            <div className="w-4 h-4 rounded-full border-2 border-[color:var(--color-fg)] border-t-transparent animate-spin" />
+            {loading}
+          </div>
+        ) : (
+          <button
+            onClick={onAction}
+            disabled={actionDisabled}
+            className="px-6 md:px-10 py-3 md:py-3.5 rounded-xl text-white font-bold shadow-lg disabled:opacity-50 disabled:cursor-not-allowed enabled:hover:scale-[1.02] enabled:hover:shadow-xl transition flex-1 md:flex-initial text-base"
+            style={{ background: actionDisabled ? "var(--color-fg-soft)" : accent }}
+          >
+            {actionLabel}
+          </button>
+        )}
+      </footer>
+    </div>
+  );
+}

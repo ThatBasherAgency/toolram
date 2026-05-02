@@ -1,54 +1,73 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
-import { Download, Plus, Trash, Type } from "lucide-react";
-import { DropZone, PrimaryAction, ProcessingBar, StepBar, SuccessPanel } from "./ui/drop-zone";
+import { Download, Type, Trash2 } from "lucide-react";
 import { renderPdfThumbnails } from "./ui/pdf-thumb";
+import { UploadHero } from "./editor/UploadHero";
+import { PdfEditor } from "./editor/PdfEditor";
+import { DraggableElement } from "./editor/DraggableElement";
+import type { EditorElement, TextData } from "./editor/types";
 
 const ACCENT = "oklch(0.6 0.2 240)";
-
-type TextItem = { id: number; page: number; text: string; x: number; y: number; size: number; color: string };
-let nid = 1;
 
 export function PdfEdit() {
   const [file, setFile] = useState<File | null>(null);
   const [thumbs, setThumbs] = useState<string[]>([]);
-  const [items, setItems] = useState<TextItem[]>([]);
   const [activePage, setActivePage] = useState(1);
+  const [elements, setElements] = useState<EditorElement[]>([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [out, setOut] = useState<string | null>(null);
-  const [processing, setProcessing] = useState(false);
+  const [loading, setLoading] = useState<string | null>(null);
+  const pageContainerRef = useRef<HTMLDivElement | null>(null);
 
-  async function load(f: File) {
-    setFile(f);
-    setOut(null);
-    setItems([{ id: nid++, page: 1, text: "Texto agregado", x: 50, y: 50, size: 16, color: "#000000" }]);
-    const t = await renderPdfThumbnails(f, 0.4);
-    setThumbs(t);
+  async function loadFile(f: File) {
+    setFile(f); setOut(null); setElements([]);
+    setLoading("Generando preview…");
+    try {
+      const t = await renderPdfThumbnails(f, 0.5);
+      setThumbs(t); setActivePage(1);
+    } finally { setLoading(null); }
+  }
+  function reset() { setFile(null); setThumbs([]); setElements([]); setOut(null); }
+
+  function placeText(xPct: number, yPct: number) {
+    const id = `txt-${Date.now()}`;
+    setElements((arr) => [...arr, {
+      id, page: activePage, type: "text",
+      xPct: Math.max(0, xPct - 5), yPct: Math.max(0, yPct - 1.5),
+      wPct: 25, hPct: 4,
+      data: { kind: "text", text: "Tu texto", fontSize: 16, color: "#000000" }
+    }]);
+    setSelectedId(id);
   }
 
-  function reset() { setFile(null); setThumbs([]); setItems([]); setOut(null); }
-  function update(id: number, patch: Partial<TextItem>) { setItems((xs) => xs.map((x) => (x.id === id ? { ...x, ...patch } : x))); }
-  function add() { setItems((xs) => [...xs, { id: nid++, page: activePage, text: "", x: 50, y: 50, size: 16, color: "#000000" }]); }
-  function remove(id: number) { setItems((xs) => xs.filter((x) => x.id !== id)); }
+  function updateEl(id: string, patch: Partial<EditorElement>) {
+    setElements((arr) => arr.map((e) => (e.id === id ? { ...e, ...patch } : e)));
+  }
+  function updateData(id: string, patch: Partial<TextData>) {
+    setElements((arr) => arr.map((e) => (e.id === id ? { ...e, data: { ...(e.data as TextData), ...patch } } : e)));
+  }
 
   async function apply() {
     if (!file) return;
-    setProcessing(true);
+    const valid = elements.filter((e) => e.type === "text" && (e.data as TextData).text.trim());
+    if (valid.length === 0) return;
+    setLoading("Aplicando cambios…");
     try {
       const doc = await PDFDocument.load(await file.arrayBuffer());
       const font = await doc.embedFont(StandardFonts.Helvetica);
-      for (const it of items) {
-        if (!it.text.trim()) continue;
-        const page = doc.getPage(Math.min(thumbs.length, Math.max(1, it.page)) - 1);
+      for (const el of valid) {
+        const td = el.data as TextData;
+        const page = doc.getPage(el.page - 1);
         const { width, height } = page.getSize();
-        const r = parseInt(it.color.slice(1, 3), 16) / 255;
-        const g = parseInt(it.color.slice(3, 5), 16) / 255;
-        const b = parseInt(it.color.slice(5, 7), 16) / 255;
-        page.drawText(it.text, { x: (it.x / 100) * width, y: height - (it.y / 100) * height - it.size, size: it.size, font, color: rgb(r, g, b) });
+        const r = parseInt(td.color.slice(1, 3), 16) / 255;
+        const g = parseInt(td.color.slice(3, 5), 16) / 255;
+        const b = parseInt(td.color.slice(5, 7), 16) / 255;
+        page.drawText(td.text, { x: (el.xPct / 100) * width, y: height - (el.yPct / 100) * height - td.fontSize, size: td.fontSize, font, color: rgb(r, g, b) });
       }
       const bytes = await doc.save();
       setOut(URL.createObjectURL(new Blob([bytes as BlobPart], { type: "application/pdf" })));
-    } finally { setProcessing(false); }
+    } finally { setLoading(null); }
   }
 
   function download() {
@@ -59,85 +78,102 @@ export function PdfEdit() {
     a.click();
   }
 
+  if (!file) return <UploadHero toolName="Editar PDF" subtitle="Subí tu PDF y clickeá en cualquier lugar de la página para agregar texto." accept="application/pdf" onFile={loadFile} buttonLabel="Seleccionar PDF" accent={ACCENT} illustration="pdf" />;
+
   if (out) {
     return (
-      <SuccessPanel onReset={reset}>
-        <p className="text-sm text-[color:var(--color-fg-soft)]">Tu PDF fue editado con {items.filter((i) => i.text.trim()).length} texto(s) agregado(s).</p>
-        <button onClick={download} className="w-full py-4 rounded-2xl font-bold text-white text-lg shadow-xl flex items-center justify-center gap-2" style={{ background: ACCENT }}>
-          <Download className="w-5 h-5" /> Descargar PDF editado
-        </button>
-      </SuccessPanel>
+      <div className="fixed inset-0 z-50 bg-[color:var(--color-bg)] flex items-center justify-center px-4">
+        <div className="max-w-md w-full text-center space-y-6">
+          <div className="w-24 h-24 mx-auto rounded-full bg-[color:var(--color-success)] text-white flex items-center justify-center text-5xl shadow-2xl">✓</div>
+          <div><h2 className="text-3xl font-bold tracking-tight">¡PDF editado!</h2><p className="text-[color:var(--color-fg-soft)] mt-2">{elements.length} elemento{elements.length === 1 ? "" : "s"} agregado{elements.length === 1 ? "" : "s"}.</p></div>
+          <button onClick={download} className="w-full py-4 rounded-2xl font-bold text-white text-lg shadow-2xl flex items-center justify-center gap-2 hover:scale-[1.02] transition" style={{ background: ACCENT }}>
+            <Download className="w-5 h-5" /> Descargar PDF editado
+          </button>
+          <button onClick={reset} className="text-sm font-semibold text-[color:var(--color-fg-soft)] hover:underline">↻ Editar otro PDF</button>
+        </div>
+      </div>
     );
   }
 
-  const itemsThisPage = items.filter((i) => i.page === activePage);
+  const selected = elements.find((e) => e.id === selectedId);
+  const elementsThisPage = elements.filter((e) => e.page === activePage);
 
-  return (
-    <div className="space-y-6">
-      <StepBar step={file ? 2 : 1} />
-      {!file ? (
-        <DropZone accept="application/pdf" onFile={load} illustration="pdf" accentColor={ACCENT} buttonLabel="Seleccionar PDF" />
-      ) : (
-        <>
-          <DropZone accept="application/pdf" onFile={load} loaded={{ name: file.name, size: file.size, thumbnail: thumbs[0] }} onClear={reset} illustration="pdf" accentColor={ACCENT} />
+  const sidebar = (
+    <div className="space-y-5">
+      <div className="rounded-xl p-3 border" style={{ background: `${ACCENT}08`, borderColor: `${ACCENT}30` }}>
+        <div className="text-xs font-bold mb-1" style={{ color: ACCENT }}>→ Click en la página</div>
+        <div className="text-xs text-[color:var(--color-fg-soft)] leading-relaxed">Hacé click en cualquier punto de la página para agregar un bloque de texto. Después arrastralo o redimensionalo.</div>
+      </div>
 
-          {thumbs.length > 0 && (
-            <>
-              <div className="space-y-3">
-                <div className="text-sm font-semibold">Página activa</div>
-                <div className="flex gap-2 overflow-x-auto pb-2">
-                  {thumbs.map((t, i) => (
-                    <button key={i} onClick={() => setActivePage(i + 1)} className={`flex-shrink-0 relative rounded-lg overflow-hidden border-2 transition`} style={{ borderColor: activePage === i + 1 ? ACCENT : "var(--color-border)", width: 90 }}>
-                      <img src={t} alt="" className="block w-full" />
-                      <div className="absolute bottom-0 left-0 right-0 text-xs py-0.5 text-center text-white" style={{ background: activePage === i + 1 ? ACCENT : "rgba(0,0,0,0.6)" }}>p.{i + 1}</div>
-                    </button>
-                  ))}
-                </div>
-              </div>
+      {selected && selected.type === "text" && (
+        <div className="space-y-3 p-4 rounded-xl bg-[color:var(--color-bg-soft)]">
+          <div className="flex items-center justify-between">
+            <div className="text-xs font-bold uppercase text-[color:var(--color-fg-soft)]">Texto seleccionado</div>
+            <button onClick={() => { setElements((a) => a.filter((e) => e.id !== selected.id)); setSelectedId(null); }} className="text-[color:var(--color-danger)]"><Trash2 className="w-4 h-4" /></button>
+          </div>
+          <textarea
+            className="w-full px-3 py-2 rounded-lg border border-[color:var(--color-border)] bg-white text-sm resize-none"
+            rows={3}
+            value={(selected.data as TextData).text}
+            onChange={(e) => updateData(selected.id, { text: e.target.value })}
+          />
+          <div>
+            <div className="text-xs font-medium mb-1">Tamaño · {(selected.data as TextData).fontSize}px</div>
+            <input type="range" min={8} max={72} className="w-full" value={(selected.data as TextData).fontSize} onChange={(e) => { const fs = +e.target.value; updateData(selected.id, { fontSize: fs }); updateEl(selected.id, { hPct: Math.max(2, fs / 5) }); }} />
+          </div>
+          <div>
+            <div className="text-xs font-medium mb-1">Color</div>
+            <div className="flex gap-2">
+              {["#000000", "#dc2626", "#2563eb", "#16a34a", "#9333ea", "#ea580c"].map((c) => (
+                <button key={c} onClick={() => updateData(selected.id, { color: c })} className={`w-7 h-7 rounded-full border-2 transition ${(selected.data as TextData).color === c ? "scale-110" : ""}`} style={{ background: c, borderColor: (selected.data as TextData).color === c ? ACCENT : "transparent" }} />
+              ))}
+              <input type="color" value={(selected.data as TextData).color} onChange={(e) => updateData(selected.id, { color: e.target.value })} className="w-7 h-7 rounded-full cursor-pointer border-2 border-[color:var(--color-border)]" />
+            </div>
+          </div>
+        </div>
+      )}
 
-              <div className="card !p-0 overflow-hidden">
-                <div className="bg-[color:var(--color-bg-soft)] p-4 flex justify-center relative">
-                  <div className="relative">
-                    <img src={thumbs[activePage - 1]} alt="" className="block max-h-[480px] max-w-full" />
-                    {itemsThisPage.map((it) => (
-                      <div key={it.id} className="absolute pointer-events-none border-2 border-dashed" style={{ borderColor: ACCENT, color: it.color, fontSize: `${Math.max(8, it.size / 2)}px`, left: `${it.x}%`, top: `${it.y}%`, padding: "2px 4px", background: `${ACCENT}10` }}>
-                        {it.text || "(vacío)"}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <div className="text-sm font-semibold flex items-center gap-2"><Type className="w-4 h-4" /> Textos en página {activePage}</div>
-                  <button onClick={add} className="text-sm font-medium inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-white" style={{ background: ACCENT }}><Plus className="w-4 h-4" /> Agregar</button>
-                </div>
-                {itemsThisPage.length === 0 && <div className="text-sm text-[color:var(--color-fg-soft)] text-center py-4">Sin textos en esta página. Hacé click en "Agregar" para empezar.</div>}
-                {itemsThisPage.map((it) => (
-                  <div key={it.id} className="card !p-3 space-y-2">
-                    <div className="flex items-center gap-2">
-                      <input className="input flex-1" value={it.text} onChange={(e) => update(it.id, { text: e.target.value })} placeholder="Tu texto…" />
-                      <button onClick={() => remove(it.id)} className="w-9 h-9 rounded-lg bg-[color:var(--color-bg-soft)] hover:bg-[color:var(--color-danger)] hover:text-white flex items-center justify-center"><Trash className="w-4 h-4" /></button>
-                    </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                      <label className="text-xs">X (%)<input type="number" min={0} max={100} className="input mt-1" value={it.x} onChange={(e) => update(it.id, { x: +e.target.value || 0 })} /></label>
-                      <label className="text-xs">Y (%)<input type="number" min={0} max={100} className="input mt-1" value={it.y} onChange={(e) => update(it.id, { y: +e.target.value || 0 })} /></label>
-                      <label className="text-xs">Tamaño<input type="number" min={6} max={72} className="input mt-1" value={it.size} onChange={(e) => update(it.id, { size: +e.target.value || 14 })} /></label>
-                      <label className="text-xs">Color<input type="color" value={it.color} onChange={(e) => update(it.id, { color: e.target.value })} className="block w-full h-10 rounded-lg cursor-pointer" /></label>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {processing && <ProcessingBar label="Aplicando cambios…" />}
-              <PrimaryAction onClick={apply} disabled={items.filter((i) => i.text.trim()).length === 0 || processing} color={ACCENT}>
-                <Type className="w-5 h-5" /> Aplicar cambios
-              </PrimaryAction>
-            </>
-          )}
-        </>
+      {elements.length > 0 && (
+        <div className="text-xs text-[color:var(--color-fg-soft)] text-center pt-2 border-t border-[color:var(--color-border)]">
+          {elements.length} texto{elements.length === 1 ? "" : "s"} agregado{elements.length === 1 ? "" : "s"} en {new Set(elements.map((e) => e.page)).size} página{new Set(elements.map((e) => e.page)).size === 1 ? "" : "s"}
+        </div>
       )}
     </div>
+  );
+
+  const pageContent = thumbs[activePage - 1] ? (
+    <>
+      <img src={thumbs[activePage - 1]} alt={`Página ${activePage}`} className="block max-h-[80vh] w-auto" draggable={false} />
+      {elementsThisPage.map((el) => {
+        const td = el.data as TextData;
+        return (
+          <DraggableElement key={el.id} xPct={el.xPct} yPct={el.yPct} wPct={el.wPct} hPct={el.hPct} selected={selectedId === el.id} containerRef={pageContainerRef} onSelect={() => setSelectedId(el.id)} onMove={(x, y) => updateEl(el.id, { xPct: x, yPct: y })} onResize={(w, h) => updateEl(el.id, { wPct: w, hPct: h })} onDelete={() => setElements((a) => a.filter((e) => e.id !== el.id))} accent={ACCENT}>
+            <div className="w-full h-full flex items-center px-1 select-none" style={{ color: td.color, fontSize: `${Math.max(8, td.fontSize / 2)}px`, fontWeight: 500, whiteSpace: "pre-wrap", overflow: "hidden" }}>
+              {td.text || "(vacío)"}
+            </div>
+          </DraggableElement>
+        );
+      })}
+    </>
+  ) : null;
+
+  return (
+    <PdfEditor
+      toolName="Editar PDF"
+      fileName={file.name}
+      thumbs={thumbs}
+      activePage={activePage}
+      onActivePageChange={setActivePage}
+      pageContent={pageContent}
+      onPageClick={placeText}
+      pageContainerRef={pageContainerRef}
+      sidebar={sidebar}
+      actionLabel={`Aplicar y descargar${elements.length > 0 ? ` (${elements.length})` : ""}`}
+      onAction={apply}
+      actionDisabled={elements.filter((e) => e.type === "text" && (e.data as TextData).text.trim()).length === 0}
+      accent={ACCENT}
+      loading={loading}
+      onClose={reset}
+    />
   );
 }

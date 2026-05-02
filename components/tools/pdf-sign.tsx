@@ -1,30 +1,46 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { PDFDocument } from "pdf-lib";
-import { Download, Eraser, PenTool } from "lucide-react";
-import { DropZone, PrimaryAction, ProcessingBar, StepBar, SuccessPanel } from "./ui/drop-zone";
+import { Download, Eraser, PenTool, Plus } from "lucide-react";
 import { renderPdfThumbnails } from "./ui/pdf-thumb";
+import { UploadHero } from "./editor/UploadHero";
+import { PdfEditor } from "./editor/PdfEditor";
+import { DraggableElement } from "./editor/DraggableElement";
+import type { EditorElement, SignatureData } from "./editor/types";
 
 const ACCENT = "oklch(0.55 0.22 30)";
 
 export function PdfSign() {
   const [file, setFile] = useState<File | null>(null);
   const [thumbs, setThumbs] = useState<string[]>([]);
-  const [pageIndex, setPageIndex] = useState(1);
-  const [posX, setPosX] = useState(60);
-  const [posY, setPosY] = useState(80);
-  const [size, setSize] = useState(150);
+  const [activePage, setActivePage] = useState(1);
+  const [elements, setElements] = useState<EditorElement[]>([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [signaturePngs, setSignaturePngs] = useState<string[]>([]);
   const [out, setOut] = useState<string | null>(null);
-  const [signed, setSigned] = useState(false);
-  const [processing, setProcessing] = useState(false);
-  const [loadingThumbs, setLoadingThumbs] = useState(false);
+  const [loading, setLoading] = useState<string | null>(null);
   const sigRef = useRef<HTMLCanvasElement>(null);
   const drawing = useRef(false);
   const last = useRef<{ x: number; y: number } | null>(null);
+  const pageContainerRef = useRef<HTMLDivElement | null>(null);
+
+  async function loadFile(f: File) {
+    setFile(f);
+    setOut(null);
+    setElements([]);
+    setLoading("Generando preview de páginas…");
+    try {
+      const t = await renderPdfThumbnails(f, 0.5);
+      setThumbs(t);
+      setActivePage(1);
+    } finally { setLoading(null); }
+  }
+
+  function reset() { setFile(null); setThumbs([]); setElements([]); setOut(null); setSignaturePngs([]); }
 
   useEffect(() => {
     const c = sigRef.current;
-    if (!c || !file) return;
+    if (!c) return;
     const setup = () => {
       const dpr = window.devicePixelRatio || 1;
       c.width = c.offsetWidth * dpr;
@@ -43,24 +59,13 @@ export function PdfSign() {
     return () => window.removeEventListener("resize", setup);
   }, [file]);
 
-  function pos(e: React.PointerEvent) {
-    const r = sigRef.current!.getBoundingClientRect();
-    return { x: e.clientX - r.left, y: e.clientY - r.top };
-  }
-  function start(e: React.PointerEvent) {
-    sigRef.current?.setPointerCapture(e.pointerId);
-    drawing.current = true;
-    last.current = pos(e);
-    setSigned(true);
-  }
+  function pos(e: React.PointerEvent) { const r = sigRef.current!.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+  function start(e: React.PointerEvent) { sigRef.current?.setPointerCapture(e.pointerId); drawing.current = true; last.current = pos(e); }
   function move(e: React.PointerEvent) {
     if (!drawing.current || !last.current) return;
     const p = pos(e);
     const ctx = sigRef.current!.getContext("2d")!;
-    ctx.beginPath();
-    ctx.moveTo(last.current.x, last.current.y);
-    ctx.lineTo(p.x, p.y);
-    ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(last.current.x, last.current.y); ctx.lineTo(p.x, p.y); ctx.stroke();
     last.current = p;
   }
   function end() { drawing.current = false; last.current = null; }
@@ -70,57 +75,57 @@ export function PdfSign() {
     const dpr = window.devicePixelRatio || 1;
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, c.width / dpr, c.height / dpr);
-    setSigned(false);
   }
 
-  async function loadFile(f: File) {
-    setFile(f);
-    setOut(null);
-    setSigned(false);
-    setLoadingThumbs(true);
-    try {
-      const t = await renderPdfThumbnails(f, 0.4);
-      setThumbs(t);
-      setPageIndex(1);
-    } finally {
-      setLoadingThumbs(false);
-    }
+  function saveSignature() {
+    const c = sigRef.current!;
+    const tmp = document.createElement("canvas");
+    tmp.width = c.width; tmp.height = c.height;
+    tmp.getContext("2d")!.drawImage(c, 0, 0);
+    const dataUrl = tmp.toDataURL("image/png");
+    setSignaturePngs((arr) => [...arr, dataUrl]);
+    clearSig();
   }
 
-  function reset() {
-    setFile(null);
-    setThumbs([]);
-    setOut(null);
-    setSigned(false);
+  function placeOnPage(xPct: number, yPct: number) {
+    const sig = signaturePngs[signaturePngs.length - 1];
+    if (!sig) return;
+    const id = `sig-${Date.now()}`;
+    setElements((arr) => [...arr, {
+      id, page: activePage, type: "signature",
+      xPct: Math.max(0, xPct - 12), yPct: Math.max(0, yPct - 6),
+      wPct: 24, hPct: 12,
+      data: { kind: "signature", dataUrl: sig } satisfies SignatureData
+    }]);
+    setSelectedId(id);
+  }
+
+  function updateEl(id: string, patch: Partial<EditorElement>) {
+    setElements((arr) => arr.map((e) => (e.id === id ? { ...e, ...patch } : e)));
   }
 
   async function apply() {
-    if (!file || !signed) return;
-    setProcessing(true);
+    if (!file || elements.length === 0) return;
+    setLoading("Firmando PDF…");
     try {
       const buf = await file.arrayBuffer();
       const doc = await PDFDocument.load(buf);
-      const sigCanvas = sigRef.current!;
-      const tmp = document.createElement("canvas");
-      tmp.width = sigCanvas.width;
-      tmp.height = sigCanvas.height;
-      tmp.getContext("2d")!.drawImage(sigCanvas, 0, 0);
-      const imgData = tmp.toDataURL("image/png");
-      const pngBytes = Uint8Array.from(atob(imgData.split(",")[1]), (c) => c.charCodeAt(0));
-      const png = await doc.embedPng(pngBytes);
-      const page = doc.getPage(pageIndex - 1);
-      const { width, height } = page.getSize();
-      const scaledW = size;
-      const scaledH = size * (png.height / png.width);
-      const xPx = (posX / 100) * (width - scaledW);
-      const yPx = height - (posY / 100) * (height - scaledH) - scaledH;
-      page.drawImage(png, { x: xPx, y: yPx, width: scaledW, height: scaledH });
+      for (const el of elements) {
+        if (el.type !== "signature") continue;
+        const sig = el.data as SignatureData;
+        const pngBytes = Uint8Array.from(atob(sig.dataUrl.split(",")[1]), (c) => c.charCodeAt(0));
+        const png = await doc.embedPng(pngBytes);
+        const page = doc.getPage(el.page - 1);
+        const { width, height } = page.getSize();
+        const w = (el.wPct / 100) * width;
+        const h = (el.hPct / 100) * height;
+        const x = (el.xPct / 100) * width;
+        const y = height - (el.yPct / 100) * height - h;
+        page.drawImage(png, { x, y, width: w, height: h });
+      }
       const bytes = await doc.save();
-      const blob = new Blob([bytes as BlobPart], { type: "application/pdf" });
-      setOut(URL.createObjectURL(blob));
-    } finally {
-      setProcessing(false);
-    }
+      setOut(URL.createObjectURL(new Blob([bytes as BlobPart], { type: "application/pdf" })));
+    } finally { setLoading(null); }
   }
 
   function download() {
@@ -131,108 +136,109 @@ export function PdfSign() {
     a.click();
   }
 
+  if (!file) {
+    return <UploadHero toolName="Firmar PDF" subtitle="Subí tu PDF, dibujá tu firma y arrastrala a donde quieras. 100% en tu navegador." accept="application/pdf" onFile={loadFile} buttonLabel="Seleccionar PDF" accent={ACCENT} illustration="pdf" />;
+  }
+
   if (out) {
     return (
-      <SuccessPanel onReset={reset}>
-        <div className="flex justify-center">
-          {thumbs[pageIndex - 1] && (
-            <div className="relative inline-block">
-              <img src={thumbs[pageIndex - 1]} alt="" className="max-h-72 rounded-lg shadow-2xl" />
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="rounded-full bg-[color:var(--color-success)] text-white px-4 py-2 font-bold shadow-lg">✓ Firmado</div>
-              </div>
-            </div>
-          )}
+      <div className="fixed inset-0 z-50 bg-[color:var(--color-bg)] flex items-center justify-center px-4">
+        <div className="max-w-md w-full text-center space-y-6">
+          <div className="w-24 h-24 mx-auto rounded-full bg-[color:var(--color-success)] text-white flex items-center justify-center text-5xl font-bold shadow-2xl">✓</div>
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight">¡PDF firmado!</h2>
+            <p className="text-[color:var(--color-fg-soft)] mt-2">Tu PDF se firmó correctamente con {elements.length} firma{elements.length === 1 ? "" : "s"}.</p>
+          </div>
+          <button onClick={download} className="w-full py-4 rounded-2xl font-bold text-white text-lg shadow-2xl flex items-center justify-center gap-2 hover:scale-[1.02] transition" style={{ background: ACCENT }}>
+            <Download className="w-5 h-5" /> Descargar PDF firmado
+          </button>
+          <button onClick={reset} className="text-sm font-semibold text-[color:var(--color-fg-soft)] hover:underline">↻ Firmar otro PDF</button>
         </div>
-        <button onClick={download} className="w-full py-4 rounded-2xl font-bold text-white text-lg shadow-xl flex items-center justify-center gap-2" style={{ background: ACCENT }}>
-          <Download className="w-5 h-5" /> Descargar PDF firmado
-        </button>
-      </SuccessPanel>
+      </div>
     );
   }
 
-  return (
-    <div className="space-y-6">
-      <StepBar step={file ? 2 : 1} />
+  const lastSig = signaturePngs[signaturePngs.length - 1];
 
-      {!file ? (
-        <DropZone accept="application/pdf" onFile={loadFile} illustration="pdf" accentColor={ACCENT} buttonLabel="Seleccionar PDF" helpText="🔒 100% privado · pdf-lib + Canvas en tu navegador" />
-      ) : (
-        <>
-          <DropZone accept="application/pdf" onFile={loadFile} loaded={{ name: file.name, size: file.size, thumbnail: thumbs[0] }} onClear={reset} illustration="pdf" accentColor={ACCENT} />
+  const sidebar = (
+    <div className="space-y-5">
+      <div>
+        <div className="text-xs font-bold uppercase text-[color:var(--color-fg-soft)] mb-2 flex items-center gap-2"><PenTool className="w-3.5 h-3.5" /> Tu firma</div>
+        <div className="rounded-xl border-2 bg-white p-1 shadow-inner" style={{ borderColor: "var(--color-border)" }}>
+          <canvas ref={sigRef} className="block w-full h-32 rounded-lg cursor-crosshair touch-none" style={{ background: "white" }} onPointerDown={start} onPointerMove={move} onPointerUp={end} onPointerCancel={end} />
+        </div>
+        <div className="flex justify-between gap-2 mt-2">
+          <button onClick={clearSig} className="text-xs font-medium hover:text-[color:var(--color-danger)] inline-flex items-center gap-1"><Eraser className="w-3.5 h-3.5" /> Limpiar</button>
+          <button onClick={saveSignature} className="text-xs font-bold inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-white" style={{ background: ACCENT }}><Plus className="w-3.5 h-3.5" /> Guardar firma</button>
+        </div>
+      </div>
 
-          {loadingThumbs && <ProcessingBar label="Generando preview de páginas…" />}
-
-          {thumbs.length > 0 && (
-            <>
-              <div className="space-y-3">
-                <div className="text-sm font-semibold flex items-center gap-2"><PenTool className="w-4 h-4" /> 1 · Dibujá tu firma</div>
-                <div className="rounded-2xl border-2 bg-white p-1 shadow-inner" style={{ borderColor: signed ? ACCENT : "var(--color-border)" }}>
-                  <canvas
-                    ref={sigRef}
-                    className="block w-full h-44 rounded-xl cursor-crosshair touch-none"
-                    style={{ background: "white" }}
-                    onPointerDown={start}
-                    onPointerMove={move}
-                    onPointerUp={end}
-                    onPointerCancel={end}
-                  />
-                </div>
-                <div className="flex justify-between items-center">
-                  <div className="text-xs text-[color:var(--color-fg-soft)]">{signed ? "✓ Firma lista" : "Firmá con mouse, dedo o stylus"}</div>
-                  <button onClick={clearSig} className="text-sm font-medium hover:text-[color:var(--color-danger)] inline-flex items-center gap-1"><Eraser className="w-4 h-4" /> Limpiar</button>
-                </div>
+      {signaturePngs.length > 0 && (
+        <div>
+          <div className="text-xs font-bold uppercase text-[color:var(--color-fg-soft)] mb-2">Tus firmas guardadas</div>
+          <div className="grid grid-cols-2 gap-2">
+            {signaturePngs.map((url, i) => (
+              <div key={i} className={`rounded-lg border-2 bg-white p-1 ${i === signaturePngs.length - 1 ? "shadow-md" : ""}`} style={{ borderColor: i === signaturePngs.length - 1 ? ACCENT : "var(--color-border)" }}>
+                <img src={url} alt={`firma ${i + 1}`} className="w-full h-12 object-contain" />
               </div>
+            ))}
+          </div>
+        </div>
+      )}
 
-              <div className="space-y-3">
-                <div className="text-sm font-semibold">2 · Elegí la página</div>
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
-                  {thumbs.map((t, i) => (
-                    <button key={i} onClick={() => setPageIndex(i + 1)} className={`relative rounded-lg overflow-hidden border-2 transition shadow-sm hover:shadow-md ${pageIndex === i + 1 ? "ring-4" : ""}`} style={{ borderColor: pageIndex === i + 1 ? ACCENT : "var(--color-border)" }}>
-                      <img src={t} alt={`p${i + 1}`} className="w-full block" />
-                      <div className="absolute bottom-0 left-0 right-0 text-xs font-semibold py-0.5 text-center text-white" style={{ background: pageIndex === i + 1 ? ACCENT : "rgba(0,0,0,0.6)" }}>{i + 1}</div>
-                    </button>
-                  ))}
-                </div>
-              </div>
+      <div className="rounded-xl p-3 border" style={{ background: `${ACCENT}08`, borderColor: `${ACCENT}30` }}>
+        <div className="text-xs font-bold mb-1" style={{ color: ACCENT }}>{lastSig ? "→ Click en la página" : "1. Dibujá tu firma"}</div>
+        <div className="text-xs text-[color:var(--color-fg-soft)] leading-relaxed">
+          {lastSig ? "Hacé click en la página donde querés colocar la firma. Después arrastrala o cambiá de tamaño con la esquina." : "Dibujá tu firma arriba con mouse, dedo o stylus, después tocá \"Guardar firma\"."}
+        </div>
+      </div>
 
-              <div className="space-y-3">
-                <div className="text-sm font-semibold">3 · Posicioná la firma en la página</div>
-                <div className="card !p-0 overflow-hidden">
-                  <div className="relative inline-block w-full bg-[color:var(--color-bg-soft)] flex justify-center p-4">
-                    <div className="relative">
-                      <img src={thumbs[pageIndex - 1]} alt="" className="block max-h-96 max-w-full" />
-                      <div
-                        className="absolute border-2 border-dashed pointer-events-none flex items-center justify-center text-xs font-bold"
-                        style={{
-                          borderColor: ACCENT,
-                          background: `${ACCENT}25`,
-                          left: `${(posX / 100) * 80}%`,
-                          top: `${posY}%`,
-                          width: `${(size / 4)}%`,
-                          height: `${(size / 6)}%`,
-                          color: ACCENT
-                        }}
-                      >FIRMA</div>
-                    </div>
-                  </div>
-                  <div className="p-4 border-t border-[color:var(--color-border)] grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <label className="block text-sm">Tamaño<input type="range" min={50} max={400} step={10} className="w-full mt-2 accent-[oklch(0.55_0.22_30)]" value={size} onChange={(e) => setSize(+e.target.value)} /><span className="text-xs text-[color:var(--color-fg-soft)]">{size}px</span></label>
-                    <label className="block text-sm">Horizontal<input type="range" min={0} max={100} className="w-full mt-2 accent-[oklch(0.55_0.22_30)]" value={posX} onChange={(e) => setPosX(+e.target.value)} /><span className="text-xs text-[color:var(--color-fg-soft)]">{posX}%</span></label>
-                    <label className="block text-sm">Vertical<input type="range" min={0} max={100} className="w-full mt-2 accent-[oklch(0.55_0.22_30)]" value={posY} onChange={(e) => setPosY(+e.target.value)} /><span className="text-xs text-[color:var(--color-fg-soft)]">{posY}%</span></label>
-                  </div>
-                </div>
-              </div>
-
-              {processing && <ProcessingBar label="Aplicando firma al PDF…" />}
-
-              <PrimaryAction onClick={apply} disabled={!signed || processing} color={ACCENT}>
-                <PenTool className="w-5 h-5" /> Firmar PDF
-              </PrimaryAction>
-            </>
-          )}
-        </>
+      {elements.length > 0 && (
+        <div className="text-xs text-[color:var(--color-fg-soft)] text-center pt-2 border-t border-[color:var(--color-border)]">{elements.length} firma{elements.length === 1 ? "" : "s"} colocada{elements.length === 1 ? "" : "s"}</div>
       )}
     </div>
+  );
+
+  const elementsThisPage = elements.filter((e) => e.page === activePage);
+
+  const pageContent = thumbs[activePage - 1] ? (
+    <>
+      <img src={thumbs[activePage - 1]} alt={`Página ${activePage}`} className="block max-h-[80vh] w-auto" draggable={false} />
+      {elementsThisPage.map((el) => (
+        <DraggableElement
+          key={el.id}
+          xPct={el.xPct} yPct={el.yPct} wPct={el.wPct} hPct={el.hPct}
+          selected={selectedId === el.id}
+          containerRef={pageContainerRef}
+          onSelect={() => setSelectedId(el.id)}
+          onMove={(x, y) => updateEl(el.id, { xPct: x, yPct: y })}
+          onResize={(w, h) => updateEl(el.id, { wPct: w, hPct: h })}
+          onDelete={() => setElements((arr) => arr.filter((e) => e.id !== el.id))}
+          accent={ACCENT}
+        >
+          {el.type === "signature" && <img src={(el.data as SignatureData).dataUrl} alt="firma" className="w-full h-full object-contain" draggable={false} />}
+        </DraggableElement>
+      ))}
+    </>
+  ) : null;
+
+  return (
+    <PdfEditor
+      toolName="Firmar PDF"
+      fileName={file.name}
+      thumbs={thumbs}
+      activePage={activePage}
+      onActivePageChange={setActivePage}
+      pageContent={pageContent}
+      onPageClick={lastSig ? placeOnPage : undefined}
+      pageContainerRef={pageContainerRef}
+      sidebar={sidebar}
+      actionLabel={`Firmar y descargar${elements.length > 0 ? ` (${elements.length})` : ""}`}
+      onAction={apply}
+      actionDisabled={elements.length === 0}
+      accent={ACCENT}
+      loading={loading}
+      onClose={reset}
+    />
   );
 }

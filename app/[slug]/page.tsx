@@ -307,9 +307,6 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
   const cat = CATEGORIES[tool.category];
   const related = relatedTools(tool.slug, 4);
   const POWER_TOOLS: Record<string, string> = {
-    "firmar-pdf": "oklch(0.55 0.22 30)",
-    "editar-pdf": "oklch(0.6 0.2 240)",
-    "reordenar-pdf": "oklch(0.55 0.2 280)",
     "pdf-a-jpg": "oklch(0.65 0.2 50)",
     "comprimir-pdf": "oklch(0.6 0.2 145)",
     "quitar-fondo-imagen": "oklch(0.6 0.22 320)",
@@ -318,6 +315,15 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     "analizador-meta": "oklch(0.5 0.2 220)",
     "comparador-textos": "oklch(0.6 0.22 30)"
   };
+  const FULLSCREEN_TOOLS = new Set(["firmar-pdf", "editar-pdf", "reordenar-pdf"]);
+  if (FULLSCREEN_TOOLS.has(tool.slug)) {
+    return (
+      <>
+        <ToolJsonLd tool={tool} />
+        <ToolRenderer slug={tool.slug} />
+      </>
+    );
+  }
   const accent = POWER_TOOLS[tool.slug];
 
   if (accent) {
