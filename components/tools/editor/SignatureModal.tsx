@@ -28,8 +28,12 @@ export function SignatureModal({ open, onClose, onSave, accent }: Props) {
   const [color, setColor] = useState("#0f172a");
   const [uploadDataUrl, setUploadDataUrl] = useState<string | null>(null);
   const sigRef = useRef<HTMLCanvasElement>(null);
-  const drawing = useRef(false);
-  const last = useRef<{ x: number; y: number } | null>(null);
+  const drawingRef = useRef(false);
+  const lastRef = useRef<{ x: number; y: number } | null>(null);
+  const hasInkRef = useRef(false);
+  const colorRef = useRef(color);
+
+  useEffect(() => { colorRef.current = color; }, [color]);
 
   useEffect(() => {
     if (!open || tab !== "draw") return;
@@ -47,26 +51,66 @@ export function SignatureModal({ open, onClose, onSave, accent }: Props) {
       ctx.lineWidth = 3;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
-      ctx.strokeStyle = color;
+      ctx.strokeStyle = colorRef.current;
       ctx.fillStyle = "#fff";
       ctx.fillRect(0, 0, w, h);
+      hasInkRef.current = false;
       setHasInk(false);
     };
     setup();
     return () => cancelAnimationFrame(raf);
-  }, [open, tab, color]);
+  }, [open, tab]);
 
-  function pos(e: React.PointerEvent) { const r = sigRef.current!.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
-  function pStart(e: React.PointerEvent) { e.preventDefault(); sigRef.current?.setPointerCapture(e.pointerId); drawing.current = true; last.current = pos(e); setHasInk(true); }
-  function pMove(e: React.PointerEvent) {
-    if (!drawing.current || !last.current) return;
-    e.preventDefault();
-    const p = pos(e);
-    const ctx = sigRef.current!.getContext("2d")!;
-    ctx.beginPath(); ctx.moveTo(last.current.x, last.current.y); ctx.lineTo(p.x, p.y); ctx.stroke();
-    last.current = p;
-  }
-  function pEnd() { drawing.current = false; last.current = null; }
+  useEffect(() => {
+    if (!open || tab !== "draw") return;
+    const c = sigRef.current;
+    if (!c) return;
+
+    const getPos = (e: PointerEvent) => {
+      const r = c.getBoundingClientRect();
+      return { x: e.clientX - r.left, y: e.clientY - r.top };
+    };
+
+    const onDown = (e: PointerEvent) => {
+      if (e.button !== undefined && e.button !== 0 && e.pointerType === "mouse") return;
+      e.preventDefault();
+      try { c.setPointerCapture(e.pointerId); } catch { /* ignore */ }
+      drawingRef.current = true;
+      lastRef.current = getPos(e);
+      const ctx = c.getContext("2d")!;
+      ctx.strokeStyle = colorRef.current;
+      ctx.fillStyle = colorRef.current;
+      ctx.beginPath();
+      ctx.arc(lastRef.current.x, lastRef.current.y, 1.5, 0, Math.PI * 2);
+      ctx.fill();
+      if (!hasInkRef.current) { hasInkRef.current = true; setHasInk(true); }
+    };
+    const onMove = (e: PointerEvent) => {
+      if (!drawingRef.current || !lastRef.current) return;
+      e.preventDefault();
+      const p = getPos(e);
+      const ctx = c.getContext("2d")!;
+      ctx.beginPath();
+      ctx.moveTo(lastRef.current.x, lastRef.current.y);
+      ctx.lineTo(p.x, p.y);
+      ctx.stroke();
+      lastRef.current = p;
+    };
+    const onUp = () => { drawingRef.current = false; lastRef.current = null; };
+
+    c.addEventListener("pointerdown", onDown, { passive: false });
+    c.addEventListener("pointermove", onMove, { passive: false });
+    c.addEventListener("pointerup", onUp);
+    c.addEventListener("pointercancel", onUp);
+    c.addEventListener("pointerleave", onUp);
+    return () => {
+      c.removeEventListener("pointerdown", onDown);
+      c.removeEventListener("pointermove", onMove);
+      c.removeEventListener("pointerup", onUp);
+      c.removeEventListener("pointercancel", onUp);
+      c.removeEventListener("pointerleave", onUp);
+    };
+  }, [open, tab]);
 
   function clearDraw() {
     const c = sigRef.current;
@@ -75,6 +119,7 @@ export function SignatureModal({ open, onClose, onSave, accent }: Props) {
     const dpr = window.devicePixelRatio || 1;
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, c.width / dpr, c.height / dpr);
+    hasInkRef.current = false;
     setHasInk(false);
   }
 
@@ -112,7 +157,7 @@ export function SignatureModal({ open, onClose, onSave, accent }: Props) {
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Sacramento&family=Pacifico&family=Allura&display=swap" rel="stylesheet" />
 
-      <div className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in" onPointerDown={(e) => e.target === e.currentTarget && onClose()}>
+      <div className="fixed inset-0 z-[60] bg-black/70 flex items-center justify-center p-4" onPointerDown={(e) => e.target === e.currentTarget && onClose()}>
         <div className="bg-white dark:bg-[color:var(--color-bg-soft)] rounded-2xl shadow-2xl max-w-2xl w-full overflow-hidden">
           <div className="px-6 py-4 border-b border-[color:var(--color-border)] flex items-center justify-between">
             <h3 className="text-lg font-bold flex items-center gap-2">
@@ -145,12 +190,7 @@ export function SignatureModal({ open, onClose, onSave, accent }: Props) {
                   <canvas
                     ref={sigRef}
                     className="block w-full cursor-crosshair touch-none"
-                    style={{ background: "white", height: "240px" }}
-                    onPointerDown={pStart}
-                    onPointerMove={pMove}
-                    onPointerUp={pEnd}
-                    onPointerCancel={pEnd}
-                    onPointerLeave={pEnd}
+                    style={{ background: "white", height: "240px", touchAction: "none" }}
                   />
                 </div>
                 <div className="flex items-center justify-between">

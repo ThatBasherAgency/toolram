@@ -313,9 +313,49 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     "recortar-imagen": "oklch(0.65 0.2 130)",
     "marca-agua-imagen": "oklch(0.6 0.18 200)",
     "analizador-meta": "oklch(0.5 0.2 220)",
-    "comparador-textos": "oklch(0.6 0.22 30)"
+    "comparador-textos": "oklch(0.6 0.22 30)",
+    "whois-domain": "oklch(0.55 0.2 220)",
+    "dns-lookup": "oklch(0.55 0.2 200)",
+    "headers-checker": "oklch(0.55 0.2 165)",
+    "seo-quick-audit": "oklch(0.55 0.2 145)"
   };
   const FULLSCREEN_TOOLS = new Set(["firmar-pdf", "editar-pdf", "reordenar-pdf"]);
+  const SELF_HERO_TOOLS = new Set(["whois-domain", "dns-lookup", "headers-checker", "seo-quick-audit"]);
+  if (SELF_HERO_TOOLS.has(tool.slug)) {
+    return (
+      <>
+        <ToolJsonLd tool={tool} />
+        <ToolRenderer slug={tool.slug} />
+        <div className="border-t border-[color:var(--color-border)] bg-[color:var(--color-bg-soft)]/40 py-12 md:py-16 mt-8">
+          <div className="max-w-3xl mx-auto px-4 space-y-8">
+            <section>
+              <h2 className="text-2xl font-bold mb-3">Sobre {tool.name}</h2>
+              <p className="text-base text-[color:var(--color-fg-soft)] leading-relaxed">{tool.longDesc}</p>
+            </section>
+            {tool.faqs && tool.faqs.length > 0 && (
+              <section>
+                <h2 className="text-2xl font-bold mb-4">Preguntas frecuentes</h2>
+                <div className="space-y-2">
+                  {tool.faqs.map((f, i) => (
+                    <details key={i} className="rounded-xl bg-[color:var(--color-bg)] border border-[color:var(--color-border)] p-4 group">
+                      <summary className="font-semibold cursor-pointer flex items-center justify-between">{f.q}<span className="text-xl group-open:rotate-45 transition">+</span></summary>
+                      <p className="text-sm text-[color:var(--color-fg-soft)] mt-3 leading-relaxed">{f.a}</p>
+                    </details>
+                  ))}
+                </div>
+              </section>
+            )}
+            <section>
+              <h2 className="text-2xl font-bold mb-4">Herramientas relacionadas</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {related.map((t) => <ToolCard key={t.slug} tool={t} />)}
+              </div>
+            </section>
+          </div>
+        </div>
+      </>
+    );
+  }
   if (FULLSCREEN_TOOLS.has(tool.slug)) {
     return (
       <>

@@ -149,9 +149,8 @@ export function PdfSign() {
 
   const elementsThisPage = elements.filter((e) => e.page === activePage);
 
-  const pageContent = thumbs[activePage - 1] ? (
+  const renderOverlay = () => (
     <>
-      <img src={thumbs[activePage - 1]} alt={`Página ${activePage}`} className="block max-h-[80vh] w-auto" draggable={false} />
       {elementsThisPage.map((el) => (
         <DraggableElement
           key={el.id}
@@ -168,17 +167,17 @@ export function PdfSign() {
         </DraggableElement>
       ))}
     </>
-  ) : null;
+  );
 
   return (
     <>
       <PdfEditor
         toolName="Firmar PDF"
-        fileName={file.name}
+        file={file}
         thumbs={thumbs}
         activePage={activePage}
         onActivePageChange={setActivePage}
-        pageContent={pageContent}
+        renderOverlay={renderOverlay}
         pageContainerRef={pageContainerRef}
         sidebar={sidebar}
         actionLabel={`Firmar y descargar${elements.length > 0 ? ` (${elements.length})` : ""}`}

@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useState, type DragEvent } from "react";
+import { AdSlot } from "@/components/ads/ad-slot";
 
 type Props = {
   toolName: string;
@@ -68,7 +69,7 @@ export function UploadHero({ toolName, subtitle, accept, onFile, buttonLabel, ac
           <div className="mt-5 text-sm text-[color:var(--color-fg-soft)]">o arrastrá tu archivo aquí</div>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 mt-10 max-w-xl mx-auto">
+        <div className="grid grid-cols-3 gap-4 mt-10 mb-10 max-w-xl mx-auto">
           <div className="text-center">
             <div className="text-2xl mb-1">🔒</div>
             <div className="text-xs font-semibold">100% privado</div>
@@ -85,6 +86,8 @@ export function UploadHero({ toolName, subtitle, accept, onFile, buttonLabel, ac
             <div className="text-[10px] text-[color:var(--color-fg-soft)]">Sin marca de agua</div>
           </div>
         </div>
+
+        <AdSlot slot="upload_hero" format="auto" minHeight={180} className="max-w-xl mx-auto" />
       </div>
     </div>
   );

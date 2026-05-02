@@ -141,9 +141,8 @@ export function PdfEdit() {
     </div>
   );
 
-  const pageContent = thumbs[activePage - 1] ? (
+  const renderOverlay = () => (
     <>
-      <img src={thumbs[activePage - 1]} alt={`Página ${activePage}`} className="block max-h-[80vh] w-auto" draggable={false} />
       {elementsThisPage.map((el) => {
         const td = el.data as TextData;
         return (
@@ -155,16 +154,16 @@ export function PdfEdit() {
         );
       })}
     </>
-  ) : null;
+  );
 
   return (
     <PdfEditor
       toolName="Editar PDF"
-      fileName={file.name}
+      file={file}
       thumbs={thumbs}
       activePage={activePage}
       onActivePageChange={setActivePage}
-      pageContent={pageContent}
+      renderOverlay={renderOverlay}
       onPageClick={placeText}
       pageContainerRef={pageContainerRef}
       sidebar={sidebar}

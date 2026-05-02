@@ -64,7 +64,11 @@ const map = {
   "recortar-imagen": dynamic(() => import("./image-crop").then((m) => m.ImageCrop), { ssr: false }),
   "marca-agua-imagen": dynamic(() => import("./image-watermark").then((m) => m.ImageWatermark), { ssr: false }),
   "analizador-meta": dynamic(() => import("./meta-analyzer").then((m) => m.MetaAnalyzer), { ssr: false }),
-  "comparador-textos": dynamic(() => import("./plagio-comparador").then((m) => m.PlagioComparador), { ssr: false })
+  "comparador-textos": dynamic(() => import("./plagio-comparador").then((m) => m.PlagioComparador), { ssr: false }),
+  "whois-domain": dynamic(() => import("./whois-domain").then((m) => m.WhoisDomain), { ssr: false }),
+  "dns-lookup": dynamic(() => import("./dns-lookup").then((m) => m.DnsLookup), { ssr: false }),
+  "headers-checker": dynamic(() => import("./headers-checker").then((m) => m.HeadersChecker), { ssr: false }),
+  "seo-quick-audit": dynamic(() => import("./seo-quick-audit").then((m) => m.SeoQuickAudit), { ssr: false })
 } as const;
 
 export function ToolRenderer({ slug }: { slug: string }) {

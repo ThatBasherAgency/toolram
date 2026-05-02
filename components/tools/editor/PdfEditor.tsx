@@ -2,14 +2,16 @@
 import { useRef, useState, type ReactNode } from "react";
 import { ChevronLeft, ZoomIn, ZoomOut, Maximize2 } from "lucide-react";
 import Link from "next/link";
+import { PdfPageCanvas } from "./PdfPageCanvas";
+import { AdSlot } from "@/components/ads/ad-slot";
 
 type Props = {
   toolName: string;
-  fileName: string;
+  file: File;
   thumbs: string[];
   activePage: number;
   onActivePageChange: (n: number) => void;
-  pageContent: ReactNode;
+  renderOverlay?: () => ReactNode;
   onPageClick?: (xPct: number, yPct: number) => void;
   sidebar: ReactNode;
   actionLabel: string;
@@ -21,7 +23,7 @@ type Props = {
   pageContainerRef?: React.RefObject<HTMLDivElement | null>;
 };
 
-export function PdfEditor({ toolName, fileName, thumbs, activePage, onActivePageChange, pageContent, onPageClick, sidebar, actionLabel, onAction, actionDisabled, accent, loading, onClose, pageContainerRef }: Props) {
+export function PdfEditor({ toolName, file, thumbs, activePage, onActivePageChange, renderOverlay, onPageClick, sidebar, actionLabel, onAction, actionDisabled, accent, loading, onClose, pageContainerRef }: Props) {
   const internalRef = useRef<HTMLDivElement>(null);
   const containerRef = pageContainerRef || internalRef;
   const [zoom, setZoom] = useState(1);
@@ -49,7 +51,7 @@ export function PdfEditor({ toolName, fileName, thumbs, activePage, onActivePage
           <span className="text-[color:var(--color-fg-soft)] hidden md:inline">·</span>
           <span className="font-bold text-base hidden md:inline" style={{ color: accent }}>{toolName}</span>
         </div>
-        <div className="text-sm truncate max-w-[40%] text-[color:var(--color-fg-soft)] mx-2">{fileName}</div>
+        <div className="text-sm truncate max-w-[40%] text-[color:var(--color-fg-soft)] mx-2">{file.name}</div>
         {onClose && <button onClick={onClose} className="text-sm font-medium px-3 py-1 rounded-lg hover:bg-[color:var(--color-bg-soft)]">Cerrar</button>}
       </header>
 
@@ -89,20 +91,20 @@ export function PdfEditor({ toolName, fileName, thumbs, activePage, onActivePage
 
           <div
             ref={containerRef}
-            className="relative inline-block shadow-2xl bg-white max-w-full transition-transform"
+            className="relative inline-block shadow-2xl bg-white max-w-full"
             onClick={handlePageClick}
-            style={{
-              cursor: onPageClick ? "crosshair" : "default",
-              transform: `scale(${zoom})`,
-              transformOrigin: "top center"
-            }}
+            style={{ cursor: onPageClick ? "crosshair" : "default" }}
           >
-            {pageContent}
+            <PdfPageCanvas file={file} pageNumber={activePage} zoom={zoom} />
+            {renderOverlay?.()}
           </div>
         </main>
 
-        <aside className="hidden lg:flex flex-col w-[300px] bg-white dark:bg-[color:var(--color-bg-soft)] border-l border-[color:var(--color-border)] overflow-y-auto p-5 flex-shrink-0">
-          {sidebar}
+        <aside className="hidden lg:flex flex-col w-[300px] bg-white dark:bg-[color:var(--color-bg-soft)] border-l border-[color:var(--color-border)] overflow-y-auto flex-shrink-0">
+          <div className="p-5 flex-1">{sidebar}</div>
+          <div className="p-3 border-t border-[color:var(--color-border)]">
+            <AdSlot slot="editor_sidebar" format="auto" minHeight={250} />
+          </div>
         </aside>
       </div>
 
@@ -122,7 +124,7 @@ export function PdfEditor({ toolName, fileName, thumbs, activePage, onActivePage
 
       <footer className="border-t border-[color:var(--color-border)] bg-white dark:bg-[color:var(--color-bg-soft)] px-3 md:px-5 py-3 flex items-center justify-between gap-3 flex-shrink-0">
         <div className="text-xs text-[color:var(--color-fg-soft)] hidden md:block">
-          Página {activePage} de {thumbs.length}
+          Página {activePage} de {thumbs.length} · zoom {Math.round(zoom * 100)}%
         </div>
         {loading ? (
           <div className="flex-1 md:flex-initial flex items-center justify-end gap-2 text-sm font-medium">

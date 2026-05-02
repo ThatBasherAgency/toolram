@@ -761,6 +761,57 @@ export const TOOLS: Tool[] = [
     keywords: ["detector plagio", "comparar textos", "similitud jaccard", "plagiarism check"],
     popularity: 87,
     related: ["analizador-meta", "densidad-keywords", "diff-checker"]
+  },
+  {
+    slug: "whois-domain",
+    category: "seo",
+    name: "WHOIS Lookup",
+    shortDesc: "Consulta el dueño, edad, expiración y DNS de cualquier dominio · vía RDAP.",
+    longDesc:
+      "Lookup gratis de información de dominios usando RDAP (sucesor moderno de WHOIS). Te mostramos: fecha de registro, fecha de expiración, registrar, estado del dominio y servidores DNS. Funciona con .com, .net, .org, .io, .mx, .es y la mayoría de TLDs.",
+    keywords: ["whois lookup", "consulta whois", "rdap", "dueño dominio", "edad dominio"],
+    popularity: 88,
+    faqs: [
+      { q: "¿Por qué usás RDAP en lugar de WHOIS?", a: "RDAP es el protocolo moderno (estándar IETF), devuelve JSON estructurado y soporta CORS. WHOIS clásico es texto sin estructura y bloquea consultas desde el navegador." }
+    ],
+    related: ["dns-lookup", "ssl-checker", "headers-checker", "seo-quick-audit"]
+  },
+  {
+    slug: "dns-lookup",
+    category: "seo",
+    name: "DNS Lookup",
+    shortDesc: "Consulta registros DNS A, AAAA, MX, TXT, NS, CNAME, SOA, CAA · vía Google DoH.",
+    longDesc:
+      "Lookup completo de registros DNS de cualquier dominio. Consultamos los 8 tipos de registros más usados via Google DNS-over-HTTPS (8.8.8.8) y te mostramos cada uno con su valor y TTL. Útil para validar configuración DNS, debug de email (MX, SPF, DKIM en TXT), o identificar el proveedor de hosting.",
+    keywords: ["dns lookup", "consulta dns", "registros dns", "mx record", "txt record"],
+    popularity: 87,
+    related: ["whois-domain", "headers-checker", "seo-quick-audit"]
+  },
+  {
+    slug: "headers-checker",
+    category: "seo",
+    name: "HTTP Headers Checker",
+    shortDesc: "Inspecciona headers HTTP, redirects y headers de seguridad de cualquier URL.",
+    longDesc:
+      "Inspector profesional de respuesta HTTP. Hacemos un GET a tu URL y te mostramos: status code, latencia, cadena completa de redirects (301/302/307), todos los response headers, y un análisis de los 6 headers de seguridad clave (HSTS, CSP, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy). Útil para SEO, debug de redirects y auditorías de seguridad.",
+    keywords: ["http headers checker", "inspector http", "redirect chain", "security headers"],
+    popularity: 86,
+    related: ["whois-domain", "dns-lookup", "seo-quick-audit", "analizador-meta"]
+  },
+  {
+    slug: "seo-quick-audit",
+    category: "seo",
+    name: "SEO Quick Audit",
+    shortDesc: "Análisis SEO instantáneo de cualquier URL · score 0-100 con checks críticos.",
+    longDesc:
+      "Audit SEO en segundos: te conectamos directamente al sitio, parseamos el HTML, y evaluamos 16 checks divididos en críticos (HTTPS, title, meta description, H1, viewport, canonical) y recomendados (lang, OG, Twitter, Schema, alt, H2, links internos, HSTS, CSP). Devolvemos un score 0-100 con detalle de cada check, link de status code, tiempo de respuesta y peso del HTML.",
+    keywords: ["seo audit", "auditoria seo", "seo checker", "site audit", "on-page seo"],
+    popularity: 92,
+    faqs: [
+      { q: "¿Es comparable con Ahrefs/SEMrush/Moz?", a: "No: esto cubre on-page SEO técnico básico. Para backlinks, autoridad de dominio o ranking de keywords se necesita una API paga (Ahrefs/Moz/SEMrush). Esta herramienta es un primer chequeo gratis honest." },
+      { q: "¿Qué incluye exactamente?", a: "Title/description con longitudes, encabezados H1/H2, canonical, robots, viewport, lang, Open Graph completo, Twitter card, schema JSON-LD detectados, % de imágenes con alt, conteo de links internos vs externos, HTTPS, HSTS y CSP." }
+    ],
+    related: ["whois-domain", "dns-lookup", "headers-checker", "analizador-meta", "previsualizador-serp"]
   }
 ];
 
