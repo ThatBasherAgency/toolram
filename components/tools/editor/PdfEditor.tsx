@@ -1,6 +1,6 @@
 "use client";
-import { useRef, type ReactNode } from "react";
-import { ChevronLeft } from "lucide-react";
+import { useRef, useState, type ReactNode } from "react";
+import { ChevronLeft, ZoomIn, ZoomOut, Maximize2 } from "lucide-react";
 import Link from "next/link";
 
 type Props = {
@@ -24,6 +24,7 @@ type Props = {
 export function PdfEditor({ toolName, fileName, thumbs, activePage, onActivePageChange, pageContent, onPageClick, sidebar, actionLabel, onAction, actionDisabled, accent, loading, onClose, pageContainerRef }: Props) {
   const internalRef = useRef<HTMLDivElement>(null);
   const containerRef = pageContainerRef || internalRef;
+  const [zoom, setZoom] = useState(1);
 
   function handlePageClick(e: React.MouseEvent) {
     if (!onPageClick) return;
@@ -33,6 +34,10 @@ export function PdfEditor({ toolName, fileName, thumbs, activePage, onActivePage
     const yPct = ((e.clientY - r.top) / r.height) * 100;
     onPageClick(xPct, yPct);
   }
+
+  const zoomIn = () => setZoom((z) => Math.min(3, +(z + 0.25).toFixed(2)));
+  const zoomOut = () => setZoom((z) => Math.max(0.5, +(z - 0.25).toFixed(2)));
+  const resetZoom = () => setZoom(1);
 
   return (
     <div className="fixed inset-0 z-50 bg-[color:var(--color-bg)] flex flex-col">
@@ -65,8 +70,33 @@ export function PdfEditor({ toolName, fileName, thumbs, activePage, onActivePage
           ))}
         </aside>
 
-        <main className="flex-1 overflow-auto bg-[oklch(0.94_0_0)] dark:bg-[oklch(0.12_0_0)] flex items-start justify-center p-4 md:p-8 min-w-0">
-          <div ref={containerRef} className="relative inline-block shadow-2xl bg-white max-w-full" onClick={handlePageClick} style={{ cursor: onPageClick ? "crosshair" : "default" }}>
+        <main className="flex-1 overflow-auto bg-[oklch(0.94_0_0)] dark:bg-[oklch(0.12_0_0)] flex items-start justify-center p-4 md:p-8 min-w-0 relative">
+          <div className="absolute top-3 right-3 z-10 flex items-center gap-1 rounded-full bg-white/95 dark:bg-[color:var(--color-bg-soft)]/95 shadow-md backdrop-blur px-1.5 py-1 border border-[color:var(--color-border)]">
+            <button onClick={zoomOut} disabled={zoom <= 0.5} className="w-8 h-8 rounded-full hover:bg-[color:var(--color-bg-soft)] disabled:opacity-30 flex items-center justify-center" aria-label="Reducir zoom">
+              <ZoomOut className="w-4 h-4" />
+            </button>
+            <button onClick={resetZoom} className="text-xs font-bold tabular-nums px-2 min-w-[3rem]" aria-label="Reset zoom">
+              {Math.round(zoom * 100)}%
+            </button>
+            <button onClick={zoomIn} disabled={zoom >= 3} className="w-8 h-8 rounded-full hover:bg-[color:var(--color-bg-soft)] disabled:opacity-30 flex items-center justify-center" aria-label="Aumentar zoom">
+              <ZoomIn className="w-4 h-4" />
+            </button>
+            <span className="w-px h-5 bg-[color:var(--color-border)] mx-0.5" />
+            <button onClick={resetZoom} className="w-8 h-8 rounded-full hover:bg-[color:var(--color-bg-soft)] flex items-center justify-center" aria-label="Ajustar">
+              <Maximize2 className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          <div
+            ref={containerRef}
+            className="relative inline-block shadow-2xl bg-white max-w-full transition-transform"
+            onClick={handlePageClick}
+            style={{
+              cursor: onPageClick ? "crosshair" : "default",
+              transform: `scale(${zoom})`,
+              transformOrigin: "top center"
+            }}
+          >
             {pageContent}
           </div>
         </main>

@@ -1,12 +1,15 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { PDFDocument } from "pdf-lib";
-import { Download, Eraser, PenTool, Plus, X } from "lucide-react";
+import { Download, PenTool, Plus, ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { renderPdfThumbnails } from "./ui/pdf-thumb";
 import { UploadHero } from "./editor/UploadHero";
 import { PdfEditor } from "./editor/PdfEditor";
 import { DraggableElement } from "./editor/DraggableElement";
+import { SignatureModal } from "./editor/SignatureModal";
 import type { EditorElement, SignatureData } from "./editor/types";
+import { AdSlot } from "@/components/ads/ad-slot";
 
 const ACCENT = "oklch(0.55 0.22 30)";
 
@@ -18,12 +21,9 @@ export function PdfSign() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [savedSignatures, setSavedSignatures] = useState<string[]>([]);
   const [out, setOut] = useState<string | null>(null);
+  const [outFileName, setOutFileName] = useState("");
   const [loading, setLoading] = useState<string | null>(null);
   const [signModalOpen, setSignModalOpen] = useState(false);
-  const [hasInk, setHasInk] = useState(false);
-  const sigRef = useRef<HTMLCanvasElement>(null);
-  const drawing = useRef(false);
-  const last = useRef<{ x: number; y: number } | null>(null);
   const pageContainerRef = useRef<HTMLDivElement | null>(null);
 
   async function loadFile(f: File) {
@@ -36,70 +36,10 @@ export function PdfSign() {
   }
   function reset() { setFile(null); setThumbs([]); setElements([]); setOut(null); setSavedSignatures([]); setSelectedId(null); }
 
-  useEffect(() => {
-    if (!signModalOpen) return;
-    let raf = 0;
-    const setup = () => {
-      const c = sigRef.current;
-      if (!c) { raf = requestAnimationFrame(setup); return; }
-      const w = c.offsetWidth, h = c.offsetHeight;
-      if (w === 0 || h === 0) { raf = requestAnimationFrame(setup); return; }
-      const dpr = window.devicePixelRatio || 1;
-      c.width = w * dpr;
-      c.height = h * dpr;
-      const ctx = c.getContext("2d")!;
-      ctx.scale(dpr, dpr);
-      ctx.lineWidth = 3;
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
-      ctx.strokeStyle = "#0f172a";
-      ctx.fillStyle = "#fff";
-      ctx.fillRect(0, 0, w, h);
-      setHasInk(false);
-    };
-    setup();
-    return () => cancelAnimationFrame(raf);
-  }, [signModalOpen]);
-
-  function pos(e: React.PointerEvent) { const r = sigRef.current!.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
-  function start(e: React.PointerEvent) { e.preventDefault(); sigRef.current?.setPointerCapture(e.pointerId); drawing.current = true; last.current = pos(e); setHasInk(true); }
-  function move(e: React.PointerEvent) {
-    if (!drawing.current || !last.current) return;
-    e.preventDefault();
-    const p = pos(e);
-    const ctx = sigRef.current!.getContext("2d")!;
-    ctx.beginPath(); ctx.moveTo(last.current.x, last.current.y); ctx.lineTo(p.x, p.y); ctx.stroke();
-    last.current = p;
-  }
-  function end() { drawing.current = false; last.current = null; }
-
-  function clearCanvas() {
-    const c = sigRef.current;
-    if (!c) return;
-    const ctx = c.getContext("2d")!;
-    const dpr = window.devicePixelRatio || 1;
-    ctx.fillStyle = "#fff";
-    ctx.fillRect(0, 0, c.width / dpr, c.height / dpr);
-    setHasInk(false);
-  }
-
-  function openSignModal() {
-    setSignModalOpen(true);
-  }
-
-  function cancelSignModal() {
-    setSignModalOpen(false);
-    setHasInk(false);
-  }
-
-  function saveAndPlace() {
-    const c = sigRef.current;
-    if (!c) return;
-    const dataUrl = c.toDataURL("image/png");
+  function handleSaveSignature(dataUrl: string) {
     setSavedSignatures((arr) => [...arr, dataUrl]);
     placeSignatureOnPage(dataUrl);
     setSignModalOpen(false);
-    setHasInk(false);
   }
 
   function placeSignatureOnPage(dataUrl: string) {
@@ -111,10 +51,6 @@ export function PdfSign() {
       data: { kind: "signature", dataUrl } satisfies SignatureData
     }]);
     setSelectedId(id);
-  }
-
-  function reuseSignature(dataUrl: string) {
-    placeSignatureOnPage(dataUrl);
   }
 
   function updateEl(id: string, patch: Partial<EditorElement>) {
@@ -141,7 +77,9 @@ export function PdfSign() {
         page.drawImage(png, { x, y, width: w, height: h });
       }
       const bytes = await doc.save();
+      const fileName = (file?.name.replace(/\.pdf$/i, "") || "documento") + "-firmado.pdf";
       setOut(URL.createObjectURL(new Blob([bytes as BlobPart], { type: "application/pdf" })));
+      setOutFileName(fileName);
     } finally { setLoading(null); }
   }
 
@@ -149,36 +87,22 @@ export function PdfSign() {
     if (!out) return;
     const a = document.createElement("a");
     a.href = out;
-    a.download = (file?.name.replace(/\.pdf$/i, "") || "documento") + "-firmado.pdf";
+    a.download = outFileName;
     a.click();
   }
 
   if (!file) {
-    return <UploadHero toolName="Firmar PDF" subtitle="Subí tu PDF, dibujá tu firma una vez y arrastrala donde quieras. 100% en tu navegador." accept="application/pdf" onFile={loadFile} buttonLabel="Seleccionar PDF" accent={ACCENT} illustration="pdf" />;
+    return <UploadHero toolName="Firmar PDF" subtitle="Subí tu PDF, firmá una vez (dibujar, subir imagen o escribir tu nombre) y arrastrá la firma a donde quieras." accept="application/pdf" onFile={loadFile} buttonLabel="Seleccionar PDF" accent={ACCENT} illustration="pdf" />;
   }
 
   if (out) {
-    return (
-      <div className="fixed inset-0 z-50 bg-[color:var(--color-bg)] flex items-center justify-center px-4">
-        <div className="max-w-md w-full text-center space-y-6">
-          <div className="w-24 h-24 mx-auto rounded-full bg-[color:var(--color-success)] text-white flex items-center justify-center text-5xl font-bold shadow-2xl">✓</div>
-          <div>
-            <h2 className="text-3xl font-bold tracking-tight">¡PDF firmado!</h2>
-            <p className="text-[color:var(--color-fg-soft)] mt-2">Tu PDF se firmó con {elements.length} firma{elements.length === 1 ? "" : "s"}.</p>
-          </div>
-          <button onClick={download} className="w-full py-4 rounded-2xl font-bold text-white text-lg shadow-2xl flex items-center justify-center gap-2 hover:scale-[1.02] transition" style={{ background: ACCENT }}>
-            <Download className="w-5 h-5" /> Descargar PDF firmado
-          </button>
-          <button onClick={reset} className="text-sm font-semibold text-[color:var(--color-fg-soft)] hover:underline">↻ Firmar otro PDF</button>
-        </div>
-      </div>
-    );
+    return <SuccessPage onDownload={download} onReset={reset} fileName={outFileName} signaturesCount={elements.length} />;
   }
 
   const sidebar = (
     <div className="space-y-5">
       <button
-        onClick={openSignModal}
+        onClick={() => setSignModalOpen(true)}
         className="w-full py-4 rounded-xl text-white font-bold shadow-md hover:shadow-lg hover:scale-[1.02] transition flex items-center justify-center gap-2"
         style={{ background: ACCENT }}
       >
@@ -192,7 +116,7 @@ export function PdfSign() {
             {savedSignatures.map((url, i) => (
               <button
                 key={i}
-                onClick={() => reuseSignature(url)}
+                onClick={() => placeSignatureOnPage(url)}
                 className="w-full rounded-lg border-2 border-[color:var(--color-border)] bg-white p-2 hover:border-[oklch(0.55_0.22_30)] hover:shadow transition flex items-center gap-2"
               >
                 <img src={url} alt={`firma ${i + 1}`} className="h-10 flex-1 object-contain" />
@@ -200,7 +124,7 @@ export function PdfSign() {
               </button>
             ))}
           </div>
-          <p className="text-[10px] text-[color:var(--color-fg-soft)] mt-2 text-center">Click para colocar otra copia</p>
+          <p className="text-[10px] text-[color:var(--color-fg-soft)] mt-2 text-center">Click para colocar otra copia en la página actual</p>
         </div>
       )}
 
@@ -210,8 +134,8 @@ export function PdfSign() {
         </div>
         <div className="text-xs text-[color:var(--color-fg-soft)] leading-relaxed">
           {elements.length === 0
-            ? "Tocá el botón rojo para abrir el panel de firma. Dibujá con mouse, dedo o stylus."
-            : "Mové la firma con el mouse a donde quieras. Usá la esquina inferior derecha para cambiar el tamaño."}
+            ? "Tocá el botón rojo de arriba. Podés dibujar, subir un PNG o escribir tu nombre con tipografía manuscrita."
+            : "Arrastrá la firma con el mouse. Esquina inferior derecha para cambiar tamaño. Usá el zoom (esquina superior derecha del visor) para precisión."}
         </div>
       </div>
 
@@ -265,45 +189,62 @@ export function PdfSign() {
         onClose={reset}
       />
 
-      {signModalOpen && (
-        <div className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in" onPointerDown={(e) => e.target === e.currentTarget && cancelSignModal()}>
-          <div className="bg-white dark:bg-[color:var(--color-bg-soft)] rounded-2xl shadow-2xl max-w-xl w-full overflow-hidden">
-            <div className="px-6 py-4 border-b border-[color:var(--color-border)] flex items-center justify-between">
-              <h3 className="text-lg font-bold flex items-center gap-2"><PenTool className="w-5 h-5" style={{ color: ACCENT }} /> Dibujá tu firma</h3>
-              <button onClick={cancelSignModal} className="w-9 h-9 rounded-full hover:bg-[color:var(--color-bg-soft)] flex items-center justify-center"><X className="w-5 h-5" /></button>
-            </div>
-            <div className="p-6 space-y-4">
-              <div className="rounded-xl border-2 bg-white shadow-inner overflow-hidden" style={{ borderColor: hasInk ? ACCENT : "var(--color-border)" }}>
-                <canvas
-                  ref={sigRef}
-                  className="block w-full cursor-crosshair touch-none"
-                  style={{ background: "white", height: "240px" }}
-                  onPointerDown={start}
-                  onPointerMove={move}
-                  onPointerUp={end}
-                  onPointerCancel={end}
-                  onPointerLeave={end}
-                />
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <button onClick={clearCanvas} disabled={!hasInk} className="font-medium hover:text-[color:var(--color-danger)] inline-flex items-center gap-1.5 disabled:opacity-40"><Eraser className="w-4 h-4" /> Limpiar</button>
-                <span className="text-xs text-[color:var(--color-fg-soft)]">{hasInk ? "✓ Firma lista" : "Mouse, dedo o stylus"}</span>
-              </div>
-            </div>
-            <div className="px-6 py-4 bg-[color:var(--color-bg-soft)] flex gap-3 justify-end">
-              <button onClick={cancelSignModal} className="px-5 py-2.5 rounded-lg font-medium hover:bg-white">Cancelar</button>
-              <button
-                onClick={saveAndPlace}
-                disabled={!hasInk}
-                className="px-6 py-2.5 rounded-lg font-bold text-white shadow-md disabled:opacity-50 disabled:cursor-not-allowed enabled:hover:scale-[1.02] transition"
-                style={{ background: hasInk ? ACCENT : "var(--color-fg-soft)" }}
-              >
-                Guardar y colocar firma
-              </button>
-            </div>
+      <SignatureModal open={signModalOpen} onClose={() => setSignModalOpen(false)} onSave={handleSaveSignature} accent={ACCENT} />
+    </>
+  );
+}
+
+function SuccessPage({ onDownload, onReset, fileName, signaturesCount }: { onDownload: () => void; onReset: () => void; fileName: string; signaturesCount: number }) {
+  return (
+    <div className="max-w-4xl mx-auto px-4 py-10 md:py-16">
+      <div className="text-center mb-8">
+        <div className="w-20 h-20 mx-auto rounded-full bg-[color:var(--color-success)] text-white flex items-center justify-center text-4xl font-bold shadow-xl mb-5">✓</div>
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">¡PDF firmado!</h1>
+        <p className="text-base text-[color:var(--color-fg-soft)]">Tu PDF se firmó con {signaturesCount} firma{signaturesCount === 1 ? "" : "s"} y está listo para descargar.</p>
+      </div>
+
+      <div className="rounded-2xl bg-[color:var(--color-bg-soft)] p-6 md:p-8 border border-[color:var(--color-border)] mb-8">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-14 h-16 rounded-lg flex items-center justify-center text-white shadow flex-shrink-0" style={{ background: ACCENT }}>
+            <span className="text-xs font-bold">PDF</span>
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="font-bold truncate">{fileName}</div>
+            <div className="text-xs text-[color:var(--color-fg-soft)]">Firmado · listo para descargar</div>
           </div>
         </div>
-      )}
-    </>
+        <button onClick={onDownload} className="w-full py-4 rounded-2xl font-bold text-white text-lg shadow-2xl flex items-center justify-center gap-2 hover:scale-[1.01] transition" style={{ background: ACCENT }}>
+          <Download className="w-5 h-5" /> Descargar PDF firmado
+        </button>
+        <button onClick={onReset} className="block mx-auto mt-3 text-sm font-semibold text-[color:var(--color-fg-soft)] hover:underline">↻ Firmar otro PDF</button>
+      </div>
+
+      <AdSlot slot="signature_success_inline" format="auto" minHeight={250} className="mb-10" />
+
+      <div className="mb-10">
+        <h2 className="text-xl font-bold mb-4">Continuá con otra herramienta</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          {[
+            { slug: "editar-pdf", name: "Editar PDF", desc: "Agregá texto a tu PDF", emoji: "✏️" },
+            { slug: "comprimir-pdf", name: "Comprimir PDF", desc: "Reduce el peso", emoji: "🗜️" },
+            { slug: "unir-pdf", name: "Unir PDF", desc: "Combiná varios PDFs", emoji: "🔗" },
+            { slug: "dividir-pdf", name: "Dividir PDF", desc: "Extraé páginas", emoji: "✂️" },
+            { slug: "pdf-a-jpg", name: "PDF a JPG", desc: "Cada página como imagen", emoji: "🖼️" },
+            { slug: "marca-agua-pdf", name: "Marca de agua", desc: "Estampá tu marca", emoji: "💧" }
+          ].map((t) => (
+            <Link key={t.slug} href={`/${t.slug}`} className="group rounded-xl border border-[color:var(--color-border)] bg-[color:var(--color-bg)] hover:border-[oklch(0.55_0.22_30)] hover:shadow-md transition p-4 flex items-center gap-3">
+              <div className="text-3xl">{t.emoji}</div>
+              <div className="flex-1 min-w-0">
+                <div className="font-bold text-sm">{t.name}</div>
+                <div className="text-xs text-[color:var(--color-fg-soft)]">{t.desc}</div>
+              </div>
+              <ArrowRight className="w-4 h-4 text-[color:var(--color-fg-soft)] group-hover:translate-x-1 transition" />
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      <AdSlot slot="signature_success_bottom" format="auto" minHeight={120} className="mb-8" />
+    </div>
   );
 }
