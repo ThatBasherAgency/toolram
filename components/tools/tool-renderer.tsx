@@ -68,7 +68,15 @@ const map = {
   "whois-domain": dynamic(() => import("./whois-domain").then((m) => m.WhoisDomain), { ssr: false }),
   "dns-lookup": dynamic(() => import("./dns-lookup").then((m) => m.DnsLookup), { ssr: false }),
   "headers-checker": dynamic(() => import("./headers-checker").then((m) => m.HeadersChecker), { ssr: false }),
-  "seo-quick-audit": dynamic(() => import("./seo-quick-audit").then((m) => m.SeoQuickAudit), { ssr: false })
+  "seo-quick-audit": dynamic(() => import("./seo-quick-audit").then((m) => m.SeoQuickAudit), { ssr: false }),
+  "mi-ip": dynamic(() => import("./my-ip").then((m) => m.MyIp), { ssr: false }),
+  "generador-utm": dynamic(() => import("./utm-builder").then((m) => m.UtmBuilder), { ssr: false }),
+  "conversor-divisas": dynamic(() => import("./currency-converter").then((m) => m.CurrencyConverter), { ssr: false }),
+  "numero-a-letras": dynamic(() => import("./number-to-words").then((m) => m.NumberToWords), { ssr: false }),
+  "calculadora-edad": dynamic(() => import("./age-calculator").then((m) => m.AgeCalculator), { ssr: false }),
+  "htaccess-generator": dynamic(() => import("./htaccess-generator").then((m) => m.HtaccessGenerator), { ssr: false }),
+  "generador-hashtags": dynamic(() => import("./hashtag-generator").then((m) => m.HashtagGenerator), { ssr: false }),
+  "password-strength": dynamic(() => import("./password-strength").then((m) => m.PasswordStrength), { ssr: false })
 } as const;
 
 export function ToolRenderer({ slug }: { slug: string }) {

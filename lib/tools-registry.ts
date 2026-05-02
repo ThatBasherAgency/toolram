@@ -812,6 +812,94 @@ export const TOOLS: Tool[] = [
       { q: "¿Qué incluye exactamente?", a: "Title/description con longitudes, encabezados H1/H2, canonical, robots, viewport, lang, Open Graph completo, Twitter card, schema JSON-LD detectados, % de imágenes con alt, conteo de links internos vs externos, HTTPS, HSTS y CSP." }
     ],
     related: ["whois-domain", "dns-lookup", "headers-checker", "analizador-meta", "previsualizador-serp"]
+  },
+  {
+    slug: "mi-ip",
+    category: "developer",
+    name: "Mi IP — ¿Cuál es mi dirección IP?",
+    shortDesc: "Tu IP pública, ubicación aproximada, ISP, zona horaria y user-agent.",
+    longDesc:
+      "Detectamos tu dirección IP pública (IPv4 o IPv6) y te mostramos información asociada: país, región, ciudad, código postal, organización (ISP), ASN, zona horaria y mapa con tu ubicación aproximada. La precisión es a nivel ciudad/provincia, no calle.",
+    keywords: ["mi ip", "cual es mi ip", "ip publica", "ip lookup", "what is my ip"],
+    popularity: 95,
+    related: ["dns-lookup", "whois-domain", "headers-checker"]
+  },
+  {
+    slug: "generador-utm",
+    category: "seo",
+    name: "Generador UTM",
+    shortDesc: "Constructor de URLs con parámetros UTM para Google Analytics y Meta Ads.",
+    longDesc:
+      "Crea URLs con UTM source/medium/campaign/term/content para trackear el origen exacto de cada visita en Google Analytics 4. Sugerencias rápidas para los valores estándar (google, facebook, cpc, social, email). URL final lista para copiar o probar.",
+    keywords: ["utm builder", "generador utm", "utm parameter", "google analytics tracking"],
+    popularity: 86,
+    related: ["analizador-meta", "previsualizador-serp", "generador-meta-tags"]
+  },
+  {
+    slug: "conversor-divisas",
+    category: "converter",
+    name: "Conversor de Divisas",
+    shortDesc: "Tasas de cambio actualizadas diariamente · USD, EUR, MXN, ARS, CLP, COP, BRL +30.",
+    longDesc:
+      "Convertí entre 30+ monedas con tasas oficiales del Banco Central Europeo (vía Frankfurter API), actualizadas diariamente en días hábiles. Soporta peso mexicano, argentino, chileno, colombiano, peruano, real brasileño, dólar, euro, libra, yen y más. Las tasas son referenciales — para transacciones reales tu banco aplica un spread del 2-5%.",
+    keywords: ["conversor divisas", "tipo de cambio", "currency converter", "dolar a peso", "euro a dolar"],
+    popularity: 96,
+    related: ["conversor-unidades", "calculadora-edad", "numero-a-letras"]
+  },
+  {
+    slug: "numero-a-letras",
+    category: "converter",
+    name: "Número a Letras (en español)",
+    shortDesc: "Convierte números a texto en español. Ideal para cheques, facturas, contratos.",
+    longDesc:
+      "Convertidor de números a letras en español con 5 formatos simultáneos: texto general, pesos mexicanos, pesos argentinos, dólares y euros, todos con el formato XX/100 estándar para documentos formales. Soporta hasta cientos de miles de millones, con decimales de centavos.",
+    keywords: ["numero a letras", "numero en letras", "convertidor numero texto"],
+    popularity: 89,
+    related: ["conversor-divisas", "conversor-unidades", "contador-palabras"]
+  },
+  {
+    slug: "calculadora-edad",
+    category: "calculator",
+    name: "Calculadora de Edad detallada",
+    shortDesc: "Tu edad exacta en años, meses, días, horas y segundos · signo zodiacal incluido.",
+    longDesc:
+      "Calculadora completa de edad: ingresá tu fecha de nacimiento y obtené años + meses + días, además de tu edad expresada en meses totales, semanas, días, horas, minutos y segundos. Bonus: tu signo zodiacal occidental, signo del horóscopo chino, día de la semana en que naciste y cuántos días faltan para tu próximo cumpleaños.",
+    keywords: ["calculadora edad", "edad exacta", "cumpleaños", "horoscopo edad"],
+    popularity: 92,
+    related: ["calculadoras", "numero-a-letras", "cronometro"]
+  },
+  {
+    slug: "htaccess-generator",
+    category: "developer",
+    name: "Generador .htaccess",
+    shortDesc: "Configura redirects 301, HTTPS, cache, gzip y seguridad para Apache.",
+    longDesc:
+      "Generador visual de archivo .htaccess para servidores Apache. Toggles para forzar HTTPS, canonical www/sin www, URLs limpias (quitar index.html), redirects 301 personalizados, compresión gzip, cache del navegador (mejora Core Web Vitals), bloqueo de archivos sensibles (.env, .git, wp-config.php), anti-hotlinking y páginas de error custom. Código copiable o descargable.",
+    keywords: ["generador htaccess", "htaccess redirect", "apache config", "htaccess wordpress"],
+    popularity: 84,
+    related: ["generador-robots", "headers-checker", "seo-quick-audit", "json-formatter"]
+  },
+  {
+    slug: "generador-hashtags",
+    category: "ai",
+    name: "Generador de Hashtags",
+    shortDesc: "Hashtags para Instagram, TikTok, X y LinkedIn por categoría + variaciones.",
+    longDesc:
+      "Generador de hashtags por categoría (fitness, food, travel, fashion, beauty, tech, business, photography, pets, motivation, real estate, music) más variaciones automáticas de tu keyword propia. Ajustá la cantidad de 10 (LinkedIn) a 30 (Instagram máximo). Incluye recomendaciones por plataforma social.",
+    keywords: ["generador hashtags", "hashtags instagram", "hashtags tiktok", "best hashtags"],
+    popularity: 91,
+    related: ["generador-titulos-seo", "prompt-builder", "plantillas-prompts"]
+  },
+  {
+    slug: "password-strength",
+    category: "developer",
+    name: "Test de fuerza de contraseña",
+    shortDesc: "Mide entropía, tiempo de crackeo y vulnerabilidades · 100% local.",
+    longDesc:
+      "Análisis completo de tu contraseña: entropía en bits, tiempo de crackeo asumiendo 10⁹ intentos/segundo (GPU moderna), score visual muy débil/débil/media/fuerte/muy fuerte y 10 checks específicos (longitud, mayúsculas, números, símbolos, no común, no secuencias, sin repeticiones). Detecta contraseñas comprometidas en listas públicas de filtraciones. Análisis 100% en tu navegador — la contraseña jamás se envía.",
+    keywords: ["password strength", "fortaleza contraseña", "contraseña segura", "password tester"],
+    popularity: 88,
+    related: ["generador-passwords", "hash-md5-sha", "jwt-decoder"]
   }
 ];
 

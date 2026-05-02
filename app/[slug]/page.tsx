@@ -320,7 +320,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     "seo-quick-audit": "oklch(0.55 0.2 145)"
   };
   const FULLSCREEN_TOOLS = new Set(["firmar-pdf", "editar-pdf", "reordenar-pdf"]);
-  const SELF_HERO_TOOLS = new Set(["whois-domain", "dns-lookup", "headers-checker", "seo-quick-audit"]);
+  const SELF_HERO_TOOLS = new Set(["whois-domain", "dns-lookup", "headers-checker", "seo-quick-audit", "mi-ip", "generador-utm", "conversor-divisas", "numero-a-letras", "calculadora-edad", "htaccess-generator", "generador-hashtags", "password-strength"]);
   if (SELF_HERO_TOOLS.has(tool.slug)) {
     return (
       <>
