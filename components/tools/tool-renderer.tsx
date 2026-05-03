@@ -91,7 +91,28 @@ const map = {
   "pomodoro": dynamic(() => import("./pomodoro-timer").then((m) => m.PomodoroTimer), { ssr: false }),
   "calculadora-cientifica": dynamic(() => import("./scientific-calculator").then((m) => m.ScientificCalculator), { ssr: false }),
   "markdown-html": dynamic(() => import("./markdown-html").then((m) => m.MarkdownHtmlConverter), { ssr: false }),
-  "favicon-generator": dynamic(() => import("./favicon-generator").then((m) => m.FaviconGenerator), { ssr: false })
+  "favicon-generator": dynamic(() => import("./favicon-generator").then((m) => m.FaviconGenerator), { ssr: false }),
+  "creador-backlinks": dynamic(() => import("./backlink-maker").then((m) => m.BacklinkMaker), { ssr: false }),
+  "test-velocidad-web": dynamic(() => import("./web-speed-test").then((m) => m.WebSpeedTest), { ssr: false }),
+  "citas-apa": dynamic(() => import("./citation-generator").then((m) => m.CitationGenerator), { ssr: false }),
+  "buscar-rimas": dynamic(() => import("./rhyme-finder").then((m) => m.RhymeFinder), { ssr: false }),
+  "generador-username": dynamic(() => import("./username-generator").then((m) => m.UsernameGenerator), { ssr: false }),
+  "slug-generator": dynamic(() => import("./slug-generator").then((m) => m.SlugGenerator), { ssr: false }),
+  "youtube-thumbnail": dynamic(() => import("./youtube-thumbnail").then((m) => m.YoutubeThumbnail), { ssr: false }),
+  "json-csv": dynamic(() => import("./json-csv").then((m) => m.JsonCsvConverter), { ssr: false }),
+  "html-formatter": dynamic(() => import("./html-formatter").then((m) => m.HtmlFormatter), { ssr: false }),
+  "js-formatter": dynamic(() => import("./js-formatter").then((m) => m.JsFormatter), { ssr: false }),
+  "validador-email": dynamic(() => import("./email-validator").then((m) => m.EmailValidator), { ssr: false }),
+  "texto-a-voz": dynamic(() => import("./text-to-speech").then((m) => m.TextToSpeech), { ssr: false }),
+  "voz-a-texto": dynamic(() => import("./speech-to-text").then((m) => m.SpeechToText), { ssr: false }),
+  "rotar-imagen": dynamic(() => import("./image-rotate").then((m) => m.ImageRotate), { ssr: false }),
+  "filtros-imagen": dynamic(() => import("./image-filters").then((m) => m.ImageFilters), { ssr: false }),
+  "generador-nombres": dynamic(() => import("./name-generator").then((m) => m.NameGenerator), { ssr: false }),
+  "generador-anagrama": dynamic(() => import("./anagram-generator").then((m) => m.AnagramGenerator), { ssr: false }),
+  "generador-logo-texto": dynamic(() => import("./text-logo").then((m) => m.TextLogo), { ssr: false }),
+  "anchor-text": dynamic(() => import("./anchor-text").then((m) => m.AnchorText), { ssr: false }),
+  "whatsapp-link": dynamic(() => import("./whatsapp-link").then((m) => m.WhatsappLink), { ssr: false }),
+  "ocr-imagen-texto": dynamic(() => import("./image-to-text").then((m) => m.ImageToText), { ssr: false })
 } as const;
 
 export function ToolRenderer({ slug }: { slug: string }) {

@@ -1083,6 +1083,250 @@ export const TOOLS: Tool[] = [
     keywords: ["favicon generator", "generador favicon", "favicon online", "icono web"],
     popularity: 88,
     related: ["paleta-colores", "convertidor-color", "generador-qr"]
+  },
+  {
+    slug: "creador-backlinks",
+    category: "seo",
+    name: "Creador de Backlinks Gratis",
+    shortDesc: "Envía tu URL a 40+ servicios SEO públicos · Backlinks legítimos gratis.",
+    longDesc:
+      "Backlink Maker que envía tu URL a 40+ herramientas SEO públicas (Wayback Machine, Google PageSpeed, GTmetrix, BuiltWith, Ahrefs, Similarweb, WhoIs, schema validators, sociales y más). Estos servicios al consultar tu sitio generan reportes públicos indexables = backlinks reales y legítimos. Filtros por categoría: SEO, velocidad, cache, schema, social, seguridad. Track de servicios ya enviados. NO es spam — son consultas reales que diagnostican tu sitio Y dejan trace público.",
+    keywords: ["creador backlinks gratis", "backlink maker", "crear backlinks", "backlinks gratuitos", "submit url seo tools"],
+    popularity: 99,
+    faqs: [
+      { q: "¿Es legal y seguro?", a: "100% legal. Solo envía tu URL a herramientas públicas que cualquiera puede consultar. No genera links artificiales — son reportes reales que aparecen en los resultados de búsqueda." },
+      { q: "¿Cuántos backlinks reales obtengo?", a: "Variable. No todos los reportes terminan indexados por Google, pero típicamente 30-60% sí. Es un suplemento a tu estrategia SEO, no reemplazo." },
+      { q: "¿Penaliza Google?", a: "No, porque son consultas naturales a herramientas públicas. Distinto a paquetes de 'comprar backlinks' que sí pueden penalizar." }
+    ],
+    related: ["headers-checker", "seo-quick-audit", "whois-domain", "anchor-text"]
+  },
+  {
+    slug: "test-velocidad-web",
+    category: "seo",
+    name: "Test de Velocidad de Sitio Web",
+    shortDesc: "Mide TTFB y tiempo total de carga · Diagnóstico desde Edge.",
+    longDesc:
+      "Mide la velocidad de carga de cualquier sitio web desde un edge server: TTFB (Time To First Byte), tiempo total de descarga del HTML, status code y tamaño del documento. Categoriza performance (excelente/aceptable/lento) según benchmarks Google. Para análisis completo de Core Web Vitals incluye link directo a PageSpeed Insights.",
+    keywords: ["test velocidad web", "speed test website", "medir velocidad sitio", "ttfb checker", "page speed test"],
+    popularity: 94,
+    related: ["headers-checker", "seo-quick-audit", "creador-backlinks"]
+  },
+  {
+    slug: "citas-apa",
+    category: "generator",
+    name: "Generador de Citas APA · MLA · Chicago",
+    shortDesc: "Crea referencias bibliográficas APA 7, MLA 9, Chicago, Harvard.",
+    longDesc:
+      "Generador de citas académicas en 4 estilos (APA 7ma edición, MLA 9, Chicago, Harvard) para 3 tipos de fuente: páginas web, libros y artículos de revista. Genera la referencia con formato exacto incluyendo autor, año, título, editor, ciudad, volumen, número, páginas y URL según corresponda. Ideal para tesis, ensayos universitarios y trabajos de investigación.",
+    keywords: ["generador citas apa", "citas mla", "bibliografía online", "citation generator", "referencias bibliográficas"],
+    popularity: 92,
+    related: ["contador-palabras", "markdown-html", "plantillas-prompts"]
+  },
+  {
+    slug: "buscar-rimas",
+    category: "text",
+    name: "Buscador de Rimas en Español",
+    shortDesc: "Encuentra rimas consonantes y asonantes para canciones, poemas, raps.",
+    longDesc:
+      "Buscador de rimas en español con diccionario de 200+ palabras comunes. Modo consonante (rima perfecta donde coinciden vocales y consonantes) o asonante (solo coinciden vocales). Útil para escribir canciones, hip-hop, poesía, jingles publicitarios y discursos.",
+    keywords: ["buscar rimas", "rimas español", "rhymes spanish", "rimas consonantes", "rimas asonantes"],
+    popularity: 89,
+    related: ["contador-palabras", "texto-invertido", "generador-anagrama"]
+  },
+  {
+    slug: "generador-username",
+    category: "generator",
+    name: "Generador de Usernames",
+    shortDesc: "Nombres únicos para Instagram, TikTok, Twitch, Discord, gaming.",
+    longDesc:
+      "Generador de nombres de usuario en 8 estilos diferentes: gaming (con números), aesthetic (con puntos), pro (CamelCase), underscore, X theme, 1337 (leet speak), uppercase, con números. Soporta nombre base personalizado o genera variedad aleatoria. Verifica disponibilidad en namechk.com antes de elegir.",
+    keywords: ["generador username", "nombres de usuario", "username generator", "nick gaming", "nombres instagram"],
+    popularity: 91,
+    related: ["generador-nombres", "generador-passwords", "generador-anagrama"]
+  },
+  {
+    slug: "slug-generator",
+    category: "seo",
+    name: "Generador de Slug URL",
+    shortDesc: "Convierte títulos en URLs amigables para SEO sin acentos ni stopwords.",
+    longDesc:
+      "Convierte cualquier título o frase en un slug URL optimizado para SEO: quita acentos, ñ, símbolos, normaliza separador (guión, underscore, punto), opcionalmente elimina stopwords (el, la, de, y, etc) y respeta largo máximo (20-120 chars). Genera URLs limpias, legibles y SEO-friendly al estilo de Yoast.",
+    keywords: ["slug generator", "url slug", "permalink generator", "url amigable", "seo url"],
+    popularity: 87,
+    related: ["generador-meta-tags", "previsualizador-serp", "creador-backlinks"]
+  },
+  {
+    slug: "youtube-thumbnail",
+    category: "image",
+    name: "Descargar Miniatura de YouTube",
+    shortDesc: "Descarga thumbnails de cualquier video de YouTube en 5 calidades.",
+    longDesc:
+      "Extrae el ID de cualquier URL de YouTube (videos normales y Shorts) y descarga la miniatura oficial en 5 calidades: maxres (1920x1080), HQ (480x360), MQ (320x180), SD (640x480) y default (120x90). Descarga directa desde el CDN oficial de YouTube (i.ytimg.com). Útil para análisis de competencia, materiales educativos, blog posts.",
+    keywords: ["descargar miniatura youtube", "youtube thumbnail downloader", "thumbnail yt", "miniatura video"],
+    popularity: 95,
+    related: ["redimensionar-imagen", "comprimir-imagen", "convertir-imagen"]
+  },
+  {
+    slug: "json-csv",
+    category: "developer",
+    name: "Conversor JSON ↔ CSV",
+    shortDesc: "Convierte JSON a CSV y viceversa · Detección automática de tipos.",
+    longDesc:
+      "Conversor bidireccional JSON a CSV y CSV a JSON con detección automática de tipos (números, booleans, null). Soporta arrays de objetos, separadores múltiples (coma, punto y coma, tab, pipe), escapado de comillas y comas en campos. Útil para migrar datos entre sistemas, exportar APIs a Excel, importar exportaciones de WooCommerce/Shopify.",
+    keywords: ["json to csv", "csv to json", "conversor json csv", "json csv converter"],
+    popularity: 90,
+    related: ["json-formatter", "yaml-json-converter", "html-formatter"]
+  },
+  {
+    slug: "html-formatter",
+    category: "developer",
+    name: "HTML Beautifier / Minifier",
+    shortDesc: "Formatea HTML legible o minifícalo para producción.",
+    longDesc:
+      "HTML beautifier y minifier en una herramienta. Beautify formatea con indentación personalizable (2/4 espacios o tab), respeta tags inline (a, span, em, strong) y muestra el HTML legible. Minify quita espacios, comentarios y saltos de línea reduciendo 20-40% del tamaño. Stats en vivo de % de reducción.",
+    keywords: ["html formatter", "html beautifier", "html minifier", "formatear html", "minificar html"],
+    popularity: 86,
+    related: ["css-formatter", "js-formatter", "json-formatter"]
+  },
+  {
+    slug: "js-formatter",
+    category: "developer",
+    name: "JavaScript Beautifier / Minifier",
+    shortDesc: "Formatea o comprime código JavaScript respetando strings y comentarios.",
+    longDesc:
+      "JavaScript beautifier y minifier que respeta strings, comentarios, template literals y operadores. Beautify añade indentación coherente con saltos de línea. Minify quita espacios y comentarios. Para builds reales se recomienda esbuild/terser/swc, pero esta herramienta es útil para code review, debugging y archivos sueltos.",
+    keywords: ["js beautifier", "javascript minifier", "js formatter", "formatear javascript"],
+    popularity: 85,
+    related: ["html-formatter", "css-formatter", "json-formatter"]
+  },
+  {
+    slug: "validador-email",
+    category: "developer",
+    name: "Validador de Email + MX",
+    shortDesc: "Verifica formato, dominio, MX records y detecta emails desechables.",
+    longDesc:
+      "Validador completo de email: formato RFC válido, parte local (≤64 chars), dominio (≤253 chars), detección de emails desechables (mailinator, 10minutemail, etc), corrección de typos comunes (gmial.com → gmail.com) y verificación de MX records vía DNS-over-HTTPS. Score 0-5. Útil antes de campañas de email marketing para reducir bounce rate.",
+    keywords: ["validador email", "verificar email", "email validator", "mx record check", "email checker"],
+    popularity: 88,
+    related: ["dns-lookup", "whois-domain", "headers-checker"]
+  },
+  {
+    slug: "texto-a-voz",
+    category: "ai",
+    name: "Texto a Voz Online (Text to Speech)",
+    shortDesc: "Convierte texto en audio con voces nativas · 40+ idiomas · Sin límite.",
+    longDesc:
+      "Text-to-speech 100% gratis usando la Web Speech API nativa del navegador. Más de 40 idiomas y 100+ voces (depende del sistema). Control de velocidad (0.5x - 2x), tono y volumen. No requiere instalación ni conexión externa. Para audiolibros, accesibilidad, aprender pronunciación de idiomas.",
+    keywords: ["texto a voz", "text to speech", "lector de texto", "tts español", "voz artificial"],
+    popularity: 93,
+    related: ["voz-a-texto", "contador-palabras", "ocr-imagen-texto"]
+  },
+  {
+    slug: "voz-a-texto",
+    category: "ai",
+    name: "Voz a Texto (Speech to Text)",
+    shortDesc: "Dicta y convierte tu voz a texto en tiempo real · 12 idiomas.",
+    longDesc:
+      "Speech-to-text gratis con la Web Speech API. Reconocimiento continuo en tiempo real con resultados intermedios visibles. 12 idiomas pre-configurados (español MX/AR/CO/ES/CL/PE, inglés US/UK, portugués, francés, italiano, alemán). Útil para tomar notas, transcribir entrevistas, dictar emails. Funciona en Chrome, Edge y Safari.",
+    keywords: ["voz a texto", "speech to text", "dictado voz", "transcribir audio", "reconocimiento voz"],
+    popularity: 91,
+    related: ["texto-a-voz", "ocr-imagen-texto", "contador-palabras"]
+  },
+  {
+    slug: "rotar-imagen",
+    category: "image",
+    name: "Rotar y Voltear Imagen",
+    shortDesc: "Rotación 90/180/270° + flip horizontal y vertical · Sin servidor.",
+    longDesc:
+      "Rotador y volteador de imágenes 100% client-side con Canvas API. Rotación en pasos de 90° y flip horizontal/vertical. Soporta JPG, PNG, WebP. Descarga en JPG (calidad 92%) o PNG (lossless). Útil para fotos del celular sin EXIF rotation, selfies invertidos, documentos escaneados.",
+    keywords: ["rotar imagen", "voltear imagen", "rotate image online", "flip image", "girar foto"],
+    popularity: 89,
+    related: ["redimensionar-imagen", "recortar-imagen", "filtros-imagen"]
+  },
+  {
+    slug: "filtros-imagen",
+    category: "image",
+    name: "Filtros de Imagen Online",
+    shortDesc: "10 presets (B&N, sepia, vintage, polaroid) + ajustes manuales.",
+    longDesc:
+      "Editor de filtros de imagen con 10 presets profesionales: Original, B&N, Sepia, Vintage, Polaroid, Frío, Cálido, Drama, Dreamy, Negativo. Ajustes manuales de brillo, contraste, saturación, gris, sepia, blur, hue rotation e invertir. Procesado 100% en navegador con Canvas API. Descarga en JPG calidad alta.",
+    keywords: ["filtros imagen online", "image filters", "blanco y negro foto", "sepia filter", "polaroid effect"],
+    popularity: 87,
+    related: ["recortar-imagen", "rotar-imagen", "marca-agua-imagen"]
+  },
+  {
+    slug: "generador-nombres",
+    category: "generator",
+    name: "Generador de Nombres LATAM",
+    shortDesc: "Nombres y apellidos hispanos aleatorios para personajes y datos demo.",
+    longDesc:
+      "Generador de nombres y apellidos hispanos con 80 nombres (40 masculinos + 40 femeninos) y 50 apellidos comunes en LATAM y España. Opciones: género (masculino/femenino/cualquiera), cantidad (1-50), segundo nombre, título profesional (Lic., Ing., Dr., etc). Útil para personajes de novela, NPCs en juegos, datos demo en bases de prueba.",
+    keywords: ["generador nombres", "nombres aleatorios", "name generator spanish", "nombres latam", "apellidos hispanos"],
+    popularity: 84,
+    related: ["generador-username", "numero-aleatorio", "ruleta-decision"]
+  },
+  {
+    slug: "generador-anagrama",
+    category: "text",
+    name: "Generador de Anagramas",
+    shortDesc: "Reordena las letras de una palabra para encontrar todas las combinaciones.",
+    longDesc:
+      "Generador de anagramas: reordena las letras de una palabra para formar todas las permutaciones posibles. Hasta 7 letras muestra TODAS las permutaciones (max 5,040). Más de 7 letras muestra 50 combinaciones aleatorias (porque 8! = 40,320 y crece exponencial). Útil para crucigramas, juegos de palabras, encontrar nombres únicos.",
+    keywords: ["generador anagramas", "anagrama español", "anagram generator", "reordenar letras"],
+    popularity: 82,
+    related: ["buscar-rimas", "contador-palabras", "generador-username"]
+  },
+  {
+    slug: "generador-logo-texto",
+    category: "generator",
+    name: "Generador de Logo de Texto",
+    shortDesc: "Crea logos tipográficos en 6 estilos · Descarga PNG transparente.",
+    longDesc:
+      "Generador de logos basados en texto con 6 estilos: solid, gradient, outline, shadow, neon, retro. 6 fuentes (bold sans, serif, mono, italic, light, black), 2 colores personalizables, tamaño 40-200px, fondo personalizado o transparente. Descarga PNG en alta resolución (1200x400). Ideal para wordmarks de marca personal, logos rápidos, headers de redes sociales.",
+    keywords: ["logo texto", "text logo maker", "wordmark generator", "crear logo gratis"],
+    popularity: 90,
+    related: ["favicon-generator", "paleta-colores", "gradient-generator"]
+  },
+  {
+    slug: "anchor-text",
+    category: "seo",
+    name: "Generador de Anchor Text SEO",
+    shortDesc: "Variaciones naturales para link building · Mix exact + branded + generic.",
+    longDesc:
+      "Genera 21 variaciones de anchor text para link building seguro: exact match (con advertencia de riesgo), phrase match (mejor X, X gratis, X 2026), branded, naked URL, generic (click acá, leer más), LSI, long-tail, preguntas. Indica peso recomendado (alto/medio/bajo). Distribución natural sugerida: 40-50% branded, 25-30% generic, 15-20% phrase, ≤10% exact match.",
+    keywords: ["anchor text generator", "generador anchor text", "link building anchors", "anchor text seo"],
+    popularity: 86,
+    related: ["creador-backlinks", "slug-generator", "generador-meta-tags"]
+  },
+  {
+    slug: "whatsapp-link",
+    category: "generator",
+    name: "Generador de Link WhatsApp (wa.me)",
+    shortDesc: "Crea wa.me con mensaje precargado · Botón HTML + QR · Sin guardar contacto.",
+    longDesc:
+      "Generador de links wa.me para WhatsApp con mensaje precargado. Soporta 18 países LATAM + España + USA. Genera 3 outputs: link directo wa.me, código HTML del botón verde oficial listo para pegar en tu web, y QR descargable (vía api.qrserver.com). Click-to-chat sin necesidad de guardar el número. Ideal para landing pages, bio de Instagram/TikTok, email signature, flyers con QR.",
+    keywords: ["link whatsapp", "wa.me generator", "boton whatsapp web", "click to chat", "qr whatsapp"],
+    popularity: 96,
+    faqs: [
+      { q: "¿Funciona sin guardar el contacto?", a: "Sí, ese es el principal beneficio de wa.me. El visitante hace click y se abre WhatsApp con la conversación lista, sin agregar tu número a sus contactos." },
+      { q: "¿Puedo poner el botón en mi web?", a: "Sí. Copiá el código HTML que generamos y pegalo donde quieras. Es un anchor con SVG inline, sin dependencias." }
+    ],
+    related: ["generador-qr", "generador-utm", "favicon-generator"]
+  },
+  {
+    slug: "ocr-imagen-texto",
+    category: "ai",
+    name: "OCR · Imagen a Texto",
+    shortDesc: "Extrae texto de fotos, capturas y documentos escaneados · 6 idiomas.",
+    longDesc:
+      "OCR (Optical Character Recognition) usando Tesseract.js que corre 100% en tu navegador (la imagen NUNCA se sube a un servidor). Soporta español, inglés, portugués, francés, italiano y alemán. Primera vez tarda ~10s en cargar el modelo (~3MB), después es instantáneo. Útil para extraer texto de capturas de pantalla, fotos de pizarrón, documentos físicos escaneados, libros antiguos.",
+    keywords: ["ocr español", "imagen a texto", "extraer texto imagen", "ocr online", "image to text"],
+    popularity: 92,
+    faqs: [
+      { q: "¿Es gratis?", a: "100% gratis. Tesseract.js es open source. No hay límite de imágenes." },
+      { q: "¿Sube mi imagen a algún servidor?", a: "No. Todo el reconocimiento se hace en tu navegador con WebAssembly. Tu imagen nunca sale de tu computadora." }
+    ],
+    related: ["voz-a-texto", "texto-a-voz", "rotar-imagen"]
   }
 ];
 
