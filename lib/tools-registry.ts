@@ -1327,6 +1327,170 @@ export const TOOLS: Tool[] = [
       { q: "¿Sube mi imagen a algún servidor?", a: "No. Todo el reconocimiento se hace en tu navegador con WebAssembly. Tu imagen nunca sale de tu computadora." }
     ],
     related: ["voz-a-texto", "texto-a-voz", "rotar-imagen"]
+  },
+  {
+    slug: "calculadora-calorias",
+    category: "calculator",
+    name: "Calculadora de Calorías (TDEE)",
+    shortDesc: "Calorías diarias según objetivo + macros · Fórmula Mifflin-St Jeor.",
+    longDesc:
+      "Calculadora completa de calorías diarias usando fórmula Mifflin-St Jeor (la más precisa según estudios). Calcula BMR (metabolismo basal), TDEE (gasto total con factor de actividad: sedentario, ligero, moderado, activo, muy activo) y ajusta según objetivo: perder peso (-500/-250 kcal), mantener, o ganar (+250/+500 kcal). Incluye distribución de macros: proteína (2g/kg peso), grasa (25% calorías), carbos (resto). Para dieta keto, cutting, bulking, recomposición.",
+    keywords: ["calculadora calorias", "tdee calculator", "calculadora bmr", "calorías diarias", "macros calculator", "calculadora dieta"],
+    popularity: 96,
+    faqs: [
+      { q: "¿Qué fórmula usa?", a: "Mifflin-St Jeor (1990), considerada la más precisa para personas no obesas. Más precisa que Harris-Benedict que tiende a sobreestimar." },
+      { q: "¿Cuántas calorías para bajar de peso?", a: "Déficit de 500 kcal/día = ~0.5kg/semana. Más agresivo (>750 kcal) puede causar pérdida muscular y rebote." },
+      { q: "¿Cuánta proteína debo comer?", a: "Mínimo 1.6g/kg peso si entrenas, 2g/kg si estás en cutting. Más de 2.2g/kg no aporta beneficio adicional." }
+    ],
+    related: ["calculadora-imc", "calculadora-edad", "conversor-unidades"]
+  },
+  {
+    slug: "calculadora-embarazo",
+    category: "calculator",
+    name: "Calculadora de Embarazo",
+    shortDesc: "Fecha probable de parto + semanas + trimestre · Regla de Naegele.",
+    longDesc:
+      "Calculadora de embarazo que estima fecha probable de parto, semanas de gestación actuales, trimestre y hitos importantes (ecografía 12 sem, morfológica 20 sem, viabilidad 24 sem, a término 37 sem). Calcula desde la FUM (fecha última menstruación), fecha de concepción o fecha probable de parto. Aplica la regla de Naegele (FUM + 280 días).",
+    keywords: ["calculadora embarazo", "fecha probable parto", "semanas embarazo", "fpp calculator", "regla naegele"],
+    popularity: 97,
+    faqs: [
+      { q: "¿Es exacta la fecha de parto?", a: "Es orientativa. Solo el 5% de bebés nace exactamente en la fecha calculada. El rango normal es ±2 semanas." },
+      { q: "¿Cuántas semanas dura el embarazo?", a: "40 semanas desde la FUM (38 desde concepción). A término: entre 37 y 42 semanas." },
+      { q: "¿Y si tengo ciclos irregulares?", a: "La calculadora asume ciclos de 28 días. Para ciclos muy irregulares, la ecografía del primer trimestre da la fecha más precisa." }
+    ],
+    related: ["calculadora-ovulacion", "calculadora-edad", "calculadora-imc"]
+  },
+  {
+    slug: "calculadora-ovulacion",
+    category: "calculator",
+    name: "Calculadora de Ovulación",
+    shortDesc: "Días fértiles, día de ovulación y próxima regla · Ciclos 21-45 días.",
+    longDesc:
+      "Calcula tu día de ovulación, ventana fértil de 6 días (5 antes + día de ovulación) y próxima menstruación. Para ciclos regulares de 21 a 45 días. Útil tanto para buscar embarazo como para conocer tu ciclo. NOTA: el método del calendario solo NO es anticonceptivo confiable (24% de fallo anual).",
+    keywords: ["calculadora ovulación", "días fértiles", "ovulation calculator", "ventana fértil", "calculadora menstrual"],
+    popularity: 95,
+    related: ["calculadora-embarazo", "calculadora-edad", "calculadora-imc"]
+  },
+  {
+    slug: "calculadora-horas-trabajadas",
+    category: "calculator",
+    name: "Calculadora de Horas Trabajadas",
+    shortDesc: "Suma horas + descanso · Sueldo a la hora · Multi-día.",
+    longDesc:
+      "Calculadora de horas para freelancers, planilla y time tracking. Suma múltiples días con horario de entrada, salida, descanso (en minutos), calcula total de horas trabajadas y monto a cobrar según tarifa por hora. Soporta turnos que cruzan medianoche. Múltiples monedas.",
+    keywords: ["calculadora horas trabajadas", "calcular sueldo hora", "timesheet calculator", "horas freelance"],
+    popularity: 92,
+    related: ["calculadora-sueldo-neto", "conversor-divisas", "cronometro"]
+  },
+  {
+    slug: "validador-rfc-curp",
+    category: "developer",
+    name: "Validador RFC · CURP México",
+    shortDesc: "Verifica RFC (física/moral) y CURP · Detecta sexo y estado.",
+    longDesc:
+      "Validador de RFC y CURP mexicanos con verificación de estructura. RFC: detecta si es persona física (13 chars) o moral (12 chars). CURP: verifica los 18 caracteres y extrae sexo (Hombre/Mujer) + estado de nacimiento (32 estados de México). Validación local sin enviar datos a servidores.",
+    keywords: ["validador rfc", "verificar curp", "rfc valido", "curp checker", "rfc mexico", "curp mexico"],
+    popularity: 91,
+    related: ["validador-dni-nie", "validador-clabe-cbu", "calculadora-sueldo-neto"]
+  },
+  {
+    slug: "validador-clabe-cbu",
+    category: "developer",
+    name: "Validador CLABE · CBU Bancario",
+    shortDesc: "Verifica CLABE México (18) o CBU Argentina (22) · Identifica banco.",
+    longDesc:
+      "Validador de claves bancarias estándar: CLABE México (18 dígitos, identifica banco emisor entre 90+) y CBU Argentina (22 dígitos, doble dígito verificador). Verifica estructura y dígitos verificadores. Útil para confirmar transferencias antes de enviar dinero.",
+    keywords: ["validador clabe", "verificar cbu", "clabe banco", "cbu argentina", "calculadora clabe"],
+    popularity: 89,
+    related: ["validador-rfc-curp", "validador-dni-nie", "calculadora-sueldo-neto"]
+  },
+  {
+    slug: "calculadora-sueldo-neto",
+    category: "calculator",
+    name: "Calculadora de Sueldo Neto",
+    shortDesc: "Cuánto cobrás en mano · 6 países LATAM + España.",
+    longDesc:
+      "Calcula el sueldo neto mensual (lo que recibes en la cuenta) a partir del bruto en 6 países: México (ISR + IMSS), Argentina (Ganancias + aportes), Chile (AFP 10% + Salud 7%), Perú (AFP + IR según UIT), Colombia (salud + pensión), España (IRPF + Seguridad Social). Aproximación 2026 sin deducciones especiales.",
+    keywords: ["calculadora sueldo neto", "calcular sueldo neto", "salario neto bruto", "sueldo en mano"],
+    popularity: 94,
+    related: ["calculadora-iva", "calculadora-prestamo", "calculadora-horas-trabajadas"]
+  },
+  {
+    slug: "calculadora-edad-mascota",
+    category: "calculator",
+    name: "Edad de Mi Mascota en Años Humanos",
+    shortDesc: "¿Qué edad tendría tu perro o gato si fuera humano? · AAHA 2026.",
+    longDesc:
+      "Calcula la edad de tu perro o gato en años humanos usando la fórmula científica AAHA (American Animal Hospital Association). La regla popular '1 año = 7 humanos' es FALSA: el primer año = 15 años humanos, segundo año = +9 más (total 24), después depende de la raza/tamaño. Soporta perros pequeños/medianos/grandes/gigantes y gatos.",
+    keywords: ["edad mascota humanos", "edad perro humanos", "dog years calculator", "edad gato humanos", "anos humanos perro"],
+    popularity: 88,
+    related: ["calculadora-edad", "calculadora-imc", "calculadora-calorias"]
+  },
+  {
+    slug: "escaner-qr",
+    category: "image",
+    name: "Lector de Códigos QR",
+    shortDesc: "Escanea QR desde cámara o imagen · 100% en tu navegador.",
+    longDesc:
+      "Lector de códigos QR usando jsQR client-side. Dos modos: subir imagen (JPG/PNG/WebP) o usar la cámara del dispositivo (escaneo en tiempo real). Detecta URLs, texto, vCards, WiFi, EPC bancarios y todo formato QR estándar. Privacidad total: la imagen y contenido NUNCA se envían a ningún servidor.",
+    keywords: ["lector qr", "escanear qr", "qr scanner online", "leer codigo qr", "qr reader"],
+    popularity: 95,
+    related: ["generador-qr", "whatsapp-link", "barcode-generator"]
+  },
+  {
+    slug: "barcode-generator",
+    category: "generator",
+    name: "Generador de Código de Barras EAN-13",
+    shortDesc: "Crea códigos de barras EAN-13 con dígito verificador · Descarga PNG.",
+    longDesc:
+      "Generador de códigos de barras EAN-13 (estándar mundial retail desde 1977). Calcula automáticamente el 13º dígito verificador. Personaliza color de fondo y barras. Descarga en PNG en alta resolución. Para uso comercial real necesitás registrar tu prefijo en GS1 — para tests, etiquetas internas o aprendizaje funciona con cualquier código.",
+    keywords: ["generador codigo barras", "ean 13 generator", "barcode online", "crear codigo barras"],
+    popularity: 87,
+    related: ["generador-qr", "escaner-qr", "favicon-generator"]
+  },
+  {
+    slug: "buscador-emojis",
+    category: "symbols",
+    name: "Buscador de Emojis",
+    shortDesc: "90+ emojis con búsqueda · Click para copiar al instante.",
+    longDesc:
+      "Buscador de emojis organizados por 11 categorías (caras, corazones, manos, objetos, animales, naturaleza, comida, deportes, música, banderas LATAM/España/USA). Búsqueda por nombre o tags en español ('amor', 'fuego', 'fiesta'). Click para copiar al clipboard al instante. Funcionan en WhatsApp, Instagram, email, todos los sistemas modernos.",
+    keywords: ["emojis", "buscar emojis", "emoji finder", "copiar emojis", "emoji español"],
+    popularity: 93,
+    related: ["fancy-text", "generador-bio-instagram", "whatsapp-link"]
+  },
+  {
+    slug: "generador-bio-instagram",
+    category: "generator",
+    name: "Generador de Bio para Instagram",
+    shortDesc: "5 estilos · Aesthetic, profesional, emoji · Saltos reales.",
+    longDesc:
+      "Generador de bio para Instagram en 5 estilos: Aesthetic (con símbolos ✧✿⋆), Minimalista (con · — /), Profesional (con ▸ • ↳), Divertido (con emojis 🌟✨🔥) y Emoji-heavy (lleno de emojis temáticos). Genera con saltos de línea reales que IG respeta. Útil también para TikTok, Twitter/X, YouTube. Máximo 150 caracteres.",
+    keywords: ["bio instagram", "bio generator", "biografia instagram", "ig bio aesthetic"],
+    popularity: 94,
+    related: ["fancy-text", "buscador-emojis", "generador-username"]
+  },
+  {
+    slug: "firma-email",
+    category: "generator",
+    name: "Generador de Firma de Email",
+    shortDesc: "Firma HTML profesional compatible Gmail, Outlook, Apple Mail.",
+    longDesc:
+      "Generador de firma de email HTML con tabla compatible con todos los clientes (Gmail, Outlook, Apple Mail, Thunderbird). Incluye nombre, cargo, teléfono, email, web, LinkedIn y color de marca personalizable. Copiado al portapapeles como rich text para pegar directo en la configuración de tu cliente de email.",
+    keywords: ["firma email", "email signature", "firma gmail", "firma outlook", "firma profesional"],
+    popularity: 90,
+    related: ["whatsapp-link", "favicon-generator", "generador-bio-instagram"]
+  },
+  {
+    slug: "validador-dni-nie",
+    category: "developer",
+    name: "Validador DNI · NIE España",
+    shortDesc: "Verifica DNI o NIE español · Calcula la letra correcta.",
+    longDesc:
+      "Validador del Documento Nacional de Identidad (DNI: 8 dígitos + letra) y Número de Identificación de Extranjero (NIE: X/Y/Z + 7 dígitos + letra) español. Verifica si la letra de control es correcta usando el algoritmo módulo 23. Si es incorrecta, calcula y muestra cuál debería ser. Validación local sin enviar datos.",
+    keywords: ["validador dni", "verificar nie", "letra dni", "calcular nif", "dni español valido"],
+    popularity: 88,
+    related: ["validador-rfc-curp", "validador-clabe-cbu", "validador-email"]
   }
 ];
 

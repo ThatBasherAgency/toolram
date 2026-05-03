@@ -112,7 +112,21 @@ const map = {
   "generador-logo-texto": dynamic(() => import("./text-logo").then((m) => m.TextLogo), { ssr: false }),
   "anchor-text": dynamic(() => import("./anchor-text").then((m) => m.AnchorText), { ssr: false }),
   "whatsapp-link": dynamic(() => import("./whatsapp-link").then((m) => m.WhatsappLink), { ssr: false }),
-  "ocr-imagen-texto": dynamic(() => import("./image-to-text").then((m) => m.ImageToText), { ssr: false })
+  "ocr-imagen-texto": dynamic(() => import("./image-to-text").then((m) => m.ImageToText), { ssr: false }),
+  "calculadora-calorias": dynamic(() => import("./calorie-calculator").then((m) => m.CalorieCalculator), { ssr: false }),
+  "calculadora-embarazo": dynamic(() => import("./pregnancy-calculator").then((m) => m.PregnancyCalculator), { ssr: false }),
+  "calculadora-ovulacion": dynamic(() => import("./ovulation-calculator").then((m) => m.OvulationCalculator), { ssr: false }),
+  "calculadora-horas-trabajadas": dynamic(() => import("./work-hours-calculator").then((m) => m.WorkHoursCalculator), { ssr: false }),
+  "validador-rfc-curp": dynamic(() => import("./rfc-curp-validator").then((m) => m.RfcCurpValidator), { ssr: false }),
+  "validador-clabe-cbu": dynamic(() => import("./clabe-cbu-validator").then((m) => m.ClabeCbuValidator), { ssr: false }),
+  "calculadora-sueldo-neto": dynamic(() => import("./net-salary-calculator").then((m) => m.NetSalaryCalculator), { ssr: false }),
+  "calculadora-edad-mascota": dynamic(() => import("./pet-age-calculator").then((m) => m.PetAgeCalculator), { ssr: false }),
+  "escaner-qr": dynamic(() => import("./qr-scanner").then((m) => m.QrScanner), { ssr: false }),
+  "barcode-generator": dynamic(() => import("./barcode-generator").then((m) => m.BarcodeGenerator), { ssr: false }),
+  "buscador-emojis": dynamic(() => import("./emoji-finder").then((m) => m.EmojiFinder), { ssr: false }),
+  "generador-bio-instagram": dynamic(() => import("./instagram-bio").then((m) => m.InstagramBio), { ssr: false }),
+  "firma-email": dynamic(() => import("./email-signature").then((m) => m.EmailSignature), { ssr: false }),
+  "validador-dni-nie": dynamic(() => import("./dni-validator").then((m) => m.DniValidator), { ssr: false })
 } as const;
 
 export function ToolRenderer({ slug }: { slug: string }) {
