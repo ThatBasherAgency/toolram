@@ -76,7 +76,22 @@ const map = {
   "calculadora-edad": dynamic(() => import("./age-calculator").then((m) => m.AgeCalculator), { ssr: false }),
   "htaccess-generator": dynamic(() => import("./htaccess-generator").then((m) => m.HtaccessGenerator), { ssr: false }),
   "generador-hashtags": dynamic(() => import("./hashtag-generator").then((m) => m.HashtagGenerator), { ssr: false }),
-  "password-strength": dynamic(() => import("./password-strength").then((m) => m.PasswordStrength), { ssr: false })
+  "password-strength": dynamic(() => import("./password-strength").then((m) => m.PasswordStrength), { ssr: false }),
+  "calculadora-imc": dynamic(() => import("./bmi-calculator").then((m) => m.BmiCalculator), { ssr: false }),
+  "calculadora-porcentaje": dynamic(() => import("./percentage-calculator").then((m) => m.PercentageCalculator), { ssr: false }),
+  "calculadora-prestamo": dynamic(() => import("./loan-calculator").then((m) => m.LoanCalculator), { ssr: false }),
+  "calculadora-iva": dynamic(() => import("./iva-calculator").then((m) => m.IvaCalculator), { ssr: false }),
+  "calculadora-propina": dynamic(() => import("./tip-calculator").then((m) => m.TipCalculator), { ssr: false }),
+  "calculadora-descuento": dynamic(() => import("./discount-calculator").then((m) => m.DiscountCalculator), { ssr: false }),
+  "box-shadow-generator": dynamic(() => import("./box-shadow-generator").then((m) => m.BoxShadowGenerator), { ssr: false }),
+  "gradient-generator": dynamic(() => import("./gradient-generator").then((m) => m.GradientGenerator), { ssr: false }),
+  "paleta-colores": dynamic(() => import("./color-palette").then((m) => m.ColorPalette), { ssr: false }),
+  "numeros-romanos": dynamic(() => import("./roman-numerals").then((m) => m.RomanNumerals), { ssr: false }),
+  "binario-decimal": dynamic(() => import("./binary-converter").then((m) => m.BinaryConverter), { ssr: false }),
+  "pomodoro": dynamic(() => import("./pomodoro-timer").then((m) => m.PomodoroTimer), { ssr: false }),
+  "calculadora-cientifica": dynamic(() => import("./scientific-calculator").then((m) => m.ScientificCalculator), { ssr: false }),
+  "markdown-html": dynamic(() => import("./markdown-html").then((m) => m.MarkdownHtmlConverter), { ssr: false }),
+  "favicon-generator": dynamic(() => import("./favicon-generator").then((m) => m.FaviconGenerator), { ssr: false })
 } as const;
 
 export function ToolRenderer({ slug }: { slug: string }) {

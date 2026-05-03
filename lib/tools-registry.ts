@@ -900,6 +900,189 @@ export const TOOLS: Tool[] = [
     keywords: ["password strength", "fortaleza contraseña", "contraseña segura", "password tester"],
     popularity: 88,
     related: ["generador-passwords", "hash-md5-sha", "jwt-decoder"]
+  },
+  {
+    slug: "calculadora-imc",
+    category: "calculator",
+    name: "Calculadora de IMC",
+    shortDesc: "Índice de Masa Corporal + peso ideal + metabolismo basal (BMR).",
+    longDesc:
+      "Calcula tu IMC (Índice de Masa Corporal) en sistema métrico (kg/cm) o imperial (lb/in). Muestra categoría OMS (bajo peso, normal, sobrepeso, obesidad I/II/III), peso ideal según tu altura y metabolismo basal (BMR) usando la fórmula Mifflin-St Jeor según sexo y edad. Resultado al instante con consejos personalizados.",
+    keywords: ["calculadora imc", "indice masa corporal", "bmi calculator", "peso ideal", "calcular bmr"],
+    popularity: 96,
+    faqs: [
+      { q: "¿Qué es el IMC?", a: "El Índice de Masa Corporal relaciona peso y altura para evaluar si tu peso está en rango saludable. IMC = peso(kg) / altura(m)²." },
+      { q: "¿Es fiable el IMC?", a: "Es una orientación general. No diferencia masa muscular de grasa. Atletas, embarazadas y adultos mayores requieren evaluaciones específicas." },
+      { q: "¿Qué es el BMR?", a: "Metabolismo Basal: las calorías que tu cuerpo quema en reposo solo para funciones vitales. Sirve como base para calcular tus calorías diarias." }
+    ],
+    related: ["calculadora-edad", "calculadora-porcentaje", "conversor-unidades"]
+  },
+  {
+    slug: "calculadora-porcentaje",
+    category: "calculator",
+    name: "Calculadora de Porcentaje",
+    shortDesc: "4 modos: X% de Y, qué % es X de Y, variación porcentual y propina.",
+    longDesc:
+      "4 calculadoras en una: cuánto es X% de un número, qué porcentaje representa X sobre Y, variación porcentual entre dos valores (aumento o disminución) y cálculo de propina. Muestra fórmula y explicación al instante para que entiendas cómo se calculó.",
+    keywords: ["calculadora porcentaje", "calcular %", "porcentaje online", "variación porcentual"],
+    popularity: 95,
+    related: ["calculadora-descuento", "calculadora-propina", "calculadora-iva"]
+  },
+  {
+    slug: "calculadora-prestamo",
+    category: "calculator",
+    name: "Calculadora de Préstamo",
+    shortDesc: "Cuota mensual, intereses totales y tabla de amortización francesa.",
+    longDesc:
+      "Calcula tu cuota mensual fija usando el sistema francés (el más común para hipotecas y préstamos personales). Muestra capital total a pagar, intereses, y tabla de amortización detallada por mes (capital + interés + saldo). Soporta múltiples monedas (USD, EUR, MX$, AR$, CLP$, S/, COL$).",
+    keywords: ["calculadora prestamo", "calcular cuota mensual", "calculadora hipoteca", "amortización francesa", "loan calculator"],
+    popularity: 94,
+    faqs: [
+      { q: "¿Qué es el sistema francés?", a: "Sistema de cuota fija donde la primera cuota tiene mayor proporción de interés y la última mayor proporción de capital. Es el más usado en préstamos personales e hipotecas." },
+      { q: "¿Cómo se calcula la cuota?", a: "Fórmula: cuota = P × (r × (1+r)ⁿ) / ((1+r)ⁿ − 1), donde P = capital, r = tasa mensual, n = número de cuotas." },
+      { q: "¿Por qué pagás tantos intereses?", a: "Porque el interés se calcula sobre el saldo restante. Al inicio el saldo es alto, entonces el interés es alto. Pagar cuotas extra al inicio reduce drásticamente el interés total." }
+    ],
+    related: ["calculadora-iva", "calculadora-porcentaje", "conversor-divisas"]
+  },
+  {
+    slug: "calculadora-iva",
+    category: "calculator",
+    name: "Calculadora de IVA",
+    shortDesc: "Sumar IVA o extraerlo del precio · Tasas para 8 países.",
+    longDesc:
+      "Calcula IVA en dos modos: sumar IVA al subtotal o extraer IVA del precio total con impuesto incluido. Tasas preconfiguradas para México (16%), España (21%), Argentina (21%), Chile (19%), Perú (18%), Colombia (19%), Uruguay (22%) y Ecuador (15%). Tasa personalizable de 0 a 30%.",
+    keywords: ["calculadora iva", "calcular iva", "iva mexico", "iva españa", "vat calculator", "calcular impuestos"],
+    popularity: 93,
+    related: ["calculadora-descuento", "calculadora-prestamo", "conversor-divisas"]
+  },
+  {
+    slug: "calculadora-propina",
+    category: "calculator",
+    name: "Calculadora de Propina",
+    shortDesc: "Divide la cuenta entre amigos · Propina justa según servicio.",
+    longDesc:
+      "Calcula la propina sobre el total de la cuenta y divide automáticamente entre el número de personas. Presets de 10/12/15/18/20/25%. Muestra cuánto paga cada uno y cuánto es la propina por persona. Soporta múltiples monedas.",
+    keywords: ["calculadora propina", "calcular propina", "tip calculator", "dividir cuenta"],
+    popularity: 90,
+    related: ["calculadora-descuento", "calculadora-porcentaje", "conversor-divisas"]
+  },
+  {
+    slug: "calculadora-descuento",
+    category: "calculator",
+    name: "Calculadora de Descuento",
+    shortDesc: "Precio final + descuento extra + impuestos · Cuánto ahorras.",
+    longDesc:
+      "Calcula el precio final tras aplicar un descuento principal, un descuento extra (cupón) y un impuesto. Muestra el ahorro total en moneda y el porcentaje de descuento real (los descuentos compuestos NO se suman). Útil para calcular ofertas reales en Black Friday, rebajas, hot sales.",
+    keywords: ["calculadora descuento", "calcular descuento", "discount calculator", "ahorro", "rebaja"],
+    popularity: 92,
+    faqs: [
+      { q: "¿50% + 20% es 70% de descuento?", a: "No. El segundo descuento se aplica sobre el precio ya rebajado. 50% + 20% = 60% real (no 70%)." },
+      { q: "¿Cómo calculo el descuento real?", a: "((Precio original − Precio final) / Precio original) × 100. Esta calculadora lo hace automáticamente." }
+    ],
+    related: ["calculadora-iva", "calculadora-porcentaje", "calculadora-propina"]
+  },
+  {
+    slug: "box-shadow-generator",
+    category: "developer",
+    name: "Box Shadow Generator (CSS)",
+    shortDesc: "CSS box-shadow visual con multi-shadow + insets · 7 presets.",
+    longDesc:
+      "Generador visual de CSS box-shadow con múltiples sombras simultáneas, soporte para inset, control de offsetX, offsetY, blur, spread, color y opacidad. 7 presets profesionales (suave, card, material, neumorfo, glow, sunken, larga). Preview en vivo y código copiable al portapapeles.",
+    keywords: ["box shadow generator", "css box shadow", "sombras css", "neumorfismo css"],
+    popularity: 87,
+    related: ["gradient-generator", "paleta-colores", "convertidor-color"]
+  },
+  {
+    slug: "gradient-generator",
+    category: "developer",
+    name: "Generador de Gradientes CSS",
+    shortDesc: "Gradientes lineales, radiales y cónicos · multi-color stops.",
+    longDesc:
+      "Editor visual de gradientes CSS con 3 tipos: lineal (con ángulo), radial (circular) y cónico (rotacional). Soporta múltiples color stops con posición personalizable. 10 presets curados (sunset, ocean, purple, rainbow, mint, pink, gold, dark, neon, fire). Generador aleatorio + código CSS copiable.",
+    keywords: ["gradient generator", "gradiente css", "linear gradient", "radial gradient", "conic gradient"],
+    popularity: 89,
+    related: ["box-shadow-generator", "paleta-colores", "convertidor-color"]
+  },
+  {
+    slug: "paleta-colores",
+    category: "generator",
+    name: "Generador de Paleta de Colores",
+    shortDesc: "Paletas armónicas: monocromática, análoga, complementaria, triádica.",
+    longDesc:
+      "Genera paletas de 5 colores armónicas usando teoría del color: monocromática (mismo tono distinta luminosidad), análoga (tonos vecinos), complementaria (opuestos), triádica (3 equidistantes), tetrádica (4 equidistantes) o aleatoria. Bloquea colores que te gusten y regenera el resto. Atajo: barra espaciadora para generar nueva paleta.",
+    keywords: ["paleta colores", "color palette generator", "paleta cromática", "armonía colores"],
+    popularity: 91,
+    faqs: [
+      { q: "¿Qué es una paleta armónica?", a: "Combinación de colores que funcionan bien juntos según la teoría del color. Las paletas monocromática y análoga son seguras; la complementaria es alto contraste; triádica y tetrádica dan variedad." },
+      { q: "¿Para qué sirve bloquear colores?", a: "Para mantener un color que te guste mientras experimentas con el resto. Click en el candado del color y regenera la paleta." }
+    ],
+    related: ["gradient-generator", "convertidor-color", "favicon-generator"]
+  },
+  {
+    slug: "numeros-romanos",
+    category: "converter",
+    name: "Convertidor de Números Romanos",
+    shortDesc: "Convierte de número arábigo a romano y viceversa (1 a 3999).",
+    longDesc:
+      "Convertidor bidireccional entre números arábigos (1, 2, 3...) y romanos (I, II, III...). Rango soportado: 1 a 3999. Validación de romanos correctos según las reglas clásicas (sustracción IV/IX, máximo 3 repeticiones consecutivas, V/L/D no se repiten). Tabla de símbolos básicos incluida.",
+    keywords: ["numeros romanos", "convertidor romanos", "roman numerals", "decimal a romano"],
+    popularity: 84,
+    related: ["binario-decimal", "calculadora-cientifica", "conversor-unidades"]
+  },
+  {
+    slug: "binario-decimal",
+    category: "converter",
+    name: "Conversor Binario / Hex / Decimal",
+    shortDesc: "Convierte entre binario, octal, decimal y hexadecimal + ASCII.",
+    longDesc:
+      "Convertidor instantáneo entre las 4 bases numéricas más usadas: binario (base 2), octal (base 8), decimal (base 10) y hexadecimal (base 16). Muestra representación binaria con bits coloreados y carácter ASCII si está en rango imprimible (32-126). Útil para programación, electrónica y permisos Unix.",
+    keywords: ["binario a decimal", "decimal a binario", "hex a decimal", "binary converter", "ascii converter"],
+    popularity: 86,
+    related: ["numeros-romanos", "calculadora-cientifica", "hash-md5-sha"]
+  },
+  {
+    slug: "pomodoro",
+    category: "test",
+    name: "Temporizador Pomodoro",
+    shortDesc: "Técnica Pomodoro: 25 min trabajo + pausas · Sonido al terminar.",
+    longDesc:
+      "Temporizador Pomodoro con ciclos de 25 minutos de trabajo + 5 minutos de pausa corta. Cada 4 pomodoros completados se activa una pausa larga de 15 minutos. Duraciones personalizables. Sonido al terminar (oscilador Web Audio, no requiere archivos), contador de pomodoros completados, controles play/pause/reset/skip. Ideal para estudiar, programar, escribir.",
+    keywords: ["pomodoro timer", "técnica pomodoro", "temporizador estudio", "productividad timer"],
+    popularity: 90,
+    related: ["temporizador", "cronometro", "tiempo-reaccion"]
+  },
+  {
+    slug: "calculadora-cientifica",
+    category: "calculator",
+    name: "Calculadora Científica",
+    shortDesc: "Trigonometría, log, potencias, raíces, factoriales, π y e.",
+    longDesc:
+      "Calculadora científica completa: funciones trigonométricas (sin, cos, tan e inversas) con DEG/RAD, logaritmos (ln natural, log base 10), potencias (x², x³, xʸ), raíces (cuadrada y cúbica), factorial (!), constantes π y e, memoria Ans para reutilizar el último resultado. Soporta paréntesis anidados.",
+    keywords: ["calculadora cientifica", "scientific calculator", "trigonometria online", "calcular logaritmo"],
+    popularity: 87,
+    related: ["calculadora-porcentaje", "binario-decimal", "numeros-romanos"]
+  },
+  {
+    slug: "markdown-html",
+    category: "developer",
+    name: "Markdown ↔ HTML",
+    shortDesc: "Conversor bidireccional Markdown a HTML con preview en vivo.",
+    longDesc:
+      "Convierte Markdown a HTML y viceversa con preview renderizado en vivo. Soporta headings (H1-H6), negrita, cursiva, links, imágenes, listas (ordenadas y no), bloques de código con language hint, código inline, citas (blockquotes), separadores. Útil para escribir docs, README, blogposts.",
+    keywords: ["markdown to html", "html to markdown", "markdown converter", "md a html"],
+    popularity: 85,
+    related: ["css-formatter", "json-formatter", "yaml-json-converter"]
+  },
+  {
+    slug: "favicon-generator",
+    category: "generator",
+    name: "Generador de Favicon",
+    shortDesc: "Crea favicons en 16, 32, 64, 128, 256 y 512px desde texto o imagen.",
+    longDesc:
+      "Generador de favicon en todos los tamaños estándar (16x16 hasta 512x512 PNG). Modo texto (1-2 letras con 4 fuentes) o subir imagen propia. Forma rounded, circle, square o squircle. Color de fondo y texto personalizables. Preview en vivo. Descarga directa al navegador.",
+    keywords: ["favicon generator", "generador favicon", "favicon online", "icono web"],
+    popularity: 88,
+    related: ["paleta-colores", "convertidor-color", "generador-qr"]
   }
 ];
 
