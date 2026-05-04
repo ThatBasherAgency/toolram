@@ -6,7 +6,7 @@ import { SearchBox } from "@/components/tools/search-box";
 
 const FEATURED_SLUGS = ["creador-backlinks", "firmar-pdf", "calculadora-imc", "quitar-fondo-imagen", "calculadora-embarazo", "youtube-thumbnail", "escaner-qr", "ocr-imagen-texto"];
 
-const NEW_SLUGS = ["calculadora-calorias", "calculadora-embarazo", "calculadora-ovulacion", "validador-rfc-curp", "validador-clabe-cbu", "calculadora-sueldo-neto", "escaner-qr", "buscador-emojis", "generador-bio-instagram", "firma-email", "calculadora-edad-mascota", "barcode-generator"];
+const NEW_SLUGS = ["interes-compuesto", "calculadoras-marketing", "conversor-zonas-horarias", "wifi-qr", "css-flex-generator", "cubic-bezier-generator", "contraste-color-wcag", "subnet-calculator", "generador-keywords-seo", "caption-generator", "youtube-tags-generator", "cuenta-regresiva"];
 
 const CAT_ICONS: Record<string, typeof FileText> = {
   text: FileText, seo: Search, pdf: FileText, image: ImageIcon, developer: Code2, converter: Zap,
