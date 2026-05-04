@@ -11,7 +11,7 @@ type Props = {
 };
 
 export function AdSlot({ slot, format = "auto", layout, layoutKey, className = "", minHeight = 90 }: Props) {
-  const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
+  const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT || "ca-pub-5572962820995975";
   const ref = useRef<HTMLModElement>(null);
   const pushed = useRef(false);
 

@@ -48,6 +48,9 @@ export const metadata: Metadata = {
   verification: {
     google: "Pb94jU8X9iYqyUJO7OFPAQttY1WEACieVFWPPliAB88"
   },
+  other: {
+    "google-adsense-account": "ca-pub-5572962820995975"
+  },
   alternates: {
     canonical: "/",
     languages: {
@@ -79,6 +82,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme:dark)').matches;if(d)document.documentElement.classList.add('dark');}catch(e){}})();`
           }}
         />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5572962820995975"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className="min-h-screen flex flex-col">
         <WebsiteJsonLd />
@@ -86,13 +94,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1">{children}</main>
         <Footer />
         <Analytics />
-        {process.env.NEXT_PUBLIC_ADSENSE_CLIENT && (
-          <script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT}`}
-            crossOrigin="anonymous"
-          />
-        )}
       </body>
     </html>
   );
