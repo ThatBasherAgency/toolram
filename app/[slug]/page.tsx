@@ -11,6 +11,10 @@ import { CalculatorRunner } from "@/components/tools/calculator-runner";
 import { ToolCard } from "@/components/tools/tool-card";
 import { SITE } from "@/lib/site";
 import { ToolJsonLd } from "@/components/seo/tool-json-ld";
+import { CalculatorJsonLd } from "@/components/seo/calculator-json-ld";
+import { TOOL_EN, GLOSSARY_EN } from "@/lib/i18n";
+import { toolSeoTitle, toolSeoDesc, calcSeoTitle, calcSeoDesc } from "@/lib/seo-meta";
+import { defaultFaqs, defaultCalcFaqs } from "@/lib/default-faqs";
 
 export function generateStaticParams() {
   return [
@@ -21,6 +25,18 @@ export function generateStaticParams() {
   ];
 }
 
+function buildLanguages(slug: string, kind: "tool" | "gloss" | "other"): Record<string, string> | undefined {
+  const hasEn = kind === "tool" ? !!TOOL_EN[slug] : kind === "gloss" ? !!GLOSSARY_EN[slug] : false;
+  if (!hasEn) return undefined;
+  return {
+    es: `/${slug}`,
+    "es-MX": `/${slug}`,
+    "es-ES": `/${slug}`,
+    en: `/en/${slug}`,
+    "x-default": `/${slug}`
+  };
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const tool = TOOLS_BY_SLUG[slug];
@@ -28,34 +44,78 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const gloss = GLOSSARY_BY_SLUG[slug];
   const alt = ALTERNATIVES_BY_SLUG[slug];
   if (alt) {
+    const title = `Alternativas a ${alt.competitor} en 2026 (gratis y privacy-first)`;
+    const desc = alt.shortDescription.slice(0, 155);
     return {
-      title: `Alternativas a ${alt.competitor} en 2026 (gratis y privacy-first)`,
-      description: alt.shortDescription.slice(0, 155),
-      alternates: { canonical: `/${alt.slug}` }
+      title,
+      description: desc,
+      alternates: { canonical: `/${alt.slug}` },
+      openGraph: {
+        title: `${title} | ${SITE.name}`,
+        description: desc,
+        type: "article",
+        url: `${SITE.url}/${alt.slug}`,
+        siteName: SITE.name
+      },
+      twitter: { card: "summary_large_image", title, description: desc }
     };
   }
   if (gloss) {
+    const title = `¿Qué es ${gloss.term}? Definición, ejemplos y casos de uso`;
+    const desc = gloss.shortDef.length > 155 ? gloss.shortDef.slice(0, 152) + "..." : gloss.shortDef;
+    const languages = buildLanguages(slug, "gloss");
     return {
-      title: `¿Qué es ${gloss.term}? Definición y ejemplos`,
-      description: gloss.shortDef.slice(0, 155),
-      alternates: { canonical: `/${gloss.slug}` }
+      title,
+      description: desc,
+      alternates: { canonical: `/${gloss.slug}`, ...(languages && { languages }) },
+      openGraph: {
+        title: `${title} | ${SITE.name}`,
+        description: desc,
+        type: "article",
+        url: `${SITE.url}/${gloss.slug}`,
+        siteName: SITE.name
+      },
+      twitter: { card: "summary_large_image", title, description: desc }
     };
   }
-  const subject = tool || calc;
-  if (!subject) return {};
-  const title = `${subject.name} online gratis`;
-  const desc = subject.shortDesc;
-  return {
-    title,
-    description: desc,
-    alternates: { canonical: `/${subject.slug}` },
-    openGraph: {
-      title: `${title} | ${SITE.name}`,
+  if (tool) {
+    const title = toolSeoTitle(tool);
+    const desc = toolSeoDesc(tool);
+    const languages = buildLanguages(slug, "tool");
+    return {
+      title,
       description: desc,
-      type: "article",
-      url: `${SITE.url}/${subject.slug}`
-    }
-  };
+      keywords: tool.keywords,
+      alternates: { canonical: `/${tool.slug}`, ...(languages && { languages }) },
+      openGraph: {
+        title: `${title} | ${SITE.name}`,
+        description: desc,
+        type: "article",
+        url: `${SITE.url}/${tool.slug}`,
+        siteName: SITE.name
+      },
+      twitter: { card: "summary_large_image", title, description: desc }
+    };
+  }
+  if (calc) {
+    const title = calcSeoTitle(calc);
+    const desc = calcSeoDesc(calc);
+    return {
+      title,
+      description: desc,
+      keywords: calc.keywords,
+      alternates: { canonical: `/${calc.slug}` },
+      openGraph: {
+        title: `${title} | ${SITE.name}`,
+        description: desc,
+        type: "article",
+        url: `${SITE.url}/${calc.slug}`,
+        siteName: SITE.name
+      },
+      twitter: { card: "summary_large_image", title, description: desc }
+    };
+  }
+  return {};
 }
 
 export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -267,45 +327,61 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
   }
 
   if (calc && !tool) {
+    const calcFaqs = calc.faqs && calc.faqs.length > 0 ? calc.faqs : defaultCalcFaqs(calc);
     return (
-      <article className="max-w-4xl mx-auto px-4 py-8">
-        <nav className="flex items-center gap-1.5 text-xs text-[color:var(--color-fg-soft)] mb-4">
-          <Link href="/" className="hover:text-[color:var(--color-brand)] inline-flex items-center gap-1"><Home className="w-3 h-3" /> Inicio</Link>
-          <ChevronRight className="w-3 h-3" />
-          <Link href="/calculadoras" className="hover:text-[color:var(--color-brand)]">Calculadoras</Link>
-          <ChevronRight className="w-3 h-3" />
-          <span className="text-[color:var(--color-fg)]">{calc.name}</span>
-        </nav>
-        <header className="mb-6">
-          <span className="text-xs px-2 py-0.5 rounded-full bg-[color:var(--color-brand-soft)] text-[color:var(--color-brand)] inline-block mb-2">🧮 Calculadora</span>
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">{calc.name}</h1>
-          <p className="text-lg text-[color:var(--color-fg-soft)]">{calc.shortDesc}</p>
-        </header>
-        <div className="card !p-4 md:!p-6 mb-8">
-          <CalculatorRunner slug={calc.slug} />
-        </div>
-        <section className="prose prose-sm max-w-none mb-8">
-          <h2 className="text-xl font-bold mb-2">Sobre {calc.name}</h2>
-          <p className="text-[color:var(--color-fg-soft)] leading-relaxed">{calc.longDesc}</p>
-        </section>
-        <section>
-          <h2 className="text-xl font-bold mb-3">Otras calculadoras</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {CALCULATORS.filter((c) => c.slug !== slug).slice(0, 6).map((c) => (
-              <Link key={c.slug} href={`/${c.slug}`} className="card group">
-                <div className="font-medium group-hover:text-[color:var(--color-brand)]">{c.name}</div>
-                <div className="text-xs text-[color:var(--color-fg-soft)]">{c.shortDesc}</div>
-              </Link>
-            ))}
+      <>
+        <CalculatorJsonLd calc={calc} />
+        <article className="max-w-4xl mx-auto px-4 py-8">
+          <nav className="flex items-center gap-1.5 text-xs text-[color:var(--color-fg-soft)] mb-4">
+            <Link href="/" className="hover:text-[color:var(--color-brand)] inline-flex items-center gap-1"><Home className="w-3 h-3" /> Inicio</Link>
+            <ChevronRight className="w-3 h-3" />
+            <Link href="/calculadoras" className="hover:text-[color:var(--color-brand)]">Calculadoras</Link>
+            <ChevronRight className="w-3 h-3" />
+            <span className="text-[color:var(--color-fg)]">{calc.name}</span>
+          </nav>
+          <header className="mb-6">
+            <span className="text-xs px-2 py-0.5 rounded-full bg-[color:var(--color-brand-soft)] text-[color:var(--color-brand)] inline-block mb-2">🧮 Calculadora</span>
+            <h1 className="text-3xl md:text-4xl font-bold mb-2">{calc.name}</h1>
+            <p className="text-lg text-[color:var(--color-fg-soft)]">{calc.shortDesc}</p>
+          </header>
+          <div className="card !p-4 md:!p-6 mb-8">
+            <CalculatorRunner slug={calc.slug} />
           </div>
-        </section>
-      </article>
+          <section className="prose prose-sm max-w-none mb-8">
+            <h2 className="text-xl font-bold mb-2">Sobre {calc.name}</h2>
+            <p className="text-[color:var(--color-fg-soft)] leading-relaxed">{calc.longDesc}</p>
+          </section>
+          <section className="mb-8">
+            <h2 className="text-xl font-bold mb-3">Preguntas frecuentes</h2>
+            <div className="space-y-2">
+              {calcFaqs.map((f, i) => (
+                <details key={i} className="card !p-3">
+                  <summary className="font-medium cursor-pointer">{f.q}</summary>
+                  <p className="text-sm text-[color:var(--color-fg-soft)] mt-2">{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+          <section>
+            <h2 className="text-xl font-bold mb-3">Otras calculadoras</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {CALCULATORS.filter((c) => c.slug !== slug).slice(0, 6).map((c) => (
+                <Link key={c.slug} href={`/${c.slug}`} className="card group">
+                  <div className="font-medium group-hover:text-[color:var(--color-brand)]">{c.name}</div>
+                  <div className="text-xs text-[color:var(--color-fg-soft)]">{c.shortDesc}</div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        </article>
+      </>
     );
   }
 
   if (!tool) notFound();
   const cat = CATEGORIES[tool.category];
   const related = relatedTools(tool.slug, 4);
+  const tFaqs = tool.faqs && tool.faqs.length > 0 ? tool.faqs : defaultFaqs(tool);
   const POWER_TOOLS: Record<string, string> = {
     "pdf-a-jpg": "oklch(0.65 0.2 50)",
     "comprimir-pdf": "oklch(0.6 0.2 145)",
@@ -332,11 +408,11 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
               <h2 className="text-2xl font-bold mb-3">Sobre {tool.name}</h2>
               <p className="text-base text-[color:var(--color-fg-soft)] leading-relaxed">{tool.longDesc}</p>
             </section>
-            {tool.faqs && tool.faqs.length > 0 && (
+            {tFaqs.length > 0 && (
               <section>
                 <h2 className="text-2xl font-bold mb-4">Preguntas frecuentes</h2>
                 <div className="space-y-2">
-                  {tool.faqs.map((f, i) => (
+                  {tFaqs.map((f, i) => (
                     <details key={i} className="rounded-xl bg-[color:var(--color-bg)] border border-[color:var(--color-border)] p-4 group">
                       <summary className="font-semibold cursor-pointer flex items-center justify-between">{f.q}<span className="text-xl group-open:rotate-45 transition">+</span></summary>
                       <p className="text-sm text-[color:var(--color-fg-soft)] mt-3 leading-relaxed">{f.a}</p>
@@ -415,11 +491,11 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                 <p className="text-base text-[color:var(--color-fg-soft)] leading-relaxed">{tool.longDesc}</p>
               </section>
 
-              {tool.faqs && tool.faqs.length > 0 && (
+              {tFaqs.length > 0 && (
                 <section>
                   <h2 className="text-2xl font-bold mb-4">Preguntas frecuentes</h2>
                   <div className="space-y-2">
-                    {tool.faqs.map((f, i) => (
+                    {tFaqs.map((f, i) => (
                       <details key={i} className="rounded-xl bg-[color:var(--color-bg)] border border-[color:var(--color-border)] p-4 group">
                         <summary className="font-semibold cursor-pointer flex items-center justify-between">{f.q}<span className="text-xl group-open:rotate-45 transition">+</span></summary>
                         <p className="text-sm text-[color:var(--color-fg-soft)] mt-3 leading-relaxed">{f.a}</p>
@@ -481,11 +557,11 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           </ul>
         </section>
 
-        {tool.faqs && tool.faqs.length > 0 && (
+        {tFaqs.length > 0 && (
           <section className="mb-8">
             <h2 className="text-xl font-bold mb-3">Preguntas frecuentes</h2>
             <div className="space-y-2">
-              {tool.faqs.map((f, i) => (
+              {tFaqs.map((f, i) => (
                 <details key={i} className="card !p-3">
                   <summary className="font-medium cursor-pointer">{f.q}</summary>
                   <p className="text-sm text-[color:var(--color-fg-soft)] mt-2">{f.a}</p>

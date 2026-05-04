@@ -1,23 +1,22 @@
 import { SITE } from "@/lib/site";
-import { CATEGORIES, type Tool } from "@/lib/tools-registry";
-import { defaultFaqs } from "@/lib/default-faqs";
+import type { Calculator } from "@/lib/calculators";
+import { defaultCalcFaqs } from "@/lib/default-faqs";
 
 const BUILD_DATE = process.env.BUILD_DATE || new Date().toISOString().slice(0, 10);
 
-export function ToolJsonLd({ tool }: { tool: Tool }) {
-  const cat = CATEGORIES[tool.category];
-  const url = `${SITE.url}/${tool.slug}`;
-  const faqs = tool.faqs && tool.faqs.length > 0 ? tool.faqs : defaultFaqs(tool);
+export function CalculatorJsonLd({ calc }: { calc: Calculator }) {
+  const url = `${SITE.url}/${calc.slug}`;
+  const faqs = calc.faqs && calc.faqs.length > 0 ? calc.faqs : defaultCalcFaqs(calc);
   const data: Record<string, unknown>[] = [
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "@id": `${url}#software`,
-      name: tool.name,
-      description: tool.longDesc.slice(0, 320),
+      name: calc.name,
+      description: calc.longDesc.slice(0, 320),
       url,
-      applicationCategory: cat.name,
-      applicationSubCategory: "Utility",
+      applicationCategory: "Calculadoras",
+      applicationSubCategory: "Calculator",
       operatingSystem: "Web Browser, Windows, macOS, Linux, iOS, Android",
       browserRequirements: "Requires JavaScript",
       isAccessibleForFree: true,
@@ -25,8 +24,8 @@ export function ToolJsonLd({ tool }: { tool: Tool }) {
       author: { "@type": "Person", name: "José Gaspard", url: "https://josegaspard.dev" },
       publisher: { "@type": "Organization", name: "Toolram", url: SITE.url, logo: { "@type": "ImageObject", url: `${SITE.url}/og.png` } },
       inLanguage: "es",
-      keywords: tool.keywords.join(", "),
-      featureList: tool.shortDesc,
+      keywords: calc.keywords.join(", "),
+      featureList: calc.shortDesc,
       datePublished: "2026-04-29",
       dateModified: BUILD_DATE
     },
@@ -35,8 +34,8 @@ export function ToolJsonLd({ tool }: { tool: Tool }) {
       "@type": "WebPage",
       "@id": `${url}#webpage`,
       url,
-      name: tool.name,
-      description: tool.shortDesc,
+      name: calc.name,
+      description: calc.shortDesc,
       isPartOf: { "@id": `${SITE.url}#website` },
       breadcrumb: { "@id": `${url}#breadcrumb` },
       inLanguage: "es",
@@ -49,8 +48,8 @@ export function ToolJsonLd({ tool }: { tool: Tool }) {
       "@id": `${url}#breadcrumb`,
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Inicio", item: SITE.url },
-        { "@type": "ListItem", position: 2, name: cat.name, item: `${SITE.url}/categoria/${cat.slug}` },
-        { "@type": "ListItem", position: 3, name: tool.name, item: url }
+        { "@type": "ListItem", position: 2, name: "Calculadoras", item: `${SITE.url}/calculadoras` },
+        { "@type": "ListItem", position: 3, name: calc.name, item: url }
       ]
     },
     {
