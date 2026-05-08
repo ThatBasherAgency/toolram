@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Clock } from "lucide-react";
-import { POSTS } from "@/data/blog";
+import { ALL_POSTS as POSTS } from "@/data/blog";
 
 export const metadata: Metadata = {
   title: "Blog — Toolram",

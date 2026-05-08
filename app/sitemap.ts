@@ -6,7 +6,7 @@ import { SYMBOL_CATEGORIES } from "@/data/symbols";
 import { GLOSSARY } from "@/data/glossary";
 import { ALTERNATIVES } from "@/data/alternatives";
 import { TOOL_EN, GLOSSARY_EN } from "@/lib/i18n";
-import { POSTS } from "@/data/blog";
+import { ALL_POSTS as POSTS } from "@/data/blog";
 import { SITE } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {

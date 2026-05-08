@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight, Home, Clock } from "lucide-react";
-import { POSTS, POSTS_BY_SLUG } from "@/data/blog";
+import { ALL_POSTS as POSTS, POSTS_BY_SLUG } from "@/data/blog";
 import { BlogBody } from "@/components/blog/blog-renderer";
 import { SITE } from "@/lib/site";
 

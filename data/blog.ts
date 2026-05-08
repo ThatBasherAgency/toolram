@@ -1157,4 +1157,7 @@ Espero esta comparativa te ayude a elegir bien. Si conocés alguna otra herramie
   }
 ];
 
-export const POSTS_BY_SLUG = Object.fromEntries(POSTS.map((p) => [p.slug, p]));
+import { POSTS_BATCH_2 } from "./blog-batch-2";
+
+export const ALL_POSTS: BlogPost[] = [...POSTS, ...POSTS_BATCH_2];
+export const POSTS_BY_SLUG = Object.fromEntries(ALL_POSTS.map((p) => [p.slug, p]));
