@@ -25,10 +25,11 @@ export function BlogBody({ body }: { body: string }) {
     } else if (line.startsWith("### ")) {
       out.push(<h3 key={`h3-${out.length}`} className="text-xl font-bold mt-6 mb-2">{renderInline(line.slice(4))}</h3>);
       i++;
-    } else if (line.startsWith("[CODEBLOCK]")) {
+    } else if (line.startsWith("[CODEBLOCK]") || line.startsWith("```")) {
+      const fence = line.startsWith("```") ? "```" : "[CODEBLOCK]";
       const buf: string[] = [];
       i++;
-      while (i < lines.length && !lines[i].startsWith("[CODEBLOCK]")) {
+      while (i < lines.length && !lines[i].startsWith(fence)) {
         buf.push(lines[i]);
         i++;
       }
