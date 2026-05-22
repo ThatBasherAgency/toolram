@@ -13,22 +13,34 @@ export default function AuthorPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": "https://josegaspard.dev/#person",
+    mainEntityOfPage: "https://josegaspard.dev",
     name: "José Gaspard",
+    givenName: "José",
+    familyName: "Gaspard",
     url: `${SITE.url}/sobre/jose-gaspard`,
     image: `${SITE.url}/og/default.png`,
     sameAs: [
       "https://josegaspard.dev",
       "https://nebu-lab.com",
-      "https://github.com/ThatBasherAgency"
+      "https://visamundial.com/autores/jose-gaspard/",
+      "https://github.com/ThatBasherAgency",
+      "https://www.linkedin.com/in/josegaspard/"
     ],
     jobTitle: "Founder & Lead Developer",
-    worksFor: { "@type": "Organization", name: "Toolram", url: SITE.url },
+    worksFor: [
+      { "@type": "Organization", name: "Toolram", url: SITE.url },
+      { "@type": "Organization", name: "VisaMundial", url: "https://visamundial.com" },
+      { "@type": "Organization", name: "Nebu Lab", url: "https://nebu-lab.com" }
+    ],
     alumniOf: { "@type": "Organization", name: "Nebu Lab", url: "https://nebu-lab.com" },
+    nationality: { "@type": "Country", name: "México" },
     knowsAbout: [
       "SEO técnico", "Next.js", "WordPress", "Programmatic SEO", "AI Search Optimization (GEO)",
-      "Privacy-first web development", "Schema.org structured data", "WebAssembly tools"
+      "Privacy-first web development", "Schema.org structured data", "WebAssembly tools",
+      "Visas y trámites migratorios", "Core Web Vitals"
     ],
-    description: "Desarrollador web y especialista SEO mexicano. Fundador de Toolram, Nebu Lab y consultor SEO con 8+ años construyendo sitios privacy-first."
+    description: "Desarrollador web y especialista SEO mexicano. Fundador de Toolram, VisaMundial y Nebu Lab. Consultor SEO con 8+ años construyendo sitios privacy-first."
   };
 
   return (
@@ -59,7 +71,8 @@ export default function AuthorPage() {
             <li><strong><a href="https://josegaspard.dev" target="_blank" rel="noopener">josegaspard.dev</a></strong> — Sitio personal con blog técnico, casos de estudio y portfolio.</li>
             <li><strong><a href="https://basher.agency" target="_blank" rel="noopener">Basher Agency</a></strong> — Agencia con foco en marketing performance.</li>
             <li><strong><a href="https://3rcore.com" target="_blank" rel="noopener">3rcore</a></strong> — Estudio de desarrollo web con Alejandro Roque.</li>
-            <li>15+ proyectos de SEO técnico activos: visamundial.com, calendariodemexico.com, modilimitado.cc, yakupark.com, entre otros.</li>
+            <li><strong><a href="https://visamundial.com" target="_blank" rel="noopener">VisaMundial</a></strong> — Plataforma de verificación de visa para 197 países con fuentes oficiales (IATA, consulados, cancillerías).</li>
+            <li>15+ proyectos de SEO técnico activos: calendariodemexico.com, modilimitado.cc, yakupark.com, entre otros.</li>
           </ul>
 
           <h2 className="text-xl font-bold mb-2 mt-6">Áreas de expertise</h2>
