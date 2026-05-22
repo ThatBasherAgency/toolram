@@ -1,5 +1,6 @@
 import type { Tool } from "@/lib/tools-registry";
 import type { Calculator } from "@/lib/calculators";
+import { getSeoOverride } from "@/lib/seo-overrides";
 
 const YEAR = new Date().getFullYear();
 
@@ -43,12 +44,20 @@ const DESC_TEMPLATES: Record<string, (n: string, d: string) => string> = {
   ai: (n, d) => `${d} Procesamiento con APIs Web modernas. Gratis, sin registro.`
 };
 
-export function toolSeoTitle(tool: Tool): string {
+export function toolSeoTitle(tool: Tool, lang: "es" | "en" = "es"): string {
+  const overrideSlug = lang === "en" ? `en/${tool.slug}` : tool.slug;
+  const override = getSeoOverride(overrideSlug);
+  if (override) return override.title;
   const fn = TITLE_TEMPLATES[tool.category];
   return fn ? fn(tool.name) : `${tool.name} online gratis ${YEAR}`;
 }
 
-export function toolSeoDesc(tool: Tool): string {
+export function toolSeoDesc(tool: Tool, lang: "es" | "en" = "es"): string {
+  const overrideSlug = lang === "en" ? `en/${tool.slug}` : tool.slug;
+  const override = getSeoOverride(overrideSlug);
+  if (override) {
+    return override.description.length <= 158 ? override.description : override.description.slice(0, 155) + "...";
+  }
   const fn = DESC_TEMPLATES[tool.category];
   const desc = tool.shortDesc.endsWith(".") ? tool.shortDesc : `${tool.shortDesc}.`;
   const out = fn ? fn(tool.name, desc) : `${desc} Gratis, sin registro y privacy-first.`;
@@ -56,11 +65,38 @@ export function toolSeoDesc(tool: Tool): string {
 }
 
 export function calcSeoTitle(calc: Calculator): string {
+  const override = getSeoOverride(calc.slug);
+  if (override) return override.title;
   return `${calc.name} ${YEAR} — Fórmula, ejemplos y resultado al instante`;
 }
 
 export function calcSeoDesc(calc: Calculator): string {
+  const override = getSeoOverride(calc.slug);
+  if (override) {
+    return override.description.length <= 158 ? override.description : override.description.slice(0, 155) + "...";
+  }
   const desc = calc.shortDesc.endsWith(".") ? calc.shortDesc : `${calc.shortDesc}.`;
   const out = `${desc} Cálculo instantáneo en tu navegador, sin registro, gratis.`;
   return out.length <= 158 ? out : out.slice(0, 155) + "...";
+}
+
+/** Glossary SEO title override-aware */
+export function glossarySeoTitle(slug: string, term: string): string {
+  const override = getSeoOverride(slug);
+  if (override) return override.title;
+  return `¿Qué es ${term}? Definición, ejemplos y casos de uso`;
+}
+
+/** Glossary SEO desc override-aware */
+export function glossarySeoDesc(slug: string, shortDef: string): string {
+  const override = getSeoOverride(slug);
+  if (override) {
+    return override.description.length <= 158 ? override.description : override.description.slice(0, 155) + "...";
+  }
+  return shortDef.length > 155 ? shortDef.slice(0, 152) + "..." : shortDef;
+}
+
+/** Get override H1 if available */
+export function getH1Override(slug: string): string | undefined {
+  return getSeoOverride(slug)?.h1;
 }
