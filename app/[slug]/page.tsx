@@ -12,8 +12,10 @@ import { ToolCard } from "@/components/tools/tool-card";
 import { SITE } from "@/lib/site";
 import { ToolJsonLd } from "@/components/seo/tool-json-ld";
 import { CalculatorJsonLd } from "@/components/seo/calculator-json-ld";
+import { ContentBoost } from "@/components/seo/content-boost";
 import { TOOL_EN, GLOSSARY_EN } from "@/lib/i18n";
-import { toolSeoTitle, toolSeoDesc, calcSeoTitle, calcSeoDesc } from "@/lib/seo-meta";
+import { toolSeoTitle, toolSeoDesc, calcSeoTitle, calcSeoDesc, glossarySeoTitle, glossarySeoDesc, getH1Override } from "@/lib/seo-meta";
+import { getSeoOverride } from "@/lib/seo-overrides";
 import { defaultFaqs, defaultCalcFaqs } from "@/lib/default-faqs";
 
 export function generateStaticParams() {
@@ -61,8 +63,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
   }
   if (gloss) {
-    const title = `¿Qué es ${gloss.term}? Definición, ejemplos y casos de uso`;
-    const desc = gloss.shortDef.length > 155 ? gloss.shortDef.slice(0, 152) + "..." : gloss.shortDef;
+    const title = glossarySeoTitle(gloss.slug, gloss.term);
+    const desc = glossarySeoDesc(gloss.slug, gloss.shortDef);
     const languages = buildLanguages(slug, "gloss");
     return {
       title,
@@ -161,7 +163,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           </nav>
           <header className="mb-6">
             <span className="text-xs px-2 py-0.5 rounded-full bg-[color:var(--color-brand-soft)] text-[color:var(--color-brand)] inline-block mb-2">⚖️ Comparativa</span>
-            <h1 className="text-3xl md:text-4xl font-bold mb-3">Alternativas a {alt.competitor}</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-3">{getH1Override(alt.slug) || `Alternativas a ${alt.competitor}`}</h1>
             <p className="text-lg text-[color:var(--color-fg-soft)]">{alt.shortDescription}</p>
           </header>
           <section className="prose prose-sm max-w-none mb-8">
@@ -272,9 +274,11 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           </nav>
           <header className="mb-6">
             <span className="text-xs px-2 py-0.5 rounded-full bg-[color:var(--color-brand-soft)] text-[color:var(--color-brand)] inline-block mb-2">📖 Glosario técnico</span>
-            <h1 className="text-3xl md:text-4xl font-bold mb-3">¿Qué es {gloss.term}?</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-3">{getH1Override(gloss.slug) || `¿Qué es ${gloss.term}?`}</h1>
             <p className="text-xl text-[color:var(--color-fg-soft)]"><strong className="text-[color:var(--color-fg)]">Respuesta corta:</strong> {gloss.shortDef}</p>
           </header>
+          <ContentBoost slug={gloss.slug} />
+
           <section className="prose prose-sm max-w-none mb-8">
             <h2 className="text-xl font-bold mb-2">Explicación detallada</h2>
             <p className="text-[color:var(--color-fg-soft)] leading-relaxed">{gloss.longDef}</p>
@@ -341,12 +345,13 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           </nav>
           <header className="mb-6">
             <span className="text-xs px-2 py-0.5 rounded-full bg-[color:var(--color-brand-soft)] text-[color:var(--color-brand)] inline-block mb-2">🧮 Calculadora</span>
-            <h1 className="text-3xl md:text-4xl font-bold mb-2">{calc.name}</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-2">{getH1Override(calc.slug) || calc.name}</h1>
             <p className="text-lg text-[color:var(--color-fg-soft)]">{calc.shortDesc}</p>
           </header>
           <div className="card !p-4 md:!p-6 mb-8">
             <CalculatorRunner slug={calc.slug} />
           </div>
+          <ContentBoost slug={calc.slug} />
           <section className="prose prose-sm max-w-none mb-8">
             <h2 className="text-xl font-bold mb-2">Sobre {calc.name}</h2>
             <p className="text-[color:var(--color-fg-soft)] leading-relaxed">{calc.longDesc}</p>
@@ -534,13 +539,15 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <span className="text-xs px-2 py-0.5 rounded-full bg-[color:var(--color-brand-soft)] text-[color:var(--color-brand)] inline-block mb-2">
             {cat.emoji} {cat.name}
           </span>
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">{tool.name}</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-2">{getH1Override(tool.slug) || tool.name}</h1>
           <p className="text-lg text-[color:var(--color-fg-soft)]">{tool.shortDesc}</p>
         </header>
 
         <div className="card !p-4 md:!p-6 mb-8">
           <ToolRenderer slug={tool.slug} />
         </div>
+
+        <ContentBoost slug={tool.slug} />
 
         <section className="prose prose-sm max-w-none mb-8">
           <h2 className="text-xl font-bold mb-2">Sobre {tool.name}</h2>
