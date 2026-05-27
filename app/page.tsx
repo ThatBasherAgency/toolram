@@ -101,6 +101,80 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Sección "Nuevo en Toolram" — internal linking masivo a wave 14 URLs no indexadas */}
+      <section className="max-w-7xl mx-auto px-4 py-12">
+        <div className="flex items-baseline justify-between mb-6">
+          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight inline-flex items-center gap-2">
+            <Sparkles className="w-7 h-7 text-purple-500" /> Nuevo en Toolram
+          </h2>
+          <Link href="/blog" className="text-sm text-[color:var(--color-brand)] inline-flex items-center gap-1 hover:underline font-bold">Ver blog completo <ArrowRight className="w-4 h-4" /></Link>
+        </div>
+        <p className="text-[color:var(--color-fg-soft)] mb-6">Guías recién publicadas + nuevas comparativas. Si trabajás con PDF, SEO, calculadoras o dev tools, empezá por acá.</p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
+          {[
+            { href: "/blog/guia-completa-pdf-online-2026", title: "Guía completa para trabajar con PDF online en 2026", tag: "PDF", time: "14 min" },
+            { href: "/blog/auditoria-seo-tecnica-gratis-2026", title: "Cómo hacer una auditoría SEO técnica sin pagar herramientas", tag: "SEO", time: "16 min" },
+            { href: "/blog/herramientas-desarrolladores-online-2026", title: "20 herramientas online imprescindibles para devs", tag: "Dev", time: "12 min" },
+            { href: "/blog/calculadoras-financieras-imc-imc-2026", title: "15 calculadoras útiles que vas a necesitar en 2026", tag: "Calc", time: "11 min" },
+            { href: "/blog/simbolos-copiar-pegar-unicode-2026", title: "Símbolos Unicode para copiar y pegar (200+)", tag: "Símbolos", time: "8 min" },
+            { href: "/blog/edicion-imagenes-online-gratis-2026", title: "Edición de imágenes online gratis: 10 operaciones", tag: "Imágenes", time: "9 min" },
+          ].map((p) => (
+            <Link key={p.href} href={p.href} className="rounded-xl border border-[color:var(--color-border)] bg-[color:var(--color-bg)] p-4 hover:border-[color:var(--color-brand)] transition group">
+              <div className="flex gap-2 mb-2">
+                <span className="text-xs px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-500 font-bold">{p.tag}</span>
+                <span className="text-xs text-[color:var(--color-fg-soft)]">⏱ {p.time}</span>
+              </div>
+              <div className="font-bold text-sm leading-tight group-hover:text-[color:var(--color-brand)]">{p.title}</div>
+            </Link>
+          ))}
+        </div>
+
+        <div className="rounded-2xl border-2 border-dashed border-[color:var(--color-border)] p-5">
+          <div className="text-sm font-bold mb-3">Comparativas honestas con alternativas:</div>
+          <div className="flex flex-wrap gap-2">
+            {[
+              { href: "/alternativas-a-ilovepdf", label: "vs iLovePDF" },
+              { href: "/alternativas-a-smallpdf", label: "vs SmallPDF" },
+              { href: "/alternativas-a-smallseotools", label: "vs SmallSEOTools" },
+              { href: "/alternativas-a-piliapp", label: "vs PiliApp" },
+              { href: "/alternativas-a-canva-pdf", label: "vs Canva PDF" },
+              { href: "/alternativas-a-tinywow", label: "vs TinyWow" },
+              { href: "/alternativas-a-pdf24", label: "vs PDF24" },
+              { href: "/alternativas-a-sejda", label: "vs Sejda" },
+              { href: "/alternativas-a-freepik-tools", label: "vs Freepik Tools" },
+              { href: "/alternativas-a-adobe-acrobat-online", label: "vs Adobe Acrobat" },
+            ].map((a) => (
+              <Link key={a.href} href={a.href} className="px-3 py-1.5 rounded-full text-xs font-medium border border-[color:var(--color-border)] hover:border-[color:var(--color-brand)] hover:bg-[color:var(--color-brand-soft)] hover:text-[color:var(--color-brand)] transition">
+                {a.label}
+              </Link>
+            ))}
+          </div>
+          <div className="text-xs text-[color:var(--color-fg-soft)] mt-3">10 comparativas con tablas detalladas, pros/contras reales y FAQs.</div>
+        </div>
+      </section>
+
+      {/* Sección "Guías rápidas" — más blog post links + glossary */}
+      <section className="max-w-7xl mx-auto px-4 py-8">
+        <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-4">Guías rápidas (4-7 min)</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[
+            { href: "/blog/como-comprimir-pdf-sin-perder-calidad-2026", title: "Comprimir PDF sin perder calidad" },
+            { href: "/blog/como-mejorar-core-web-vitals-2026", title: "Mejorar Core Web Vitals" },
+            { href: "/blog/jwt-decoder-explicado-2026", title: "JWT decoder explicado" },
+            { href: "/blog/calculadora-imc-formula-rangos-explicados-2026", title: "IMC: fórmula y rangos" },
+            { href: "/blog/como-poner-emojis-y-simbolos-instagram-bio-2026", title: "Símbolos en Instagram bio" },
+            { href: "/blog/como-quitar-fondo-imagen-gratis-2026", title: "Quitar fondo gratis" },
+            { href: "/blog/que-es-un-uuid-cuando-usar-2026", title: "Qué es un UUID" },
+            { href: "/blog/firmar-pdf-online-gratis-guia-2026", title: "Firmar PDF online gratis" },
+          ].map((g) => (
+            <Link key={g.href} href={g.href} className="rounded-lg border border-[color:var(--color-border)] p-3 hover:border-[color:var(--color-brand)] transition group">
+              <div className="text-xs font-bold mb-1 group-hover:text-[color:var(--color-brand)]">{g.title}</div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       <section className="max-w-7xl mx-auto px-4 py-12">
         <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">Todas las categorías</h2>
         <p className="text-[color:var(--color-fg-soft)] mb-6">{TOOLS.length} herramientas organizadas en {Object.keys(CATEGORIES).length} categorías</p>
