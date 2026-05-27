@@ -7,7 +7,7 @@
  * La key debe coincidir con el archivo en /public/{key}.txt.
  */
 
-export const INDEXNOW_KEY = "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6";
+export const INDEXNOW_KEY = "toolram2026key9x4qb7m";
 export const INDEXNOW_HOST = "toolram.com";
 export const INDEXNOW_KEY_LOCATION = `https://${INDEXNOW_HOST}/${INDEXNOW_KEY}.txt`;
 
