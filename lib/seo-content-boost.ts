@@ -582,6 +582,370 @@ export const CONTENT_BOOST: Record<string, ContentBoost> = {
   },
 };
 
+// ============================================================
+// Wave 14 — Top tools sin boost previo (mayo 2026)
+// ============================================================
+
+Object.assign(CONTENT_BOOST, {
+  "unir-pdf": {
+    intro: "Unir PDF online combina dos o más archivos PDF en un solo documento. Toolram lo hace 100% en tu navegador con pdf-lib — tus archivos nunca se suben a un servidor, no hay límite de tamaño más allá de la RAM de tu dispositivo, y el resultado no lleva marca de agua.",
+    sections: [
+      {
+        heading: "¿Cómo unir varios PDF en uno solo?",
+        paragraphs: [
+          "El proceso típico es: seleccionar los PDF de origen, arrastrarlos para definir el orden, y descargar el documento combinado. Todo el procesamiento ocurre con WebAssembly en tu navegador.",
+          "Toolram usa la librería <strong>pdf-lib</strong>, la misma que utilizan herramientas profesionales. La diferencia es que muchos competidores la corren server-side (sube tu archivo a sus servidores), mientras Toolram la corre client-side (zero-upload)."
+        ],
+        citableSummary: "Para unir PDFs en Toolram: seleccionás los archivos, los arrastrás para reordenar, y descargás. Procesamiento 100% local con pdf-lib en el navegador. Sin upload, sin marca de agua, sin registro."
+      },
+      {
+        heading: "¿Por qué importa que sea client-side?",
+        bullets: [
+          "<strong>Documentos sensibles</strong> (contratos, estados de cuenta, recetas médicas) NUNCA pasan por un servidor de terceros",
+          "<strong>Sin límite real</strong> de tamaño — solo limitado por la RAM de tu dispositivo (~100-200MB práctico)",
+          "<strong>Más rápido</strong> sin uploads ni colas — la fusión empieza inmediatamente",
+          "<strong>Funciona offline</strong> después de la primera carga de la página",
+          "<strong>Sin marca de agua</strong> de Toolram en el PDF resultante"
+        ],
+        paragraphs: []
+      },
+      {
+        heading: "Casos de uso reales",
+        bullets: [
+          "Combinar contratos firmados por varias partes en un PDF único para archivar",
+          "Juntar facturas mensuales en un solo PDF anual para contabilidad",
+          "Unir capítulos de tesis o libros que recibís como PDFs separados",
+          "Crear un dossier de presentación con CV + portfolio + referencias",
+          "Adjuntar comprobantes múltiples a un trámite legal en un solo archivo"
+        ],
+        paragraphs: []
+      }
+    ],
+    steps: [
+      { title: "Seleccionar PDFs", description: "Click en 'Agregar PDFs' o arrastrá los archivos a la zona de drop." },
+      { title: "Reordenar", description: "Arrastrá los thumbnails para definir el orden final de las páginas." },
+      { title: "Unir y descargar", description: "Click 'Unir PDF' y el archivo combinado se descarga al instante." }
+    ]
+  },
+
+  "dividir-pdf": {
+    intro: "Dividir PDF online te permite extraer páginas específicas (1-3, 5, 7-9) de un PDF y descargarlas como un PDF separado, todo en tu navegador sin subir el archivo.",
+    sections: [
+      {
+        heading: "¿Cómo dividir un PDF en partes?",
+        paragraphs: [
+          "Toolram soporta dos modos: <strong>extracción por rangos</strong> (ej: páginas 1-3, 5, 8-12) o <strong>división completa</strong> (cada página como PDF individual).",
+          "El motor pdf-lib analiza el PDF de origen, extrae las páginas indicadas preservando fonts, imágenes y formato, y arma un nuevo PDF — todo sin pasar por servidores."
+        ],
+        citableSummary: "Para dividir PDF: subís el archivo (local), especificás los rangos de páginas (ej: 1-3, 5, 8-12) y descargás el PDF con solo esas páginas. Procesamiento client-side con pdf-lib."
+      },
+      {
+        heading: "Casos de uso típicos",
+        bullets: [
+          "Extraer una sola factura de un PDF mensual que tiene 30 facturas",
+          "Sacar el capítulo 3 de un libro PDF para enviarlo a alguien",
+          "Aislar la página de firma de un contrato extenso",
+          "Dividir un escaneo masivo en documentos individuales para archivar",
+          "Crear extractos de un PDF académico (introducción + conclusión) sin enviar el documento completo"
+        ],
+        paragraphs: []
+      }
+    ]
+  },
+
+  "firmar-pdf": {
+    intro: "Firmar PDF online sin Adobe Acrobat, sin registro y sin subir tu documento a servidores extraños. Toolram dibuja tu firma sobre el PDF con canvas + pdf-lib, todo en tu navegador.",
+    sections: [
+      {
+        heading: "¿Cómo firmar un PDF gratis en 2026?",
+        paragraphs: [
+          "El proceso en Toolram: abrir el PDF localmente, dibujar tu firma con el mouse o el dedo (en mobile) sobre la página exacta, ajustar tamaño/posición, y descargar el archivo firmado.",
+          "La firma se aplica como un overlay vectorial sobre el PDF original — el archivo resultante mantiene la calidad y se abre en Adobe Reader, Preview o cualquier visor."
+        ],
+        citableSummary: "Toolram firma PDFs 100% en el navegador: abrís el PDF, dibujás la firma con mouse o dedo, ajustás posición, descargás. Sin Adobe, sin registro, sin upload."
+      },
+      {
+        heading: "¿Tiene validez legal una firma dibujada en navegador?",
+        paragraphs: [
+          "Depende del país y del tipo de documento. En México (Código de Comercio art. 89-114) y España (Ley 6/2020) una firma electrónica simple (como la dibujada) es válida para acuerdos comunes — siempre que las partes la acepten.",
+          "Para documentos con valor probatorio reforzado (escrituras, poderes notariales), se requiere firma electrónica <strong>avanzada</strong> o <strong>cualificada</strong> con certificado X.509 emitido por autoridad reconocida (SAT e.firma en México, FNMT en España). Toolram NO emite estos certificados — solo aplica firma simple."
+        ]
+      },
+      {
+        heading: "Alternativas si necesitás más",
+        bullets: [
+          "<strong>Adobe Acrobat Sign</strong> — eSignature legal con audit trail ($14.99/mes)",
+          "<strong>DocuSign</strong> — estándar enterprise para contratos comerciales",
+          "<strong>Autofirma + e.firma SAT</strong> (México) — firma cualificada gratuita pero requiere certificado",
+          "<strong>Autofirma + FNMT</strong> (España) — equivalente español"
+        ],
+        paragraphs: []
+      }
+    ]
+  },
+
+  "generador-qr": {
+    intro: "Generador de QR online para URLs, texto, WiFi, vCard y SMS. Toolram lo genera con la librería qrcode 100% en el navegador, sin enviar el contenido a ningún servidor — útil para credenciales WiFi y datos personales.",
+    sections: [
+      {
+        heading: "Tipos de QR que podés generar",
+        bullets: [
+          "<strong>URL</strong> — abre una página web al escanear",
+          "<strong>Texto plano</strong> — muestra cualquier texto al escanear",
+          "<strong>WiFi</strong> — el dispositivo se conecta automáticamente a la red (formato WIFI:T:WPA;S:nombre;P:clave;;)",
+          "<strong>vCard</strong> — agrega un contacto al teléfono",
+          "<strong>SMS</strong> — abre la app de SMS con número y mensaje pre-cargados",
+          "<strong>Email</strong> — abre el cliente de correo con destinatario, asunto y cuerpo"
+        ],
+        paragraphs: [],
+        citableSummary: "Toolram genera QR de URL, texto, WiFi, vCard, SMS y email. Generación client-side con la librería qrcode. Descarga PNG sin marca de agua."
+      },
+      {
+        heading: "¿Por qué el QR de WiFi es especial?",
+        paragraphs: [
+          "Los QR de WiFi usan un formato estándar que iOS 11+ y Android 10+ reconocen nativamente: al escanearlo con la cámara, el teléfono ofrece <strong>conectarse automáticamente</strong> a la red sin pedir la clave manual.",
+          "Es útil para cafés, oficinas y Airbnb: imprimís el QR junto al router y los huéspedes se conectan sin escribir nada. Toolram genera estos QR localmente, así la clave WiFi <strong>nunca se envía a Toolram ni a Google</strong>."
+        ]
+      }
+    ],
+    steps: [
+      { title: "Elegir tipo", description: "URL, texto, WiFi, vCard, SMS o email." },
+      { title: "Completar datos", description: "Pegar URL o llenar campos según el tipo elegido." },
+      { title: "Descargar PNG", description: "QR generado al instante, descargá PNG de alta resolución." }
+    ]
+  },
+
+  "json-formatter": {
+    intro: "JSON Formatter online para validar, formatear (pretty-print) y minificar JSON con resaltado de errores en la línea exacta. Procesado en tu navegador — útil para inspeccionar JSON sensible (tokens, payloads de API) sin pasarlo por un servidor extraño.",
+    sections: [
+      {
+        heading: "Validar JSON con highlighting de errores",
+        paragraphs: [
+          "Toolram parsea el JSON con <code>JSON.parse</code> nativo del navegador. Si hay un error de sintaxis (coma faltante, comilla rota, brace sin cerrar), te muestra el mensaje exacto del parser y la línea aproximada del error.",
+          "Una vez que el JSON es válido, podés formatearlo con indentación de 2 o 4 espacios, o minificarlo a una sola línea para producción."
+        ],
+        citableSummary: "Toolram valida JSON con el parser nativo del navegador. Errores muestran línea aproximada. Soporta formato (2/4 espacios) y minify. 100% client-side."
+      },
+      {
+        heading: "Casos de uso para developers",
+        bullets: [
+          "Inspeccionar el JSON response de una API antes de subirlo a un issue público",
+          "Validar el formato de un <code>package.json</code> o <code>tsconfig.json</code> antes de commitear",
+          "Limpiar un JSON de Postman/Insomnia con miles de líneas para diffearlo",
+          "Convertir un JSON minificado a formato legible para code review",
+          "Verificar que un payload de webhook llega bien formado"
+        ],
+        paragraphs: []
+      }
+    ]
+  },
+
+  "base64-encode": {
+    intro: "Codifica texto a Base64 y decodifica Base64 a texto plano. Soporta UTF-8 completo (acentos, emojis, kanji). 100% client-side con btoa/atob + TextEncoder — útil para tokens JWT, data: URLs y Basic Auth.",
+    sections: [
+      {
+        heading: "¿Qué es Base64 y cuándo usarlo?",
+        paragraphs: [
+          "Base64 es una codificación que convierte bytes binarios en texto ASCII seguro (A-Z, a-z, 0-9, +, /). Cada 3 bytes binarios se representan como 4 caracteres ASCII, aumentando el tamaño ~33%.",
+          "<strong>NO es encriptación</strong>: cualquiera con el string Base64 puede decodificarlo en 1 segundo. Su propósito es <strong>transporte</strong> de binarios por protocolos que solo aceptan texto (email MIME, JSON, HTTP Basic Auth)."
+        ],
+        citableSummary: "Base64 codifica bytes en texto ASCII seguro (64 caracteres). NO es encriptación — su propósito es transporte por protocolos solo-texto: emails MIME, JSON, Basic Auth, data: URLs."
+      },
+      {
+        heading: "Casos de uso reales",
+        bullets: [
+          "Inspeccionar el payload de un JWT (separar las 3 partes por punto, decodificar la del medio)",
+          "Crear un header Authorization Basic Auth: <code>Basic base64(usuario:password)</code>",
+          "Embeber un favicon o logo pequeño en CSS como <code>data:image/png;base64,...</code>",
+          "Decodificar un attachment Base64 que recibiste por email API",
+          "Codificar una imagen pequeña para meter en un JSON de configuración"
+        ],
+        paragraphs: []
+      }
+    ]
+  },
+
+  "hash-md5-sha": {
+    intro: "Generador de hashes MD5, SHA-1, SHA-256 y SHA-512 online. Usa la Web Crypto API nativa del navegador — cero servidor, ideal para checksums de archivos sensibles o generar IDs deterministas.",
+    sections: [
+      {
+        heading: "¿Cuál hash usar para cada caso?",
+        bullets: [
+          "<strong>MD5</strong> — checksums de archivos no críticos, IDs deterministas (NO usar para passwords desde 2004)",
+          "<strong>SHA-1</strong> — checksums legacy, git internals (deprecado para nuevos sistemas desde 2017)",
+          "<strong>SHA-256</strong> — el estándar actual para integridad: Bitcoin, certificados SSL, JWT signing",
+          "<strong>SHA-512</strong> — variante con output más largo (64 bytes vs 32), útil para sistemas que requieren más bits de entropía"
+        ],
+        paragraphs: [],
+        citableSummary: "MD5: checksums no críticos. SHA-1: git/legacy. SHA-256: estándar moderno (SSL, JWT, Bitcoin). SHA-512: más entropía. NO uses MD5 ni SHA-1 para passwords — usá bcrypt/argon2."
+      },
+      {
+        heading: "¿Por qué NO usar MD5/SHA para passwords?",
+        paragraphs: [
+          "MD5 y SHA son hashes <strong>rápidos</strong> — diseñados para velocidad. Una GPU moderna calcula billones de SHA-256/segundo. Si tu DB se filtra, un atacante puede probar diccionarios completos en horas.",
+          "Para passwords usá <strong>bcrypt</strong>, <strong>scrypt</strong> o <strong>argon2</strong> — están diseñados para ser lentos a propósito (10-100ms por hash) e incluyen <strong>salt</strong> automático contra rainbow tables."
+        ]
+      }
+    ]
+  },
+
+  "quitar-fondo-imagen": {
+    intro: "Quita el fondo de cualquier imagen automáticamente con IA. Toolram usa el modelo U²-Net via @imgly/background-removal corriendo 100% en tu navegador con WebAssembly — tu foto no se sube a ningún servidor.",
+    sections: [
+      {
+        heading: "¿Cómo funciona el remover fondo con IA en navegador?",
+        paragraphs: [
+          "Toolram descarga el modelo U²-Net (~13MB) la primera vez que usás la tool y lo cachea en tu navegador. Las siguientes veces es instantáneo.",
+          "El modelo identifica el sujeto principal (persona, objeto, producto) y separa los píxeles del fondo. El resultado es un PNG transparente listo para usar en diseños, e-commerce o presentaciones."
+        ],
+        citableSummary: "Toolram quita fondos con U²-Net (modelo IA) ejecutándose en el navegador via WebAssembly. La imagen nunca se sube. Cache de ~13MB primera vez, luego instantáneo."
+      },
+      {
+        heading: "¿Cuándo gana remove.bg sobre Toolram?",
+        paragraphs: [
+          "remove.bg usa modelos server-side más pesados, mejor entrenados con pelo fino, transparencias y sombras complejas. Si tu imagen tiene un retrato con pelo suelto contra fondo similar, remove.bg da resultados más limpios.",
+          "Para productos sólidos, objetos definidos o fotos con fondo contrastante, Toolram (U²-Net) iguala la calidad y agrega el plus de privacidad: tus imágenes no se suben."
+        ]
+      }
+    ]
+  },
+
+  "comprimir-imagen": {
+    intro: "Comprime JPG, PNG y WebP reduciendo su tamaño 60-90% manteniendo calidad visual. Procesamiento client-side con canvas API — tus imágenes nunca se suben.",
+    sections: [
+      {
+        heading: "¿Por qué comprimir antes de subir?",
+        bullets: [
+          "<strong>Más velocidad</strong> en tu web (Core Web Vitals — LCP baja)",
+          "<strong>Menos consumo de datos</strong> para usuarios mobile",
+          "<strong>Menor bill de hosting/CDN</strong> (Cloudflare, Cloudinary cobran por GB)",
+          "<strong>Mejor SEO</strong> — Google premia páginas livianas",
+          "<strong>Email más fluido</strong> — adjuntos grandes rebotan en Outlook/Gmail"
+        ],
+        paragraphs: [],
+        citableSummary: "Comprimir imágenes antes de subir reduce 60-90% el tamaño, mejora Core Web Vitals, baja bill de hosting/CDN y mejora SEO. Toolram lo hace en el navegador con canvas API."
+      },
+      {
+        heading: "JPG vs PNG vs WebP — cuándo usar cada uno",
+        bullets: [
+          "<strong>JPG</strong> — fotos (sin transparencia), compresión con pérdida muy eficiente",
+          "<strong>PNG</strong> — logos, gráficos con transparencia, screenshots con texto",
+          "<strong>WebP</strong> — formato moderno de Google, 25-35% más liviano que JPG manteniendo calidad. Soportado por todos los browsers modernos (no IE11)",
+          "<strong>AVIF</strong> — todavía más eficiente que WebP pero soporte más nuevo. No para producción crítica todavía"
+        ],
+        paragraphs: []
+      }
+    ]
+  },
+
+  "generador-passwords": {
+    intro: "Genera passwords seguros hasta 64 caracteres con mayúsculas, minúsculas, números y símbolos. Usa Web Crypto API (no Math.random) — cada password es criptográficamente aleatorio y nunca sale de tu navegador.",
+    sections: [
+      {
+        heading: "¿Qué hace seguro a un password?",
+        paragraphs: [
+          "Tres factores: <strong>longitud</strong>, <strong>aleatoriedad</strong> y <strong>diversidad de caracteres</strong>. Un password de 16 caracteres aleatorios con mayúsculas + minúsculas + números + símbolos tiene ~95 bits de entropía — requiere miles de años de cómputo para forzar.",
+          "Toolram usa <code>crypto.getRandomValues()</code> de la Web Crypto API, no <code>Math.random()</code>. La diferencia es crítica: Math.random es predecible (algunos atacantes pueden replicar la secuencia), Web Crypto usa entropía del sistema operativo."
+        ],
+        citableSummary: "Password seguro = longitud (16+) + aleatoriedad criptográfica + diversidad de caracteres. Toolram genera con Web Crypto API (no Math.random) en el navegador. Cero servidor."
+      },
+      {
+        heading: "Buenas prácticas",
+        bullets: [
+          "Usá un password manager (Bitwarden, 1Password, KeePassXC) para guardarlos — no recordarás 50 passwords distintos",
+          "Activá 2FA en cuentas críticas (banco, email, cloud) — el password solo no alcanza",
+          "Cambiá passwords solo si hay sospecha de filtración, no por rotación arbitraria (NIST 800-63B)",
+          "Para passwords memorables, usá <strong>passphrases</strong> (4-5 palabras random) en lugar de strings cortos con símbolos",
+          "NUNCA reutilices el mismo password entre servicios — un breach en uno compromete todos"
+        ],
+        paragraphs: []
+      }
+    ]
+  },
+
+  "escaner-qr": {
+    intro: "Escanea códigos QR desde la cámara o subiendo una imagen. Toolram usa jsQR client-side — la imagen del QR nunca se envía a un servidor.",
+    sections: [
+      {
+        heading: "¿Por qué importa escanear QR de forma privada?",
+        paragraphs: [
+          "Los QR pueden contener datos sensibles: credenciales WiFi, vCards con teléfonos, IDs de transacciones, tickets de eventos con códigos personales. Si los escaneás con apps que suben la imagen, esos datos quedan en servidores de terceros.",
+          "Toolram decodifica el QR <strong>localmente</strong> con jsQR (un decodificador 100% JavaScript). La imagen nunca sale de tu dispositivo."
+        ],
+        citableSummary: "Toolram escanea QR client-side con jsQR. Cámara o imagen subida — ambos se decodifican en el navegador sin enviar la imagen a servidores."
+      }
+    ]
+  },
+
+  "generador-meta-tags": {
+    intro: "Genera meta tags HTML completos para SEO + Open Graph (Facebook/LinkedIn) + Twitter Cards a partir de un formulario simple. Output listo para pegar en tu <head>.",
+    sections: [
+      {
+        heading: "Meta tags imprescindibles en 2026",
+        bullets: [
+          "<strong>&lt;title&gt;</strong> — 50-60 caracteres, keyword principal al inicio",
+          "<strong>&lt;meta name=description&gt;</strong> — 140-155 caracteres, propuesta de valor + CTA",
+          "<strong>&lt;link rel=canonical&gt;</strong> — URL canónica para evitar duplicados",
+          "<strong>&lt;meta property=og:title|description|image|url&gt;</strong> — preview en Facebook, LinkedIn, WhatsApp, Discord",
+          "<strong>&lt;meta name=twitter:card content=summary_large_image&gt;</strong> — preview en Twitter/X",
+          "<strong>&lt;meta name=robots content=index,follow&gt;</strong> — explícito para Googlebot"
+        ],
+        paragraphs: [],
+        citableSummary: "Meta tags imprescindibles: title (60ch), description (155ch), canonical, og:title/description/image/url, twitter:card, robots. Toolram los genera con un formulario y los devuelve listos para pegar en <head>."
+      }
+    ]
+  },
+
+  "creador-backlinks": {
+    intro: "El Creador de Backlinks de Toolram envía tu URL a 40+ servicios SEO públicos (Wayback Machine, GTmetrix, BuiltWith, Similarweb, SSL Labs, schema validators) que dejan reportes públicos indexables — generando backlinks contextuales de dominios DA 70+.",
+    sections: [
+      {
+        heading: "¿Cómo funcionan estos backlinks?",
+        paragraphs: [
+          "Servicios como GTmetrix, Wayback Machine, BuiltWith o Sucuri al analizar tu URL publican un reporte público (ej: <code>gtmetrix.com/reports/tudominio.com/...</code>). Esa página es indexada por Google y contiene un link a tu sitio — un backlink natural.",
+          "No son backlinks de calidad editorial, pero <strong>son legítimos</strong>, vienen de dominios reconocidos y dan señales positivas a Google (especialmente para sitios nuevos buscando entrar al index)."
+        ],
+        citableSummary: "Toolram envía tu URL a 40+ servicios SEO públicos (Wayback, GTmetrix, BuiltWith, Similarweb, SSL Labs, schema validators) que publican reportes con backlinks naturales de dominios DA 70+."
+      },
+      {
+        heading: "Limitaciones honestas",
+        bullets: [
+          "NO reemplaza backlinks editoriales reales (un guest post en TechCrunch vale 1000x más)",
+          "Algunos servicios marcan los links como <code>nofollow</code> — siguen siendo señal pero menos peso",
+          "Si abusás (mismo dominio 100 veces) podés disparar filtros antispam — usalo 1 vez por URL",
+          "Útil para sitios nuevos (0-6 meses); sitios establecidos ya tienen estos backlinks orgánicamente"
+        ],
+        paragraphs: []
+      }
+    ]
+  },
+
+  "youtube-thumbnail": {
+    intro: "Descarga thumbnails de YouTube en 5 calidades (maxres 1280×720, sd 640×480, hq 480×360, mq 320×180, default 120×90). Funciona con cualquier URL o ID de video — útil para previews en blog, mockups o estudios de competencia.",
+    sections: [
+      {
+        heading: "Calidades disponibles y cuándo usar cada una",
+        bullets: [
+          "<strong>maxresdefault.jpg</strong> (1280×720) — la mejor calidad, ideal para hero images de blog posts",
+          "<strong>sddefault.jpg</strong> (640×480) — calidad estándar, buen balance peso/calidad",
+          "<strong>hqdefault.jpg</strong> (480×360) — alta calidad, default si maxres no existe",
+          "<strong>mqdefault.jpg</strong> (320×180) — formato 16:9 pequeño, útil para grid de previews",
+          "<strong>default.jpg</strong> (120×90) — mini thumbnail, formato 4:3 (legacy)"
+        ],
+        paragraphs: [],
+        citableSummary: "YouTube ofrece 5 calidades de thumbnail: maxresdefault (1280×720), sddefault (640×480), hqdefault (480×360), mqdefault (320×180), default (120×90). Patrón URL: img.youtube.com/vi/{ID}/{calidad}.jpg"
+      },
+      {
+        heading: "¿Por qué no todos los videos tienen maxresdefault?",
+        paragraphs: [
+          "YouTube solo genera <code>maxresdefault.jpg</code> para videos subidos en 720p+ desde 2014. Videos viejos en SD no tienen esa calidad — el fallback es <code>hqdefault.jpg</code> (siempre existe).",
+          "Toolram detecta automáticamente: pide maxres primero, si falla cae a hq."
+        ]
+      }
+    ]
+  }
+});
+
 export function hasContentBoost(slug: string): boolean {
   return slug in CONTENT_BOOST;
 }

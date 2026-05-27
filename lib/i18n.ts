@@ -291,6 +291,189 @@ export const TOOL_EN: Record<string, { name: string; shortDesc: string; longDesc
     shortDesc: "Calculate your exact age in years, months, days, hours and minutes.",
     longDesc: "Enter your birth date and get your age broken down into years, months, days, total days lived and total hours and minutes.",
     faqs: []
+  },
+
+  // ============================================================
+  // Wave 14 — EN scale up to 50+ tools
+  // ============================================================
+  "firmar-pdf": {
+    name: "Sign PDF online",
+    shortDesc: "Draw your signature with mouse or finger and download a signed PDF. No Adobe, no upload.",
+    longDesc: "Sign any PDF directly in your browser. Open the file locally, draw your signature with mouse or finger on mobile, adjust position and size, and download the signed PDF. Everything runs client-side with pdf-lib + canvas — your document never leaves your computer.",
+    faqs: [
+      { q: "Is a browser-drawn signature legally valid?", a: "In most countries (US ESIGN Act, EU eIDAS, Mexico Código de Comercio), simple electronic signatures are valid for common agreements when both parties accept. For documents requiring qualified signatures (notarial deeds, real estate), you need a certificate-based signature (Adobe Sign, DocuSign, government eIDs)." },
+      { q: "Does Toolram add a watermark to the signed PDF?", a: "No. The output PDF contains only your original document + your signature overlay. No 'Made with Toolram' watermark." }
+    ]
+  },
+  "comprimir-pdf": {
+    name: "Compress PDF",
+    shortDesc: "Reduce PDF file size 40-70% while maintaining quality. Browser-based.",
+    longDesc: "Upload a PDF and Toolram reduces its size by re-encoding images and removing redundant data, all in your browser via pdf-lib. Smaller PDFs are easier to email, faster to share, and cheaper to store.",
+    faqs: []
+  },
+  "pdf-a-jpg": {
+    name: "PDF to JPG",
+    shortDesc: "Extract each PDF page as a high-quality JPG image.",
+    longDesc: "Convert a PDF document into individual JPG images, one per page. Useful for inserting PDF content into presentations, web galleries or messaging apps. Processed locally with pdf.js.",
+    faqs: []
+  },
+  "quitar-fondo-imagen": {
+    name: "Remove image background (AI)",
+    shortDesc: "Auto-remove background from any image with U²-Net AI model in your browser.",
+    longDesc: "AI-powered background removal running 100% in your browser via WebAssembly (@imgly/background-removal, U²-Net model ~13MB cached). Your image never uploads to a server. Works on photos, products, portraits, logos.",
+    faqs: [
+      { q: "How does it compare to remove.bg?", a: "remove.bg uses heavier server-side models, marginally better on complex hair/transparency edges. Toolram processes locally — same quality for standard subjects, with zero data exfiltration." }
+    ]
+  },
+  "comprimir-imagen": {
+    name: "Compress image (JPG/PNG/WebP)",
+    shortDesc: "Reduce image file size 60-90% while keeping visual quality.",
+    longDesc: "Compress JPG, PNG or WebP images via canvas API in your browser. Useful for improving website speed (Core Web Vitals), reducing hosting bills, or making images email-friendly.",
+    faqs: []
+  },
+  "convertir-imagen": {
+    name: "Convert image format",
+    shortDesc: "Convert between JPG, PNG, WebP and AVIF in your browser.",
+    longDesc: "Convert images between formats without quality loss (PNG, WebP) or with controlled compression (JPG, AVIF). All conversion happens locally via canvas API.",
+    faqs: []
+  },
+  "redimensionar-imagen": {
+    name: "Resize image",
+    shortDesc: "Resize images to exact dimensions while keeping aspect ratio.",
+    longDesc: "Resize any image (JPG, PNG, WebP) to specific dimensions in pixels or percentages. Preserves aspect ratio by default. 100% client-side.",
+    faqs: []
+  },
+  "youtube-thumbnail": {
+    name: "YouTube thumbnail downloader",
+    shortDesc: "Download YouTube video thumbnails in 5 qualities (up to 1280×720).",
+    longDesc: "Paste any YouTube URL or video ID and download the thumbnail in maxresdefault (1280×720), sddefault (640×480), hqdefault (480×360), mqdefault (320×180) or default (120×90). Useful for blog hero images, mockups or competitive research.",
+    faqs: []
+  },
+  "wifi-qr": {
+    name: "WiFi QR code generator",
+    shortDesc: "Create a QR that auto-connects phones to your WiFi network.",
+    longDesc: "Generate a QR code with your WiFi credentials (SSID + password + security type). iOS 11+ and Android 10+ auto-connect when scanned with the camera. Perfect for cafés, offices and Airbnb. Generated locally — your WiFi password never reaches Toolram or Google.",
+    faqs: []
+  },
+  "escaner-qr": {
+    name: "QR code scanner",
+    shortDesc: "Scan QR codes from your camera or uploaded image, in-browser.",
+    longDesc: "Decode QR codes using your device camera or by uploading an image. Powered by jsQR running 100% in your browser. The image never uploads to a server — important for QR codes containing sensitive data (WiFi credentials, transaction IDs, vCards).",
+    faqs: []
+  },
+  "lector-codigo-barras": {
+    name: "Barcode reader",
+    shortDesc: "Decode 1D and 2D barcodes from image or camera.",
+    longDesc: "Read EAN, UPC, Code 128, QR, DataMatrix and more from your camera feed or uploaded image. All decoding runs in your browser.",
+    faqs: []
+  },
+  "ocr-imagen-texto": {
+    name: "Image to text (OCR)",
+    shortDesc: "Extract text from images using Tesseract.js in your browser.",
+    longDesc: "Optical Character Recognition (OCR) for images, supporting 12+ languages including English, Spanish, Portuguese, French, German. Powered by Tesseract.js running client-side — your images never leave your device.",
+    faqs: []
+  },
+  "texto-a-voz": {
+    name: "Text to speech (TTS)",
+    shortDesc: "Convert text to natural speech using your device's built-in voices.",
+    longDesc: "Listen to any text using the Web Speech API native voices on your device (10-50+ depending on OS). No upload, no API key, no quota. Adjustable speed, pitch and voice.",
+    faqs: []
+  },
+  "voz-a-texto": {
+    name: "Speech to text",
+    shortDesc: "Transcribe your voice to text in real-time, 12+ languages.",
+    longDesc: "Real-time speech-to-text transcription using the Web Speech API. Supports English, Spanish, Portuguese, French, German, Italian, Japanese, Korean, Chinese, Russian, Arabic, Hindi. Audio never leaves your browser.",
+    faqs: []
+  },
+  "creador-backlinks": {
+    name: "Backlink maker (40+ SEO services)",
+    shortDesc: "Submit your URL to 40+ public SEO services that publish indexable reports with backlinks.",
+    longDesc: "Sends your URL to public SEO analysis services (Wayback Machine, GTmetrix, BuiltWith, Similarweb, SSL Labs, schema validators) which publish reports with natural backlinks from DA 70+ domains. Free, no signup. Honest disclaimer: not a replacement for editorial backlinks — best for new sites (0-6 months).",
+    faqs: []
+  },
+  "generador-meta-tags": {
+    name: "Meta tags generator",
+    shortDesc: "Generate complete HTML meta tags for SEO + Open Graph + Twitter Cards.",
+    longDesc: "Fill a simple form (title, description, URL, image) and get ready-to-paste meta tags including <title>, <meta description>, canonical, og:title/description/image/url, twitter:card and robots directives.",
+    faqs: []
+  },
+  "previsualizador-serp": {
+    name: "SERP preview tool",
+    shortDesc: "Preview how your page will look in Google search results.",
+    longDesc: "Paste your title, URL and meta description to see exactly how Google will render them in mobile and desktop SERPs. Character counts and truncation warnings included.",
+    faqs: []
+  },
+  "densidad-keywords": {
+    name: "Keyword density analyzer",
+    shortDesc: "Analyze keyword density in any text or pasted HTML.",
+    longDesc: "Paste text or HTML and get a breakdown of keyword density: 1-word, 2-word (bigrams) and 3-word (trigrams) frequencies, percentages and Top-N list. Useful for content optimization without keyword stuffing.",
+    faqs: []
+  },
+  "analizador-meta": {
+    name: "Meta tags analyzer",
+    shortDesc: "Paste HTML and get a SEO score with issue list.",
+    longDesc: "Paste any HTML and Toolram analyzes title length, meta description length, missing canonical, OG/Twitter tags presence, schema detection, heading hierarchy and gives you a 0-100 SEO score with specific issues to fix.",
+    faqs: []
+  },
+  "generador-robots": {
+    name: "robots.txt generator",
+    shortDesc: "Generate a robots.txt file with allow/disallow rules and sitemap.",
+    longDesc: "Visual generator for robots.txt: configure rules per user-agent (Googlebot, Bingbot, AI bots), define sitemap URL, and download a valid robots.txt ready to deploy.",
+    faqs: []
+  },
+  "generador-sitemap": {
+    name: "Sitemap XML generator",
+    shortDesc: "Generate an XML sitemap from a list of URLs.",
+    longDesc: "Paste a list of URLs (one per line) and get a valid XML sitemap with lastmod, changefreq and priority. Up to 50,000 URLs per sitemap.",
+    faqs: []
+  },
+  "generador-schema-faq": {
+    name: "FAQ schema generator",
+    shortDesc: "Generate FAQPage JSON-LD schema from question-answer pairs.",
+    longDesc: "Add question-answer pairs in a form and get ready-to-paste JSON-LD FAQPage schema. Useful for triggering FAQ rich results in Google.",
+    faqs: []
+  },
+  "css-flex-generator": {
+    name: "CSS Flexbox generator",
+    shortDesc: "Visual Flexbox playground with auto-generated CSS code.",
+    longDesc: "Interactive Flexbox playground: configure justify-content, align-items, flex-direction, gap and see the result in real-time. Copy the generated CSS with one click.",
+    faqs: []
+  },
+  "css-grid-generator": {
+    name: "CSS Grid generator",
+    shortDesc: "Visual CSS Grid playground with column/row controls and ready code.",
+    longDesc: "Define columns, rows, gap and template areas visually. See your grid layout in real-time and copy production-ready CSS.",
+    faqs: []
+  },
+  "cubic-bezier-generator": {
+    name: "CSS cubic-bezier easing generator",
+    shortDesc: "Visual editor for cubic-bezier() easing functions with live preview.",
+    longDesc: "Drag the bezier curve handles to design your custom easing function. Live preview shows animation behavior. Copy the cubic-bezier() value for your CSS transitions.",
+    faqs: []
+  },
+  "color-palette": {
+    name: "Color palette generator",
+    shortDesc: "Generate harmonic color palettes: monochromatic, complementary, triadic, tetradic.",
+    longDesc: "Pick a base color and get harmonic palettes following color theory: monochromatic, analogous, complementary, triadic, tetradic. Copy individual HEX/RGB/HSL values or full palette.",
+    faqs: []
+  },
+  "contraste-color-wcag": {
+    name: "WCAG color contrast checker",
+    shortDesc: "Check WCAG AA/AAA contrast ratios between any two colors.",
+    longDesc: "Enter foreground + background colors and get the contrast ratio, WCAG AA (4.5:1) and AAA (7:1) pass/fail for normal and large text. Essential for accessible web design.",
+    faqs: []
+  },
+  "interes-compuesto": {
+    name: "Compound interest calculator",
+    shortDesc: "Project investment growth with compound interest, monthly contributions, multiple currencies.",
+    longDesc: "Calculate compound interest projections with initial amount, monthly contributions, annual return rate and time horizon. Supports compounding frequencies (annual, monthly, daily) and 8+ currencies.",
+    faqs: []
+  },
+  "salario-hora-anual": {
+    name: "Hourly to annual salary converter",
+    shortDesc: "Convert between hourly, daily, weekly, monthly and annual salary figures.",
+    longDesc: "Enter any salary in any frequency (hourly, daily, weekly, monthly, annual) and get equivalents in all other frequencies. Useful for freelance pricing, job offer comparison or budget planning.",
+    faqs: []
   }
 };
 
