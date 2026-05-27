@@ -7,6 +7,8 @@ import { ToolCard } from "@/components/tools/tool-card";
 import { CATEGORY_CONTENT } from "@/lib/category-content";
 import { SITE } from "@/lib/site";
 
+export const revalidate = 3600;
+
 const YEAR = new Date().getFullYear();
 
 export function generateStaticParams() {

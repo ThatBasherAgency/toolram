@@ -4,6 +4,8 @@ import { CATEGORIES, popularTools, TOOLS, toolsByCategory } from "@/lib/tools-re
 import { ToolCard } from "@/components/tools/tool-card";
 import { SearchBox } from "@/components/tools/search-box";
 
+export const revalidate = 3600;
+
 const FEATURED_SLUGS = ["creador-backlinks", "firmar-pdf", "calculadora-imc", "quitar-fondo-imagen", "calculadora-embarazo", "youtube-thumbnail", "escaner-qr", "ocr-imagen-texto"];
 
 const NEW_SLUGS = ["interes-compuesto", "calculadoras-marketing", "conversor-zonas-horarias", "wifi-qr", "css-flex-generator", "cubic-bezier-generator", "contraste-color-wcag", "subnet-calculator", "generador-keywords-seo", "caption-generator", "youtube-tags-generator", "cuenta-regresiva"];

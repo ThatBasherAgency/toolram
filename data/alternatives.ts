@@ -291,4 +291,273 @@ export const ALTERNATIVES: AlternativeEntry[] = [
   }
 ];
 
+ALTERNATIVES.push(
+  {
+    slug: "alternativas-a-tinywow",
+    competitor: "TinyWow",
+    competitorUrl: "https://tinywow.com",
+    shortDescription: "TinyWow es popular por su catálogo amplio de tools (PDF, AI, video, imagen). Estas son 6 alternativas más privadas y sin tracking agresivo.",
+    intro: "TinyWow (~30M visitas/mes) ofrece más de 200 herramientas en una sola plataforma con UX moderna. Su modelo: free + Pro $5.99/mes. El problema: todos los archivos pasan por sus servidores, el sitio carga muchos trackers (analytics + ads + remarketing), y la 'política de eliminación a 1 hora' no es verificable. Para usuarios que valoran privacy real, hay opciones más limpias.",
+    whyLookForAlternatives: [
+      "Todos los archivos suben a sus servidores (incluso tareas que podrían correr client-side)",
+      "Plan free con límite: 5 tareas por hora",
+      "Muchos trackers y ads en la página (página principal carga ~80 requests externos)",
+      "Pro $5.99/mes con descuento agresivo si no upgradás",
+      "Marca de agua en algunos formatos de imagen/video gratuitos",
+      "Política de retención: 'eliminados a la hora' — sin auditoría externa"
+    ],
+    toolramAdvantages: [
+      "Procesamiento local en navegador para PDF/imágenes (los archivos nunca salen)",
+      "Sin límite de tareas por hora",
+      "Sin trackers de terceros invasivos",
+      "Sin marca de agua, sin Pro tier",
+      "Open source MIT",
+      "Spanish-first (vs traducción auto de TinyWow)"
+    ],
+    competitorAdvantages: [
+      "Catálogo mucho más amplio (200+ tools vs 155 de Toolram)",
+      "Tools de video (compress, convert, GIF maker)",
+      "Tools de AI server-side (generación de imágenes, escritura)",
+      "Conversión OCR potente server-side",
+      "App móvil disponible"
+    ],
+    comparisonRows: [
+      { feature: "Procesamiento local", toolram: t, competitor: f },
+      { feature: "Sin marca de agua", toolram: t, competitor: "En algunos formatos" },
+      { feature: "Sin límite de tareas/hora", toolram: t, competitor: "5/hora free" },
+      { feature: "Trackers terceros", toolram: "Mínimos", competitor: "Muchos" },
+      { feature: "Open source", toolram: t, competitor: f },
+      { feature: "Tools video", toolram: f, competitor: t },
+      { feature: "AI generativa server-side", toolram: f, competitor: t },
+      { feature: "Precio", toolram: "Gratis", competitor: "Free / $5.99 mes" }
+    ],
+    otherAlternatives: [
+      { name: "iLovePDF", description: "25+ tools PDF, marca conocida. Sube archivos al server.", url: "https://www.ilovepdf.com" },
+      { name: "PDFCandy", description: "47+ tools PDF. Server-side. Plan free generoso.", url: "https://pdfcandy.com" },
+      { name: "Online Convert", description: "Conversor multi-formato veterano. UX dated.", url: "https://www.online-convert.com" },
+      { name: "Convertio", description: "Conversor multi-formato moderno. Pago.", url: "https://convertio.co" }
+    ],
+    faqs: [
+      { q: "¿TinyWow realmente borra mis archivos a la hora?", a: "Su política lo dice pero no es verificable externamente. Los archivos pasan por sus servidores AWS y dependés de su buena fe. Para datos sensibles, una herramienta client-side como Toolram elimina el riesgo." },
+      { q: "¿TinyWow tiene mejor calidad que Toolram para compresión de PDF?", a: "Para compresión muy agresiva sí (usa algoritmos server-side mejores). Para compresión estándar Toolram es comparable y procesa localmente." },
+      { q: "¿Cuál tiene mejor herramienta de remover fondo de imagen?", a: "TinyWow usa modelos server-side más pesados. Toolram usa @imgly/background-removal client-side (modelo U²-Net, ~13MB cache primera vez). La calidad final es similar para imágenes estándar; TinyWow gana en imágenes complejas con pelo/transparencias finas." },
+      { q: "¿Hay límite de tamaño de archivo en TinyWow?", a: "Free tier: ~50MB por archivo. Pro: 200MB. Toolram limita solo a la memoria de tu navegador (~100-200MB práctico)." }
+    ]
+  },
+  {
+    slug: "alternativas-a-pdf24",
+    competitor: "PDF24 Tools",
+    competitorUrl: "https://tools.pdf24.org",
+    shortDescription: "PDF24 es la opción alemana 'free forever' con 30+ tools PDF. Estas son 5 alternativas — incluyendo las client-side privacy-first.",
+    intro: "PDF24 (~80M visitas/mes globalmente) es uno de los servicios PDF más establecidos y permanece free unlimited sin marca de agua. Tiene apps Windows offline disponibles. Su debilidad: web tools pasan archivos por sus servidores alemanes, UI viejo (no actualizó desde 2020), y publicidad fuerte. Para procesamiento privado o experiencia más moderna, hay opciones mejores.",
+    whyLookForAlternatives: [
+      "Archivos suben a sus servidores aunque tareas podrían correr client-side",
+      "UI/UX no actualizado desde 2020",
+      "Ads cargan en múltiples slots de la página",
+      "Plan free pero con ads invasivos como modelo de negocio",
+      "Apps desktop solo Windows (no Mac/Linux)",
+      "Idioma principal alemán/inglés, español parcial"
+    ],
+    toolramAdvantages: [
+      "Procesamiento 100% en navegador",
+      "UX y diseño 2026 modernos",
+      "Sin ads en MVP",
+      "Spanish-first nativo",
+      "Funciona en cualquier sistema operativo (es web)",
+      "Open source verificable"
+    ],
+    competitorAdvantages: [
+      "Más tools PDF específicas (30+)",
+      "Versión desktop Windows con todas las features offline",
+      "Mejor SEO histórico (rankings consolidados en EU)",
+      "Soporta archivos más grandes server-side (hasta 200MB free)",
+      "Plugin para Outlook y otros email clients"
+    ],
+    comparisonRows: [
+      { feature: "Procesamiento local", toolram: t, competitor: f },
+      { feature: "UX moderna 2026", toolram: t, competitor: f },
+      { feature: "Sin ads", toolram: t, competitor: f },
+      { feature: "Spanish nativo", toolram: t, competitor: "Parcial" },
+      { feature: "Open source", toolram: t, competitor: f },
+      { feature: "App desktop Windows", toolram: f, competitor: t },
+      { feature: "Cantidad tools PDF", toolram: "8", competitor: "30+" },
+      { feature: "Plugin Outlook", toolram: f, competitor: t },
+      { feature: "Precio", toolram: "Gratis", competitor: "Gratis (con ads)" }
+    ],
+    otherAlternatives: [
+      { name: "iLovePDF", description: "25+ tools. Server-side. Marca de agua en algunas.", url: "https://www.ilovepdf.com" },
+      { name: "SmallPDF", description: "UX premium pero solo 2 tareas/día free.", url: "https://smallpdf.com" },
+      { name: "Sejda", description: "Modo desktop offline real. Web limita 3 tareas/hora.", url: "https://www.sejda.com" },
+      { name: "PDFsam", description: "Open source desktop. Foco split/merge.", url: "https://pdfsam.org" }
+    ],
+    faqs: [
+      { q: "¿PDF24 es realmente free para siempre?", a: "Sí, sin paywall ni Pro tier — su modelo es ads + apps Windows pago. Tools web siguen 100% gratuitas con ads como contraprestación." },
+      { q: "¿PDF24 desktop es seguro y offline?", a: "Sí. La versión Windows funciona 100% offline. El web SÍ sube archivos a sus servidores." },
+      { q: "¿Por qué elegir Toolram en lugar de PDF24 web?", a: "Tres razones: privacidad (archivos no salen de tu navegador), UX moderna (PDF24 sigue diseño 2018), y velocidad (sin uploads). Si necesitás 30+ tools específicas o features avanzadas, PDF24 cubre más casos de uso." }
+    ]
+  },
+  {
+    slug: "alternativas-a-freepik-tools",
+    competitor: "Freepik Tools",
+    competitorUrl: "https://www.freepik.com/pikaso",
+    shortDescription: "Freepik lanzó Pikaso (AI image gen) y herramientas de fondo/upscale. Estas son alternativas más enfocadas y privacy-first.",
+    intro: "Freepik (~150M visitas/mes) expandió su línea de tools con AI Image Generator, Background Remover, Image Upscaler, Reimagine y Pikaso (lienzo AI). Su modelo: free limitado + Premium $9.99/mes. Funciona bien pero todo es server-side y la mayoría de features útiles están gated. Para tareas específicas como quitar fondo o upscale, hay alternativas más privadas y sin freemium agresivo.",
+    whyLookForAlternatives: [
+      "Features útiles gated detrás de Premium $9.99/mes",
+      "Cuenta obligatoria para usar AI tools",
+      "Archivos procesados en servidores de Freepik",
+      "Plan free limitado a 5-10 generaciones/día según tool",
+      "AI tools entrenadas con stock de Freepik (sesgo estilístico hacia ese banco)",
+      "Imágenes generadas con AI llevan marca de agua en free tier"
+    ],
+    toolramAdvantages: [
+      "Quitar fondo client-side con @imgly/background-removal (modelo U²-Net)",
+      "Sin cuenta requerida",
+      "Sin marca de agua en outputs",
+      "Sin límite de uso diario",
+      "Open source",
+      "Tools no relacionadas con AI (PDF, calculadoras, SEO) que Freepik no cubre"
+    ],
+    competitorAdvantages: [
+      "AI image generation (text-to-image, Pikaso lienzo) — Toolram no tiene esto",
+      "Upscale 4x con AI server-side (Toolram no tiene)",
+      "Acceso al banco Freepik integrado",
+      "Reimagine (variaciones de una imagen)",
+      "Plantillas Pro de Mockups con AI",
+      "Comunidad y tutoriales establecidos"
+    ],
+    comparisonRows: [
+      { feature: "Sin cuenta requerida", toolram: t, competitor: f },
+      { feature: "Procesamiento local", toolram: "Quitar fondo + más", competitor: f },
+      { feature: "Sin marca de agua", toolram: t, competitor: "Solo Premium" },
+      { feature: "Sin límite diario", toolram: t, competitor: "5-10/día" },
+      { feature: "AI image generation", toolram: f, competitor: t },
+      { feature: "AI upscale 4x", toolram: f, competitor: t },
+      { feature: "Banco stock integrado", toolram: f, competitor: t },
+      { feature: "Open source", toolram: t, competitor: f },
+      { feature: "Precio", toolram: "Gratis", competitor: "Free limitado / $9.99 mes" }
+    ],
+    otherAlternatives: [
+      { name: "remove.bg", description: "El estándar para quitar fondo. Free limitado, Pro pago.", url: "https://www.remove.bg" },
+      { name: "Pixlr", description: "Editor + AI tools. Free con ads + Premium.", url: "https://pixlr.com" },
+      { name: "Photopea", description: "Photoshop clone web gratis. Sin AI generativa.", url: "https://www.photopea.com" },
+      { name: "Upscayl", description: "Upscaler open source desktop, gratis.", url: "https://upscayl.org" }
+    ],
+    faqs: [
+      { q: "¿Toolram tiene AI image generation como Pikaso?", a: "Aún no. Generar imágenes con AI requiere modelos pesados que no corren bien en navegador. Para Q4 2026 evaluamos integrar API gratuita (FLUX, SDXL) sin guardar datos. Por ahora, Freepik/Bing Image Creator/Leonardo.ai cubren ese caso." },
+      { q: "¿La herramienta de quitar fondo de Toolram es comparable a Freepik?", a: "Sí para casos estándar (productos, retratos, objetos). Freepik gana en casos complejos (pelo fino, sombras, transparencias) por usar modelos server-side más pesados. Toolram lo hace en tu navegador, gratis, sin cuenta." },
+      { q: "¿Las imágenes generadas con Freepik tienen licencia para uso comercial?", a: "Solo en Premium. Plan free tiene marca de agua y licencia personal limitada. Revisá ToS antes de uso comercial." }
+    ]
+  },
+  {
+    slug: "alternativas-a-sejda",
+    competitor: "Sejda",
+    competitorUrl: "https://www.sejda.com",
+    shortDescription: "Sejda destaca por su modo desktop offline real. Estas son 5 alternativas — incluidas opciones más rápidas o más privadas.",
+    intro: "Sejda (~15M visitas/mes) es respetada en el espacio PDF por dos motivos: la versión Desktop es realmente offline (sin telemetría), y la versión web tiene tools de calidad. Su debilidad: la versión web limita a 3 tareas por hora antes de pedir pago, y el desktop es $5/mes (no compra única). Para tareas web casuales o usuarios buscando free sin restricciones, hay alternativas.",
+    whyLookForAlternatives: [
+      "Web limita a 3 tareas por hora (luego pide pago)",
+      "Plan web Pro: $5/mes",
+      "Desktop $5/mes recurring (no compra única)",
+      "Free tier suficiente para tareas ocasionales pero frustrante para uso frecuente",
+      "Procesamiento web server-side",
+      "UX no es la más moderna"
+    ],
+    toolramAdvantages: [
+      "Sin límite de tareas",
+      "100% gratis, sin Pro tier",
+      "Procesamiento client-side (privacy real, no solo offline binary)",
+      "UX moderna 2026",
+      "Open source MIT auditable",
+      "No requiere instalación de app desktop"
+    ],
+    competitorAdvantages: [
+      "Versión Desktop offline real con audit trail (sin telemetría)",
+      "Tools de calidad profesional (PDF a Word con formato preservado)",
+      "OCR potente integrado",
+      "Edición visual de PDFs (mover elementos, text)",
+      "Maneja archivos grandes mejor (hasta 200MB)",
+      "Más cantidad de tools PDF (30+)"
+    ],
+    comparisonRows: [
+      { feature: "Sin límite tareas/hora", toolram: t, competitor: "3/hora free" },
+      { feature: "Procesamiento local", toolram: t, competitor: "Desktop sí, web no" },
+      { feature: "UX moderna", toolram: t, competitor: f },
+      { feature: "Open source", toolram: t, competitor: f },
+      { feature: "Spanish nativo", toolram: t, competitor: "Parcial" },
+      { feature: "Edición visual PDF", toolram: f, competitor: t },
+      { feature: "PDF a Word con formato", toolram: "Beta", competitor: t },
+      { feature: "OCR profesional", toolram: "Beta", competitor: t },
+      { feature: "Precio", toolram: "Gratis", competitor: "Free limitado / $5 mes" }
+    ],
+    otherAlternatives: [
+      { name: "iLovePDF", description: "25+ tools. Server-side. Más marca conocida.", url: "https://www.ilovepdf.com" },
+      { name: "PDF24", description: "Free unlimited con ads. Apps Windows offline.", url: "https://tools.pdf24.org" },
+      { name: "PDFsam", description: "Open source desktop, foco split/merge.", url: "https://pdfsam.org" },
+      { name: "Adobe Acrobat online", description: "Estándar enterprise. Free limitado.", url: "https://www.adobe.com/acrobat/online.html" }
+    ],
+    faqs: [
+      { q: "¿Sejda Desktop es realmente offline y sin telemetría?", a: "Sí. Es uno de los pocos editores PDF con audit trail que confirma cero conexiones externas durante uso normal. Buena opción si necesitás procesar PDFs sensibles offline." },
+      { q: "¿Toolram puede reemplazar Sejda para tareas profesionales?", a: "Para operaciones básicas (unir/dividir/comprimir/rotar) sí. Para tareas avanzadas (edición visual, OCR profesional, PDF a Word complejo) Sejda Desktop sigue siendo superior." },
+      { q: "¿Cuál tiene mejor compresión de PDF?", a: "Sejda Desktop con compresión 'agresiva' suele bajar PDFs 60-80%. Toolram comprime con pdf-lib más conservadoramente (40-60%). Para máxima compresión, Adobe Acrobat o Sejda Desktop." }
+    ]
+  },
+  {
+    slug: "alternativas-a-adobe-acrobat-online",
+    competitor: "Adobe Acrobat online",
+    competitorUrl: "https://www.adobe.com/acrobat/online.html",
+    shortDescription: "Adobe Acrobat es el estándar PDF enterprise. Estas son 6 alternativas — gratuitas, sin Adobe ID, y sin upload obligatorio.",
+    intro: "Adobe Acrobat online (~80M visitas/mes) es el estándar de facto en empresas para PDF: la calidad de conversión, edición y OCR no tiene rival. Pero requiere Adobe ID, todo se procesa en sus servidores, el plan free es muy limitado, y el plan completo cuesta $14.99/mes. Para usuarios sin presupuesto enterprise o que valoran privacidad, hay alternativas razonables.",
+    whyLookForAlternatives: [
+      "Requiere Adobe ID obligatorio para casi todas las tools",
+      "Plan free: 2-3 tareas antes de pedir upgrade",
+      "Plan completo: $14.99/mes (Acrobat Standard) o $19.99/mes (Pro)",
+      "Todos los archivos pasan por servidores Adobe (Creative Cloud)",
+      "Workflow lento (cargar Adobe Cloud + procesar + descargar)",
+      "Trial 7 días con captura de tarjeta",
+      "Marketing intenso hacia upgrade en cada acción"
+    ],
+    toolramAdvantages: [
+      "Sin Adobe ID, sin cuenta de ningún tipo",
+      "Procesamiento local en navegador",
+      "Sin límite de tareas",
+      "Gratis sin Pro tier",
+      "Sin tracking ni remarketing de Adobe",
+      "Open source"
+    ],
+    competitorAdvantages: [
+      "El estándar enterprise (PDF/A, PDF/X, formularios complejos, firmas certificadas)",
+      "OCR de calidad incomparable",
+      "PDF a Word/Excel/PowerPoint con preservación perfecta del layout",
+      "Firmas digitales con valor legal AES",
+      "Integración con Acrobat Reader desktop",
+      "Comparación de versiones de PDF",
+      "Compliance regulatorio (GDPR, HIPAA con BAA)"
+    ],
+    comparisonRows: [
+      { feature: "Sin cuenta requerida", toolram: t, competitor: f },
+      { feature: "Procesamiento local", toolram: t, competitor: f },
+      { feature: "Sin límite tareas", toolram: t, competitor: "2-3 free" },
+      { feature: "OCR profesional", toolram: "Beta", competitor: t },
+      { feature: "Firma digital legal", toolram: f, competitor: t },
+      { feature: "PDF a Word perfecto", toolram: "Estándar", competitor: t },
+      { feature: "Compliance HIPAA/GDPR", toolram: "Privacy-first (local)", competitor: "BAA pago" },
+      { feature: "Precio", toolram: "Gratis", competitor: "$14.99-$19.99 mes" }
+    ],
+    otherAlternatives: [
+      { name: "Foxit PDF online", description: "Alternativa enterprise a Adobe. Pago.", url: "https://www.foxit.com/pdf-editor/" },
+      { name: "iLovePDF", description: "25+ tools, marca conocida, free generoso.", url: "https://www.ilovepdf.com" },
+      { name: "SmallPDF", description: "UX premium, 2 tareas/día free.", url: "https://smallpdf.com" },
+      { name: "Sejda Desktop", description: "Edición y OCR decente, offline.", url: "https://www.sejda.com" },
+      { name: "PDFescape", description: "Editor web básico gratuito.", url: "https://www.pdfescape.com" }
+    ],
+    faqs: [
+      { q: "¿Toolram puede reemplazar Adobe Acrobat para mi empresa?", a: "Depende del caso. Para tareas básicas (unir, dividir, comprimir, marca de agua) Toolram funciona. Para firmas digitales con valor legal, formularios complejos, OCR avanzado, conversión a Word con layout perfecto o compliance regulatorio formal, Adobe sigue siendo necesario." },
+      { q: "¿Adobe Acrobat es seguro para documentos médicos o legales?", a: "Sí con BAA (Business Associate Agreement) en plan enterprise. Plan free/personal: los archivos pasan por Adobe Creative Cloud (US/EU servers según región). Para zero-trust, herramientas client-side como Toolram eliminan el server del workflow." },
+      { q: "¿Hay alguna alternativa gratuita con OCR comparable a Adobe?", a: "OCR profesional de Adobe usa modelos AI propios entrenados con millones de docs — difícil de igualar. Tesseract (open source) que usa Toolram en beta da resultados decentes para texto simple. Para documentos complejos escaneados, Adobe sigue ganando." },
+      { q: "¿Puedo crear formularios PDF rellenables sin Adobe?", a: "Toolram no lo soporta todavía. PDFescape, Sejda, o iLovePDF tienen creación de formularios básica. Para formularios avanzados con cálculos y validaciones, Adobe Acrobat Pro sigue siendo el estándar." }
+    ]
+  }
+);
+
 export const ALTERNATIVES_BY_SLUG = Object.fromEntries(ALTERNATIVES.map((a) => [a.slug, a]));

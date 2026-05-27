@@ -3,6 +3,8 @@ import Link from "next/link";
 import { CATEGORIES, TOOLS } from "@/lib/tools-registry";
 import { ToolCard } from "@/components/tools/tool-card";
 
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: "Todas las herramientas",
   description: "Listado completo de todas las herramientas online gratis en Toolram. PDF, SEO, IA, símbolos, conversores y más.",
