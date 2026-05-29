@@ -409,6 +409,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         <ToolRenderer slug={tool.slug} />
         <div className="border-t border-[color:var(--color-border)] bg-[color:var(--color-bg-soft)]/40 py-12 md:py-16 mt-8">
           <div className="max-w-3xl mx-auto px-4 space-y-8">
+            <ContentBoost slug={tool.slug} />
             <section>
               <h2 className="text-2xl font-bold mb-3">Sobre {tool.name}</h2>
               <p className="text-base text-[color:var(--color-fg-soft)] leading-relaxed">{tool.longDesc}</p>
@@ -442,6 +443,34 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
       <>
         <ToolJsonLd tool={tool} />
         <ToolRenderer slug={tool.slug} />
+        <div className="border-t border-[color:var(--color-border)] bg-[color:var(--color-bg-soft)]/40 py-12 md:py-16 mt-8">
+          <div className="max-w-3xl mx-auto px-4 space-y-8">
+            <ContentBoost slug={tool.slug} />
+            <section>
+              <h2 className="text-2xl font-bold mb-3">Sobre {tool.name}</h2>
+              <p className="text-base text-[color:var(--color-fg-soft)] leading-relaxed">{tool.longDesc}</p>
+            </section>
+            {tFaqs.length > 0 && (
+              <section>
+                <h2 className="text-2xl font-bold mb-4">Preguntas frecuentes</h2>
+                <div className="space-y-2">
+                  {tFaqs.map((f, i) => (
+                    <details key={i} className="rounded-xl bg-[color:var(--color-bg)] border border-[color:var(--color-border)] p-4 group">
+                      <summary className="font-semibold cursor-pointer flex items-center justify-between">{f.q}<span className="text-xl group-open:rotate-45 transition">+</span></summary>
+                      <p className="text-sm text-[color:var(--color-fg-soft)] mt-3 leading-relaxed">{f.a}</p>
+                    </details>
+                  ))}
+                </div>
+              </section>
+            )}
+            <section>
+              <h2 className="text-2xl font-bold mb-4">Herramientas relacionadas</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {related.map((t) => <ToolCard key={t.slug} tool={t} />)}
+              </div>
+            </section>
+          </div>
+        </div>
       </>
     );
   }
@@ -491,6 +520,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
           <div className="border-t border-[color:var(--color-border)] bg-[color:var(--color-bg-soft)]/40 py-12 md:py-16">
             <div className="max-w-3xl mx-auto px-4 space-y-10">
+              <ContentBoost slug={tool.slug} />
               <section>
                 <h2 className="text-2xl font-bold mb-3">Sobre {tool.name}</h2>
                 <p className="text-base text-[color:var(--color-fg-soft)] leading-relaxed">{tool.longDesc}</p>

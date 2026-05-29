@@ -9,6 +9,7 @@
  * Activación: cualquier slug listado aquí renderiza `<ContentBoost slug=... />`
  * (ver `components/seo/content-boost.tsx`).
  */
+import { CONTENT_BOOST_AUTO } from "./seo-content-boost-auto";
 
 export type ContentSection = {
   /** H2 visible */
@@ -947,9 +948,10 @@ Object.assign(CONTENT_BOOST, {
 });
 
 export function hasContentBoost(slug: string): boolean {
-  return slug in CONTENT_BOOST;
+  return slug in CONTENT_BOOST || slug in CONTENT_BOOST_AUTO;
 }
 
 export function getContentBoost(slug: string): ContentBoost | undefined {
-  return CONTENT_BOOST[slug];
+  // Hand-curated entries take precedence over auto-generated ones.
+  return CONTENT_BOOST[slug] ?? CONTENT_BOOST_AUTO[slug];
 }
