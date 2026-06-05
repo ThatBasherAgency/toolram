@@ -7,7 +7,6 @@ import { GLOSSARY } from "@/data/glossary";
 import { ALTERNATIVES } from "@/data/alternatives";
 import { TOOL_EN, GLOSSARY_EN } from "@/lib/i18n";
 import { ALL_POSTS as POSTS } from "@/data/blog";
-import { ALL_SYMBOL_PAGES } from "@/lib/symbol-slug";
 import { SITE } from "@/lib/site";
 
 export const revalidate = 3600;
@@ -115,19 +114,16 @@ export default async function sitemap({ id }: { id: number }): Promise<MetadataR
   }
 
   if (kind === "symbols") {
+    // Only the symbol hub + category collection pages are indexable; the 159 per-symbol
+    // pages are noindex,follow (see app/simbolos/[categoria]/[simbolo]/page.tsx) and are
+    // intentionally excluded from the sitemap to focus crawl budget on valuable URLs.
     const categoryPages: Entry[] = SYMBOL_CATEGORIES.map((c) => ({
       url: `${SITE.url}/simbolos/${c.slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.8
     }));
-    const individualSymbolPages: Entry[] = ALL_SYMBOL_PAGES.map((p) => ({
-      url: `${SITE.url}/simbolos/${p.categorySlug}/${p.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.65
-    }));
-    return [...categoryPages, ...individualSymbolPages];
+    return [...categoryPages];
   }
 
   if (kind === "blog") {

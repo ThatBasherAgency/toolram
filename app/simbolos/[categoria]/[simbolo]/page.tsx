@@ -23,6 +23,10 @@ export async function generateMetadata({ params }: { params: Promise<{ categoria
   return {
     title,
     description: desc.length > 158 ? desc.slice(0, 155) + "..." : desc,
+    // Index hygiene: 159 near-duplicate per-symbol pages dilute crawl/quality signal on a
+    // young domain. Keep them crawlable (follow) but out of the index; the value lives in
+    // the /simbolos and /simbolos/[categoria] collection pages, which stay indexable.
+    robots: { index: false, follow: true },
     alternates: { canonical: `/simbolos/${categoria}/${simbolo}` },
     openGraph: {
       title: `${title} | ${SITE.name}`,
