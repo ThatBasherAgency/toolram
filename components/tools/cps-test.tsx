@@ -1,14 +1,15 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-const DURATIONS = [5, 10, 30, 60, 100];
+const DURATIONS = [1, 5, 10, 30, 60, 100];
 
-export function CpsTest() {
-  const [duration, setDuration] = useState(10);
+export function CpsTest({ defaultSeconds = 10 }: { defaultSeconds?: number } = {}) {
+  const initial = DURATIONS.includes(defaultSeconds) ? defaultSeconds : 10;
+  const [duration, setDuration] = useState(initial);
   const [clicks, setClicks] = useState(0);
   const [running, setRunning] = useState(false);
   const [done, setDone] = useState(false);
-  const [remaining, setRemaining] = useState(10);
+  const [remaining, setRemaining] = useState(initial);
   const [best, setBest] = useState<Record<number, number>>({});
   const startRef = useRef<number | null>(null);
   const rafRef = useRef<number | null>(null);

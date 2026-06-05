@@ -204,7 +204,127 @@ export const TOOLS: Tool[] = [
       { q: "¿Cuál es el récord de CPS?", a: "En tests cortos (1 segundo) se han reportado picos por encima de 14-16 CPS con butterfly o drag clicking. En tests sostenidos de 10 segundos, mantener +12 CPS ya se considera excepcional." },
       { q: "¿Funciona en móvil y es gratis?", a: "Sí. Puedes tocar la pantalla en lugar de hacer click, y es 100% gratis, sin registro y procesado en tu navegador (tus datos no salen de tu dispositivo)." }
     ],
-    related: ["typing-test", "tiempo-reaccion", "cronometro"]
+    related: ["cps-test-10-segundos", "jitter-click-test", "cps-test-1-segundo", "butterfly-click-test"]
+  },
+  {
+    slug: "cps-test-1-segundo",
+    category: "test",
+    name: "CPS Test 1 segundo",
+    shortDesc: "Mide tu pico máximo de clicks en 1 segundo (burst).",
+    longDesc:
+      "El test de 1 segundo mide tu pico de velocidad (burst): cuántos clicks logras en el instante más rápido, sin que entre en juego la resistencia. Es el formato preferido para medir spikes en PvP y para comparar técnicas explosivas como el drag o el butterfly clicking. Como la ventana es mínima, los resultados son más altos y variables que en 5 o 10 segundos. 100% en tu navegador, sin registro.",
+    keywords: ["cps test 1 segundo", "1 second cps test", "test de clicks 1 segundo", "burst click test", "pico cps"],
+    popularity: 90,
+    faqs: [
+      { q: "¿Qué mide el test de 1 segundo?", a: "Tu pico de velocidad (burst): el máximo de clicks que consigues en el instante más rápido, sin desgaste por resistencia. Por eso los números son más altos que en tests largos." },
+      { q: "¿Cuántos clicks en 1 segundo es bueno?", a: "Más de 10 clicks en 1 segundo es muy bueno; con técnicas como drag o butterfly se ven picos de 14-20+ en esa ventana." },
+      { q: "¿Por qué mi CPS de 1s es más alto que el de 10s?", a: "Porque en 1 segundo no entra la fatiga muscular. La velocidad sostenida (5-10s) siempre es menor que el pico instantáneo." },
+      { q: "¿Sirve el test de 1 segundo para Minecraft PvP?", a: "Para medir tu burst sí, pero en combate real importa más la velocidad sostenida de 5-10s. Usa el de 1s para ver tu techo." }
+    ],
+    related: ["cps-test", "cps-test-5-segundos", "cps-test-10-segundos", "drag-click-test"]
+  },
+  {
+    slug: "cps-test-5-segundos",
+    category: "test",
+    name: "CPS Test 5 segundos",
+    shortDesc: "Test de 5 segundos: el estándar competitivo de Minecraft PvP.",
+    longDesc:
+      "El test de 5 segundos equilibra burst y resistencia: es la duración estándar en la comunidad competitiva de Minecraft PvP porque refleja la velocidad real que puedes mantener en un intercambio de golpes. Suficientemente corto para exigir velocidad alta, pero lo bastante largo para que la técnica y la consistencia importen. 100% en tu navegador, gratis y sin registro.",
+    keywords: ["cps test 5 segundos", "5 second click test", "test de clicks 5 segundos", "cps minecraft pvp", "click speed 5s"],
+    popularity: 91,
+    faqs: [
+      { q: "¿Por qué 5 segundos es el estándar en PvP?", a: "Porque refleja la velocidad que de verdad puedes mantener durante un intercambio de golpes en Minecraft, mejor que el pico de 1 segundo." },
+      { q: "¿Qué CPS es bueno en 5 segundos?", a: "6-8 CPS es promedio, 8-10 es buen jugador y más de 10-12 sostenidos en 5s ya es nivel competitivo." },
+      { q: "¿Es mejor entrenar con 5 o 10 segundos?", a: "Empieza con 5s para ganar velocidad y pasa a 10s para construir resistencia. Combinar ambos es lo ideal." },
+      { q: "¿Cómo subo mi CPS en 5 segundos?", a: "Relaja la mano, apoya el codo, usa un mouse con switches ligeros y practica intervalos cortos. La tensión te frena." }
+    ],
+    related: ["cps-test", "cps-test-1-segundo", "cps-test-10-segundos", "jitter-click-test"]
+  },
+  {
+    slug: "cps-test-10-segundos",
+    category: "test",
+    name: "CPS Test 10 segundos (Kohi)",
+    shortDesc: "El benchmark mundial: test de 10 segundos, conocido como Kohi.",
+    longDesc:
+      "El test de 10 segundos es el benchmark más usado del mundo para comparar CPS entre jugadores; se popularizó como 'Kohi click test' por el servidor Kohi de Minecraft. Mide velocidad sostenida: requiere mantener la cadencia sin que la fatiga la baje. Es el número que la mayoría reporta cuando dice 'mi CPS', así que es el ideal para compararte con otros. 100% en tu navegador, sin registro.",
+    keywords: ["cps test 10 segundos", "kohi click test", "10 second click test", "test de clicks 10 segundos", "cps sostenido"],
+    popularity: 95,
+    faqs: [
+      { q: "¿Qué es el Kohi click test?", a: "Es el nombre popular del test de 10 segundos, originado en el servidor Kohi de Minecraft. Se convirtió en el estándar de facto para comparar CPS entre jugadores." },
+      { q: "¿Qué CPS es bueno en 10 segundos?", a: "El promedio humano sostenido es 6-8 CPS; un buen jugador hace 8-10; mantener más de 12 CPS durante 10 segundos completos es excepcional." },
+      { q: "¿Por qué el test de 10s es el estándar?", a: "Porque mide velocidad sostenida real, no un pico puntual, y es lo bastante largo para que la técnica y la resistencia decidan el resultado." },
+      { q: "¿Cómo mejorar mi CPS de 10 segundos?", a: "Trabaja resistencia: empieza rápido pero dosifica, relaja la mano, hidrata las palmas y practica a diario tests de 10s completos." }
+    ],
+    related: ["cps-test", "cps-test-5-segundos", "cps-test-60-segundos", "jitter-click-test"]
+  },
+  {
+    slug: "cps-test-60-segundos",
+    category: "test",
+    name: "CPS Test 60 segundos",
+    shortDesc: "Test de resistencia: mantén tu velocidad de click durante 1 minuto.",
+    longDesc:
+      "El test de 60 segundos mide resistencia y consistencia: cuánto puedes mantener tu velocidad de click durante un minuto entero antes de que la fatiga muscular la baje. Es el más exigente físicamente y el mejor para detectar si tu técnica es sostenible o si te quemas pronto. Útil para entrenar stamina de mano y para pruebas de durabilidad de mouse. 100% en tu navegador, gratis.",
+    keywords: ["cps test 60 segundos", "60 second cps test", "test de clicks 1 minuto", "resistencia click", "stamina cps"],
+    popularity: 85,
+    faqs: [
+      { q: "¿Qué mide el test de 60 segundos?", a: "Resistencia y consistencia: cuánto aguantas tu velocidad de click durante un minuto completo antes de que la fatiga la reduzca." },
+      { q: "¿Es normal que mi CPS baje en 60 segundos?", a: "Sí, es esperable. El reto del test de 1 minuto es minimizar esa caída con buena técnica y mano relajada." },
+      { q: "¿Para qué sirve el test de 1 minuto?", a: "Para entrenar stamina de mano, comprobar si tu técnica es sostenible y hacer pruebas de durabilidad del mouse." },
+      { q: "¿Cómo mantener el CPS durante 60 segundos?", a: "No salgas a tope desde el inicio: marca un ritmo sostenible, relaja el antebrazo y respira. La constancia gana al sprint." }
+    ],
+    related: ["cps-test", "cps-test-10-segundos", "cps-test-5-segundos", "cronometro"]
+  },
+  {
+    slug: "jitter-click-test",
+    category: "test",
+    name: "Jitter Click Test",
+    shortDesc: "Mide tu velocidad con la técnica de jitter clicking.",
+    longDesc:
+      "El jitter click test mide tu CPS usando la técnica de jitter clicking: tensar el antebrazo y la muñeca para hacerlos vibrar y disparar clicks muy rápido, alcanzando picos de hasta ~14 CPS. Es una de las técnicas favoritas en Minecraft PvP por su velocidad, pero cansa rápido y, mal ejecutada o en exceso, puede causar fatiga o lesión por esfuerzo repetitivo (RSI). Practícala en sesiones cortas. 100% en tu navegador.",
+    keywords: ["jitter click test", "jitter clicking", "test jitter click", "como hacer jitter click", "cps jitter"],
+    popularity: 88,
+    faqs: [
+      { q: "¿Qué es el jitter clicking?", a: "Una técnica que consiste en tensar y vibrar el brazo/muñeca para disparar clicks a alta frecuencia, alcanzando hasta ~14 CPS." },
+      { q: "¿Cómo se hace jitter click?", a: "Apoya el antebrazo, ténsalo ligeramente y deja que la vibración muscular controlada pulse el botón. Requiere práctica para mantener la puntería." },
+      { q: "¿El jitter clicking es malo para la mano?", a: "En exceso puede causar fatiga, dolor o lesión por esfuerzo repetitivo (RSI). Limita las sesiones a 15-20 minutos y descansa." },
+      { q: "¿Cuántos CPS se logran con jitter?", a: "Con práctica se alcanzan picos de 10-14 CPS, bastante por encima del clicking normal (6-8 CPS)." },
+      { q: "¿El jitter clicking está permitido en Minecraft?", a: "El jitter es generalmente aceptado (es manual), a diferencia de los autoclickers. Aun así, revisa las reglas del servidor." }
+    ],
+    related: ["cps-test", "butterfly-click-test", "drag-click-test", "cps-test-10-segundos"]
+  },
+  {
+    slug: "butterfly-click-test",
+    category: "test",
+    name: "Butterfly Click Test",
+    shortDesc: "Mide tu CPS con la técnica de butterfly clicking (dos dedos).",
+    longDesc:
+      "El butterfly click test mide tu velocidad usando butterfly clicking: alternar dos dedos sobre el mismo botón del mouse para casi duplicar la cadencia, llegando a 14-16 CPS con el ratón adecuado. Es muy rápido, pero algunos servidores de Minecraft lo restringen por considerarlo demasiado cercano al autoclick (genera dobles registros). Comprueba aquí cuántos CPS consigues con esta técnica. 100% en tu navegador, sin registro.",
+    keywords: ["butterfly click test", "butterfly clicking", "test butterfly click", "como hacer butterfly click", "cps butterfly"],
+    popularity: 86,
+    faqs: [
+      { q: "¿Qué es el butterfly clicking?", a: "Una técnica que alterna dos dedos sobre el mismo botón del mouse para casi duplicar la cadencia de clicks, alcanzando 14-16 CPS." },
+      { q: "¿Cómo se hace butterfly click?", a: "Coloca dos dedos sobre el botón y altérnalos rápidamente, manteniendo un ritmo constante. Funciona mejor con mouse de switches rápidos." },
+      { q: "¿Está prohibido el butterfly clicking?", a: "Algunos servidores de Minecraft lo restringen porque puede generar dobles registros parecidos al autoclick. Revisa las reglas antes de usarlo en PvP." },
+      { q: "¿Butterfly o jitter, cuál es más rápido?", a: "El butterfly suele dar más CPS sostenido (14-16) y cansa menos que el jitter, pero depende mucho del mouse y de tu técnica." }
+    ],
+    related: ["cps-test", "jitter-click-test", "drag-click-test", "cps-test-10-segundos"]
+  },
+  {
+    slug: "drag-click-test",
+    category: "test",
+    name: "Drag Click Test",
+    shortDesc: "Mide picos extremos de CPS con la técnica de drag clicking.",
+    longDesc:
+      "El drag click test mide tu velocidad usando drag clicking: arrastrar el dedo por el botón aprovechando la fricción para que registre muchos clicks de golpe, con picos de 20+ CPS. Depende muchísimo del mouse (necesita una superficie y switches específicos) y suele estar prohibido en PvP competitivo por dar una ventaja artificial. Prueba aquí cuántos clicks consigues arrastrando. 100% en tu navegador.",
+    keywords: ["drag click test", "drag clicking", "test drag click", "como hacer drag click", "cps drag"],
+    popularity: 84,
+    faqs: [
+      { q: "¿Qué es el drag clicking?", a: "Una técnica que arrastra el dedo por el botón del mouse aprovechando la fricción para registrar muchos clicks de golpe, con picos de 20+ CPS." },
+      { q: "¿Qué mouse sirve para drag click?", a: "Necesitas un mouse con switches y acabado de botón que generen suficiente fricción; no todos lo permiten. Por eso los resultados varían tanto." },
+      { q: "¿El drag clicking está permitido?", a: "Suele estar prohibido en servidores de Minecraft competitivos porque da una ventaja artificial y desgasta el mouse. Úsalo solo para probar tu pico." },
+      { q: "¿Es malo para el mouse?", a: "Sí, el drag clicking acelera el desgaste de los switches y del recubrimiento del botón. Hazlo con moderación." }
+    ],
+    related: ["cps-test", "jitter-click-test", "butterfly-click-test", "cps-test-1-segundo"]
   },
   {
     slug: "tiempo-reaccion",
