@@ -187,14 +187,24 @@ export const TOOLS: Tool[] = [
     name: "CPS Test (Clicks por segundo)",
     shortDesc: "Mide tu velocidad de clicks. Modos 5s, 10s, 30s, 60s y 100s.",
     longDesc:
-      "Test de velocidad de clicks: clickea lo más rápido que puedas en el tiempo seleccionado. Compara tu CPS (Clicks Per Second) con récords personales. Útil para gamers de Minecraft PvP, evaluar mouse o practicar.",
-    keywords: ["cps test", "clicks per second", "click speed test"],
+      "Test de velocidad de clicks (CPS = Clicks Per Second): clickea lo más rápido que puedas en el tiempo elegido (1, 5, 10, 30, 60 segundos o modo Jitter de 100 ms) y obtén tu CPS al instante. El CPS se calcula dividiendo el número de clicks entre los segundos. El promedio humano es 6-8 CPS; los gamers que practican llegan a 8-10 CPS; con técnicas como jitter, butterfly o drag clicking se superan los 12-15 CPS. Usado en Minecraft PvP, Fortnite y Roblox para entrenar dedos, y para evaluar el polling rate y la respuesta de tu mouse. 100% en tu navegador, sin registro.",
+    keywords: ["cps test", "clicks per second", "click speed test", "test de clicks", "clicks por segundo", "kohi click test", "jitter click", "butterfly click"],
     popularity: 99,
     faqs: [
-      { q: "¿Cuál es un buen CPS?", a: "Promedio humano: 6-8 CPS. Buen jugador: 8-10 CPS. Pro/jitter click: 10-15 CPS." },
-      { q: "¿Funciona en móvil?", a: "Sí, podés tocar la pantalla en lugar de hacer click." }
+      { q: "¿Qué es un CPS Test?", a: "Un CPS Test (Clicks Per Second) mide cuántos clicks del ratón puedes hacer por segundo. Se calcula dividiendo el total de clicks entre los segundos del test. Es la métrica estándar para medir velocidad de click en gaming." },
+      { q: "¿Cuál es un buen CPS?", a: "El promedio humano es 6-8 CPS. Un buen jugador alcanza 8-10 CPS. Con técnicas avanzadas (jitter, butterfly) se llega a 10-15 CPS. Más de 14 CPS sostenidos es nivel élite; por encima de 25 CPS suele indicar macro o autoclicker." },
+      { q: "¿Cómo mejorar mi CPS?", a: "Practica 10-15 minutos al día con tests de 5 y 10 segundos, usa un mouse gamer (polling 1000 Hz, switches ligeros), evita el trackpad y relaja la mano: la tensión te frena. Prueba técnicas como jitter o butterfly clicking." },
+      { q: "¿Qué es el jitter clicking?", a: "El jitter clicking consiste en tensar y vibrar el brazo/muñeca para disparar clicks muy rápido (hasta ~14 CPS). Da mucha velocidad pero cansa y, en exceso, puede causar fatiga o lesión por esfuerzo repetitivo (RSI): limítalo a sesiones cortas." },
+      { q: "¿Qué es el butterfly clicking?", a: "El butterfly clicking alterna dos dedos sobre el mismo botón del mouse para casi duplicar la cadencia (14-16 CPS con el ratón adecuado). Algunos servidores de Minecraft lo restringen por considerarlo cercano al autoclick." },
+      { q: "¿Qué es el drag clicking?", a: "El drag clicking arrastra el dedo por el botón aprovechando la fricción para registrar muchos clicks de golpe (picos de 20+ CPS). Depende mucho del mouse y suele estar prohibido en PvP competitivo." },
+      { q: "¿Qué es el Kohi click test?", a: "El Kohi click test es el nombre popular del test de 10 segundos, originado en el servidor Kohi de Minecraft. Es el estándar de facto para comparar CPS entre jugadores. En Toolram elige la duración de 10 segundos." },
+      { q: "¿Qué duración elegir: 1, 5, 10 o 60 segundos?", a: "El test de 1 segundo mide tu pico de velocidad; el de 5 y 10 segundos (el más usado) mide velocidad sostenida; el de 60 segundos mide resistencia. Para comparar con otros gamers usa el de 10 segundos." },
+      { q: "¿Qué mouse es mejor para hacer más CPS?", a: "Uno con polling rate de 1000 Hz, switches de baja fuerza de actuación y buen debounce, para que cada click se registre sin lag. Así tu CPS refleja tu mano real, no el hardware." },
+      { q: "¿Por qué se usa el CPS en Minecraft PvP?", a: "En Minecraft, la velocidad de click influye en el daño y el knockback en combate. Un CPS más alto puede dar ventaja, por eso muchos jugadores entrenan con tests de CPS." },
+      { q: "¿Cuál es el récord de CPS?", a: "En tests cortos (1 segundo) se han reportado picos por encima de 14-16 CPS con butterfly o drag clicking. En tests sostenidos de 10 segundos, mantener +12 CPS ya se considera excepcional." },
+      { q: "¿Funciona en móvil y es gratis?", a: "Sí. Puedes tocar la pantalla en lugar de hacer click, y es 100% gratis, sin registro y procesado en tu navegador (tus datos no salen de tu dispositivo)." }
     ],
-    related: ["typing-test", "tiempo-reaccion"]
+    related: ["typing-test", "tiempo-reaccion", "cronometro"]
   },
   {
     slug: "tiempo-reaccion",
