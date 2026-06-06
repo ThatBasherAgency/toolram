@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 import { CATEGORIES, TOOLS } from "@/lib/tools-registry";
 import { CALCULATORS } from "@/lib/calculators";
-import { FANCY_STYLES } from "@/lib/fancy-text";
 import { SYMBOL_CATEGORIES } from "@/data/symbols";
 import { GLOSSARY } from "@/data/glossary";
 import { ALTERNATIVES } from "@/data/alternatives";
@@ -77,13 +76,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85
   }));
 
-  const fancyPages: Entry[] = FANCY_STYLES.map((s) => ({
-    url: `${SITE.url}/texto-decorado/${s.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.7
-  }));
-
+  // Estilos de texto-decorado: las páginas de detalle son noindex,follow
+  // (contenido mínimo). Solo el hub /texto-decorado va en el sitemap (staticPages).
   const glossaryPages: Entry[] = GLOSSARY.map((g) => ({
     url: `${SITE.url}/${g.slug}`,
     lastModified: now,
@@ -182,7 +176,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...categoryPages,
     ...toolPages,
     ...calcPages,
-    ...fancyPages,
     ...glossaryPages,
     ...altPages,
     ...symbolCategoryPages,

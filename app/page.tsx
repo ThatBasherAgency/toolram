@@ -10,6 +10,28 @@ const FEATURED_SLUGS = ["creador-backlinks", "firmar-pdf", "calculadora-imc", "q
 
 const NEW_SLUGS = ["interes-compuesto", "calculadoras-marketing", "conversor-zonas-horarias", "wifi-qr", "css-flex-generator", "cubic-bezier-generator", "contraste-color-wcag", "subnet-calculator", "generador-keywords-seo", "caption-generator", "youtube-tags-generator", "cuenta-regresiva"];
 
+/**
+ * "Lo más buscado" — enlazado interno DESDE la home (la página con más autoridad
+ * del sitio) hacia las URLs que GSC ya premia con impresiones/posición. Antes la
+ * home solo destacaba tools elegidas a mano; estas páginas-señal (glossary, calcs,
+ * alternativas) no recibían ningún enlace interno desde la home. Anchors descriptivos
+ * y keyword-rich para concentrar autoridad interna en lo que está cerca de rankear.
+ */
+const MOST_SEARCHED = [
+  { href: "/que-es-cps-test", label: "¿Qué es el CPS Test?", note: "Clicks por segundo, récords y técnicas" },
+  { href: "/cps-test", label: "Test de clics por segundo (CPS)", note: "Mídelo en 1, 5, 10, 30 y 60 s" },
+  { href: "/calculadora-propina", label: "Calculadora de propina", note: "Reparte la cuenta entre amigos" },
+  { href: "/calculadora-regla-tres", label: "Calculadora de regla de tres", note: "Simple, inversa y compuesta" },
+  { href: "/calculadora-iva-mexico", label: "Calculadora de IVA en México", note: "16% nacional y 8% frontera norte" },
+  { href: "/contador-palabras", label: "Contador de palabras", note: "Palabras, caracteres y tiempo de lectura" },
+  { href: "/convertir-mayusculas", label: "Convertir a mayúsculas", note: "MAYÚSCULAS, minúsculas y Title Case" },
+  { href: "/generador-qr", label: "Generador de códigos QR", note: "URL, WiFi, vCard y texto" },
+  { href: "/unir-pdf", label: "Unir PDF", note: "Combina varios PDF sin subirlos" },
+  { href: "/alternativas-a-ilovepdf", label: "Alternativas a iLovePDF", note: "Comparativa honesta, privacidad primero" },
+  { href: "/alternativas-a-piliapp", label: "Alternativas a PiliApp", note: "Símbolos y texto sin anuncios" },
+  { href: "/que-es-jwt", label: "¿Qué es un JWT?", note: "Estructura, firma y ejemplos" }
+];
+
 const CAT_ICONS: Record<string, typeof FileText> = {
   text: FileText, seo: Search, pdf: FileText, image: ImageIcon, developer: Code2, converter: Zap,
   generator: Sparkles, calculator: Calculator, symbols: Heart, "fancy-text": Smile, test: Zap, random: Sparkles, ai: Star
@@ -23,13 +45,12 @@ export default function HomePage() {
   return (
     <>
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,oklch(0.98_0.05_220),transparent_60%)] dark:bg-[radial-gradient(ellipse_at_top,oklch(0.25_0.1_240/.4),transparent_60%)]" />
         <div className="px-4 pt-16 pb-12 md:pt-24 md:pb-16 text-center max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs bg-[color:var(--color-brand-soft)] text-[color:var(--color-brand)] font-bold mb-5 border border-[color:var(--color-brand)]/30">
             <Sparkles className="w-3.5 h-3.5" /> {TOOLS.length}+ herramientas gratis · sin registro · sin ads invasivos
           </div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-5 leading-[1.05]">
-            Las herramientas online que <span className="bg-gradient-to-r from-[color:var(--color-brand)] to-purple-500 bg-clip-text text-transparent">realmente funcionan</span>.
+            Las herramientas online que <span className="text-[color:var(--color-brand)]">realmente funcionan</span>.
           </h1>
           <p className="text-lg md:text-xl text-[color:var(--color-fg-soft)] max-w-2xl mx-auto mb-8">
             PDF, SEO, calculadoras, IA, conversores, generadores. Todo gratis, en tu navegador. Sin uploads que tarden 5 minutos.
@@ -37,19 +58,36 @@ export default function HomePage() {
           <SearchBox />
           <div className="flex flex-wrap justify-center gap-2 mt-5">
             {[
-              { slug: "creador-backlinks", emoji: "🔗", label: "Crear backlinks" },
-              { slug: "firmar-pdf", emoji: "✍️", label: "Firmar PDF" },
-              { slug: "calculadora-imc", emoji: "💪", label: "Calcular IMC" },
-              { slug: "calculadora-embarazo", emoji: "🤰", label: "Embarazo" },
-              { slug: "quitar-fondo-imagen", emoji: "🪄", label: "Quitar fondo" },
-              { slug: "youtube-thumbnail", emoji: "📺", label: "Thumbnail YT" },
-              { slug: "escaner-qr", emoji: "📱", label: "Leer QR" }
+              { slug: "creador-backlinks", label: "Crear backlinks" },
+              { slug: "firmar-pdf", label: "Firmar PDF" },
+              { slug: "calculadora-imc", label: "Calcular IMC" },
+              { slug: "calculadora-embarazo", label: "Embarazo" },
+              { slug: "quitar-fondo-imagen", label: "Quitar fondo" },
+              { slug: "youtube-thumbnail", label: "Thumbnail YT" },
+              { slug: "escaner-qr", label: "Leer QR" }
             ].map((t) => (
-              <Link key={t.slug} href={`/${t.slug}`} className="px-4 py-2 rounded-full text-sm font-bold border-2 border-[color:var(--color-border)] hover:border-[color:var(--color-brand)] hover:bg-[color:var(--color-brand-soft)] hover:text-[color:var(--color-brand)] transition">
-                {t.emoji} {t.label}
+              <Link key={t.slug} href={`/${t.slug}`} className="px-4 py-2 rounded-full text-sm font-bold border border-[color:var(--color-border)] hover:border-[color:var(--color-brand)] hover:bg-[color:var(--color-brand-soft)] hover:text-[color:var(--color-brand)] transition">
+                {t.label}
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-4 py-10">
+        <div className="flex items-baseline justify-between mb-6">
+          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight inline-flex items-center gap-2">
+            <Search className="w-7 h-7 text-[color:var(--color-brand)]" /> Lo más buscado
+          </h2>
+          <Link href="/herramientas" className="text-sm text-[color:var(--color-brand)] inline-flex items-center gap-1 hover:underline font-bold">Ver todas <ArrowRight className="w-4 h-4" /></Link>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {MOST_SEARCHED.map((t) => (
+            <Link key={t.href} href={t.href} className="rounded-xl border border-[color:var(--color-border)] bg-[color:var(--color-bg)] p-4 hover:border-[color:var(--color-brand)] hover:bg-[color:var(--color-brand-soft)]/30 transition group">
+              <div className="font-bold text-sm leading-tight mb-1 group-hover:text-[color:var(--color-brand)]">{t.label}</div>
+              <div className="text-xs text-[color:var(--color-fg-soft)]">{t.note}</div>
+            </Link>
+          ))}
         </div>
       </section>
 

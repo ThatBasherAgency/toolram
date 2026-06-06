@@ -16,7 +16,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `Generador de texto ${s.name.toLowerCase()}`,
     description: s.description,
-    alternates: { canonical: `/texto-decorado/${s.slug}` }
+    alternates: { canonical: `/texto-decorado/${s.slug}` },
+    // Páginas de estilo individuales: contenido mínimo (solo el generador + preview).
+    // noindex,follow concentra el crawl budget de un dominio nuevo sin autoridad en
+    // las URLs valiosas. El hub /texto-decorado sí queda indexado y enlaza a estas.
+    robots: { index: false, follow: true }
   };
 }
 
