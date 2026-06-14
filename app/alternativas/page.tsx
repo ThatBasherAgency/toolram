@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ALTERNATIVES } from "@/data/alternatives";
 
 export const metadata: Metadata = {
-  title: "Alternativas a las herramientas online más populares",
+  title: "Alternativas gratis a iLovePDF, SmallPDF y más",
   description: "Comparativas honestas: alternativas a iLovePDF, SmallPDF, SmallSEOTools, PiliApp y Canva PDF. Pros, contras, precios y recomendaciones.",
   alternates: { canonical: "/alternativas" }
 };
