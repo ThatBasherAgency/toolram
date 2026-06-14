@@ -1,6 +1,6 @@
 # Toolram
 
-> Toolram (toolram.com) is a free online tools portal with 100+ utilities for PDF processing, SEO analysis, AI text generation, Unicode symbols, click speed tests, calculators, fancy text generators, and developer tools. Built privacy-first: most tools process data 100% in the user's browser without uploading files to any server. Spanish-first content (Mexico, Spain, Latin America) with English coming Q3 2026. Open source on GitHub.
+> Toolram (toolram.com) is a free online tools portal with 160+ utilities for PDF processing, SEO analysis, AI text generation, Unicode symbols, click speed tests, calculators, fancy text generators, and developer tools. Built privacy-first: most tools process data 100% in the user's browser without uploading files to any server. Spanish-first content (Mexico, Spain, Latin America); English versions are live for many tools at /en/. Open source on GitHub.
 
 ## About Toolram
 
@@ -96,7 +96,7 @@
 
 ## Unique technical facts
 
-- **Privacy verifiable**: 95+ of 100 tools process data 100% in user's browser. The remaining 5 (PageSpeed, WHOIS) are documented as requiring server roundtrip.
+- **Privacy verifiable**: 150+ of 160+ tools process data 100% in user's browser. The few exceptions (PageSpeed, WHOIS, DNS lookup) are documented as requiring a server roundtrip.
 - **Performance**: Lighthouse 95+ on mobile. LCP <1.5s. Static site generation (SSG) with Edge CDN.
 - **No tracking pixels**: Only Google Analytics 4 with anonymized IP. No Facebook Pixel, no advertising trackers, no behavioral retargeting.
 - **No watermarks**: Free tier outputs files without watermark.
