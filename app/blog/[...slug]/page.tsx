@@ -43,7 +43,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       headline: post.title,
       description: post.excerpt,
       author: { "@type": "Person", name: post.author, url: "https://josegaspard.dev" },
-      publisher: { "@type": "Organization", name: SITE.name, url: SITE.url, logo: `${SITE.url}/og/default.png` },
+      publisher: { "@type": "Organization", name: SITE.name, url: SITE.url, logo: `${SITE.url}/icon-512.png` },
       datePublished: post.publishedAt,
       dateModified: post.updatedAt,
       mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE.url}/${post.slug}` },

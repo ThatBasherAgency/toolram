@@ -19,7 +19,7 @@ export default function AuthorPage() {
     givenName: "José",
     familyName: "Gaspard",
     url: `${SITE.url}/sobre/jose-gaspard`,
-    image: `${SITE.url}/og/default.png`,
+    image: `${SITE.url}/icon-512.png`,
     sameAs: [
       "https://josegaspard.dev",
       "https://nebu-lab.com",

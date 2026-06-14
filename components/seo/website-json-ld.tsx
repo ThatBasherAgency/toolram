@@ -25,9 +25,9 @@ export function WebsiteJsonLd() {
       url: SITE.url,
       logo: {
         "@type": "ImageObject",
-        url: `${SITE.url}/og/default.png`,
-        width: 1200,
-        height: 630
+        url: `${SITE.url}/icon-512.png`,
+        width: 512,
+        height: 512
       },
       sameAs: [
         "https://github.com/ThatBasherAgency/toolram",

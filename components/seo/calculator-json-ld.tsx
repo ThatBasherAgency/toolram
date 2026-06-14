@@ -22,7 +22,7 @@ export function CalculatorJsonLd({ calc }: { calc: Calculator }) {
       isAccessibleForFree: true,
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock" },
       author: { "@type": "Person", name: "José Gaspard", url: "https://josegaspard.dev" },
-      publisher: { "@type": "Organization", name: "Toolram", url: SITE.url, logo: { "@type": "ImageObject", url: `${SITE.url}/og.png` } },
+      publisher: { "@type": "Organization", name: "Toolram", url: SITE.url, logo: { "@type": "ImageObject", url: `${SITE.url}/icon-512.png`, width: 512, height: 512 } },
       inLanguage: "es",
       keywords: calc.keywords.join(", "),
       featureList: calc.shortDesc,
