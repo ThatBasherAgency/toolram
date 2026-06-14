@@ -406,6 +406,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     return (
       <>
         <ToolJsonLd tool={tool} />
+        <h1 className="sr-only">{tool.name}</h1>
         <ToolRenderer slug={tool.slug} />
         <div className="border-t border-[color:var(--color-border)] bg-[color:var(--color-bg-soft)]/40 py-12 md:py-16 mt-8">
           <div className="max-w-3xl mx-auto px-4 space-y-8">
@@ -442,6 +443,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     return (
       <>
         <ToolJsonLd tool={tool} />
+        <h1 className="sr-only">{tool.name}</h1>
         <ToolRenderer slug={tool.slug} />
         <div className="border-t border-[color:var(--color-border)] bg-[color:var(--color-bg-soft)]/40 py-12 md:py-16 mt-8">
           <div className="max-w-3xl mx-auto px-4 space-y-8">
