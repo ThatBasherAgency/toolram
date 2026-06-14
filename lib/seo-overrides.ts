@@ -187,7 +187,7 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   },
 
   "que-es-canonical-url": {
-    title: "¿Qué es una URL canónica? rel='canonical' para SEO (2026)",
+    title: "¿Qué es una URL canónica? Etiqueta rel canonical (2026)",
     description:
       "La URL canónica le dice a Google cuál es la versión preferida de una página duplicada. Aprende cuándo usar rel='canonical', errores comunes y cómo evitar penalizaciones.",
     h1: "¿Qué es una URL canónica (rel='canonical')?",
