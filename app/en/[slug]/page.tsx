@@ -6,6 +6,7 @@ import { TOOLS, TOOLS_BY_SLUG } from "@/lib/tools-registry";
 import { ToolRenderer } from "@/components/tools/tool-renderer";
 import { SITE } from "@/lib/site";
 import { TOOL_EN, GLOSSARY_EN } from "@/lib/i18n";
+import { clampTitle } from "@/lib/seo-meta";
 import { GLOSSARY, GLOSSARY_BY_SLUG } from "@/data/glossary";
 
 const EN_TOOL_SLUGS = Object.keys(TOOL_EN);
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const enGloss = GLOSSARY_EN[slug];
   if (en) {
     return {
-      title: `${en.name} — Free online`,
+      title: clampTitle(`${en.name} — Free online`),
       description: en.shortDesc,
       alternates: {
         canonical: `/en/${slug}`,
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
   if (enGloss) {
     return {
-      title: `What is ${enGloss.term}? Definition & examples`,
+      title: clampTitle(`What is ${enGloss.term}? Definition & examples`),
       description: enGloss.shortDef.slice(0, 155),
       alternates: {
         canonical: `/en/${slug}`,

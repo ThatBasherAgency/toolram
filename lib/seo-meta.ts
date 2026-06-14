@@ -4,6 +4,23 @@ import { getSeoOverride } from "@/lib/seo-overrides";
 
 const YEAR = new Date().getFullYear();
 
+/**
+ * Keeps the rendered <title> (this string + " | Toolram" appended by the root
+ * layout template) within Google's ~60-char SERP limit. Prefers cutting at the
+ * first natural separator so titles stay keyword-first and never break mid-word.
+ */
+export function clampTitle(s: string, max = 50): string {
+  if (s.length <= max) return s;
+  for (const sep of [": ", " — ", " – ", " (", " · ", " | ", " - "]) {
+    const i = s.indexOf(sep);
+    if (i >= 16 && i <= max) return s.slice(0, i).trim();
+  }
+  let cut = s.slice(0, max + 1);
+  const sp = cut.lastIndexOf(" ");
+  if (sp >= 16) cut = cut.slice(0, sp);
+  return cut.replace(/[\s—–·,:;(|-]+$/u, "").trim();
+}
+
 const TITLE_TEMPLATES: Record<string, (name: string) => string> = {
   pdf: (n) => `${n} online ${YEAR} · 100% privado, sin subir archivos`,
   image: (n) => `${n} gratis ${YEAR} — Sin marca de agua, en tu navegador`,
@@ -47,9 +64,9 @@ const DESC_TEMPLATES: Record<string, (n: string, d: string) => string> = {
 export function toolSeoTitle(tool: Tool, lang: "es" | "en" = "es"): string {
   const overrideSlug = lang === "en" ? `en/${tool.slug}` : tool.slug;
   const override = getSeoOverride(overrideSlug);
-  if (override) return override.title;
+  if (override) return clampTitle(override.title);
   const fn = TITLE_TEMPLATES[tool.category];
-  return fn ? fn(tool.name) : `${tool.name} online gratis ${YEAR}`;
+  return clampTitle(fn ? fn(tool.name) : `${tool.name} online gratis ${YEAR}`);
 }
 
 export function toolSeoDesc(tool: Tool, lang: "es" | "en" = "es"): string {
@@ -66,8 +83,8 @@ export function toolSeoDesc(tool: Tool, lang: "es" | "en" = "es"): string {
 
 export function calcSeoTitle(calc: Calculator): string {
   const override = getSeoOverride(calc.slug);
-  if (override) return override.title;
-  return `${calc.name} ${YEAR} — Fórmula, ejemplos y resultado al instante`;
+  if (override) return clampTitle(override.title);
+  return clampTitle(`${calc.name} ${YEAR} — Fórmula, ejemplos y resultado al instante`);
 }
 
 export function calcSeoDesc(calc: Calculator): string {
@@ -83,8 +100,8 @@ export function calcSeoDesc(calc: Calculator): string {
 /** Glossary SEO title override-aware */
 export function glossarySeoTitle(slug: string, term: string): string {
   const override = getSeoOverride(slug);
-  if (override) return override.title;
-  return `¿Qué es ${term}? Definición, ejemplos y casos de uso`;
+  if (override) return clampTitle(override.title);
+  return clampTitle(`¿Qué es ${term}? Definición, ejemplos y casos de uso`);
 }
 
 /** Glossary SEO desc override-aware */

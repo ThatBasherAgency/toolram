@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ChevronRight, Home, Clock } from "lucide-react";
 import { ALL_POSTS as POSTS, POSTS_BY_SLUG } from "@/data/blog";
 import { BlogBody } from "@/components/blog/blog-renderer";
+import { clampTitle } from "@/lib/seo-meta";
 import { SITE } from "@/lib/site";
 
 export const dynamicParams = true;
@@ -15,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const post = POSTS_BY_SLUG[fullSlug];
   if (!post) return {};
   return {
-    title: post.title,
+    title: clampTitle(post.title),
     description: post.excerpt,
     alternates: { canonical: `/${post.slug}` },
     openGraph: {

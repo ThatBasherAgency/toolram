@@ -14,7 +14,7 @@ import { ToolJsonLd } from "@/components/seo/tool-json-ld";
 import { CalculatorJsonLd } from "@/components/seo/calculator-json-ld";
 import { ContentBoost } from "@/components/seo/content-boost";
 import { TOOL_EN, GLOSSARY_EN } from "@/lib/i18n";
-import { toolSeoTitle, toolSeoDesc, calcSeoTitle, calcSeoDesc, glossarySeoTitle, glossarySeoDesc, getH1Override } from "@/lib/seo-meta";
+import { toolSeoTitle, toolSeoDesc, calcSeoTitle, calcSeoDesc, glossarySeoTitle, glossarySeoDesc, getH1Override, clampTitle } from "@/lib/seo-meta";
 import { getSeoOverride } from "@/lib/seo-overrides";
 import { defaultFaqs, defaultCalcFaqs } from "@/lib/default-faqs";
 
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const gloss = GLOSSARY_BY_SLUG[slug];
   const alt = ALTERNATIVES_BY_SLUG[slug];
   if (alt) {
-    const title = `Alternativas a ${alt.competitor} en 2026 (gratis y privacy-first)`;
+    const title = clampTitle(`Alternativas a ${alt.competitor} en 2026 (gratis y privacy-first)`);
     const desc = alt.shortDescription.slice(0, 155);
     return {
       title,

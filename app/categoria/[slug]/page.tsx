@@ -5,6 +5,7 @@ import { ChevronRight, Home } from "lucide-react";
 import { CATEGORIES, TOOLS, type ToolCategory } from "@/lib/tools-registry";
 import { ToolCard } from "@/components/tools/tool-card";
 import { CATEGORY_CONTENT } from "@/lib/category-content";
+import { clampTitle } from "@/lib/seo-meta";
 import { SITE } from "@/lib/site";
 
 export const revalidate = 3600;
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const cat = Object.entries(CATEGORIES).find(([, c]) => c.slug === slug);
   if (!cat) return {};
   const [, info] = cat;
-  const title = `Herramientas de ${info.name} gratis ${YEAR} — Sin registro · Privacy-first`;
+  const title = clampTitle(`Herramientas de ${info.name} gratis ${YEAR} — Sin registro · Privacy-first`);
   const desc = `${info.description} Todas gratis, sin registro y procesadas en tu navegador. Más de ${TOOLS.filter((t) => CATEGORIES[t.category].slug === slug).length} herramientas profesionales en español.`;
   return {
     title,
