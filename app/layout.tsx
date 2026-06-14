@@ -35,8 +35,10 @@ export const metadata: Metadata = {
     url: SITE.url,
     title: `${SITE.name} — ${SITE.tagline}`,
     description: SITE.description,
-    siteName: SITE.name,
-    images: [{ url: "/og/default.png", width: 1200, height: 630, alt: SITE.name }]
+    siteName: SITE.name
+    // OG image is provided by the file-based app/opengraph-image.tsx route.
+    // (The previous hard-coded /og/default.png returned 404 and broke every
+    //  social/rich preview.)
   },
   twitter: {
     card: "summary_large_image",

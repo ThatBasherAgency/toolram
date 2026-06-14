@@ -1,6 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
+import { trackToolUsed } from "@/lib/track";
 
 const map = {
   "contador-palabras": dynamic(() => import("./word-counter").then((m) => m.WordCounter), { ssr: false }),
@@ -169,8 +170,20 @@ const map = {
 
 export function ToolRenderer({ slug }: { slug: string }) {
   const Component = useMemo(() => map[slug as keyof typeof map], [slug]);
+  const fired = useRef(false);
+  const onFirstUse = () => {
+    if (fired.current) return;
+    fired.current = true;
+    trackToolUsed(slug);
+  };
   if (!Component) {
     return <div className="card text-center !py-10 text-[color:var(--color-fg-soft)]">🚧 Esta herramienta estará disponible muy pronto.</div>;
   }
-  return <Component />;
+  // `contents` (display:contents) keeps zero layout impact while capturing the
+  // first real interaction (pointer / key / input) to fire `tool_used` once.
+  return (
+    <div className="contents" onPointerDownCapture={onFirstUse} onKeyDownCapture={onFirstUse} onInputCapture={onFirstUse}>
+      <Component />
+    </div>
+  );
 }
