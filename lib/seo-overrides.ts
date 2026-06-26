@@ -66,12 +66,12 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   },
 
   "cps-test": {
-    title: "CPS Test — Mide tus clicks por segundo (2026)",
+    title: "CPS Test — Test de clicks por segundo gratis (1-60s)",
     description:
-      "Test de velocidad de clicks por segundo. 1s, 5s, 10s, 30s, 60s y 100 ms (Jitter). Compara con récords mundiales. Sin registro, sin tracking.",
-    h1: "CPS Test — Test de clicks por segundo",
-    keywords: ["cps test", "clicks per second", "cps tester", "test cps", "velocidad clicks", "clic test"],
-    notes: "GSC 90d: 7 impr · pos 23.6 — cerca de top 10, boost CTR + content"
+      "Haz el test de clicks por segundo (CPS) gratis: modos 1s, 5s, 10s, 30s, 60s y Jitter. Resultado al instante, récord guardado, sin registro. Mide tu velocidad de click para Minecraft PvP.",
+    h1: "CPS Test — Mide tu velocidad de clicks por segundo",
+    keywords: ["cps test", "cps tester", "test de clicks", "test cps", "clic test", "click speed test", "kohi click test", "clicks por segundo"],
+    notes: "GSC 90d: pos 23.6. De-canibalizado vs /que-es-cps-test (2026-06-26): esta pagina OWNS la query transaccional 'cps test'."
   },
 
   "generador-qr": {
@@ -146,12 +146,12 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   // ============================================================
 
   "que-es-cps-test": {
-    title: "¿Qué es CPS Test? Mide tus clicks por segundo (guía completa)",
+    title: "Qué es el CPS Test: significado, buen CPS y récords",
     description:
-      "CPS Test mide cuántos clicks por segundo puedes hacer. Aprende los récords mundiales, técnicas (jitter, butterfly, drag), y por qué los gamers lo entrenan. Test gratis incluido.",
+      "Qué significa CPS (Clicks Per Second), cuánto es un buen CPS, el promedio humano y los récords mundiales, y las técnicas jitter, butterfly y drag. ¿Quieres medirlo? Haz tu CPS test gratis.",
     h1: "¿Qué es un CPS Test (Clicks Per Second)?",
-    keywords: ["que es cps test", "clicks per second", "cps test significado", "velocidad clicks"],
-    notes: "GSC 90d: 30 impr · pos 15.1 — CLOSEST to top 10, max prioridad"
+    keywords: ["que es cps test", "que es cps", "cps significado", "cuanto es un buen cps", "clicks per second significado", "promedio cps"],
+    notes: "GSC 90d: 30 impr · pos 15.1. De-canibalizado vs /cps-test (2026-06-26): esta pagina OWNS la query informacional 'que es cps'; el tool OWNS 'cps test'."
   },
 
   "que-es-imc": {
