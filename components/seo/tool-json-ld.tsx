@@ -1,6 +1,7 @@
 import { SITE } from "@/lib/site";
 import { CATEGORIES, type Tool } from "@/lib/tools-registry";
 import { defaultFaqs } from "@/lib/default-faqs";
+import { getContentBoost } from "@/lib/seo-content-boost";
 
 const BUILD_DATE = process.env.BUILD_DATE || new Date().toISOString().slice(0, 10);
 
@@ -64,6 +65,29 @@ export function ToolJsonLd({ tool }: { tool: Tool }) {
       }))
     }
   ];
+
+  // HowTo — se genera desde los pasos del content boost cuando existen.
+  const boost = getContentBoost(tool.slug);
+  if (boost?.steps && boost.steps.length > 0) {
+    data.push({
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "@id": `${url}#howto`,
+      name: `Cómo usar ${tool.name}`,
+      description: tool.shortDesc,
+      inLanguage: "es",
+      totalTime: "PT1M",
+      tool: { "@type": "HowToTool", name: tool.name },
+      step: boost.steps.map((s, i) => ({
+        "@type": "HowToStep",
+        position: i + 1,
+        name: s.title,
+        text: s.description,
+        url: `${url}#step-${i + 1}`
+      }))
+    });
+  }
+
   return (
     <script
       type="application/ld+json"

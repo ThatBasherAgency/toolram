@@ -12,15 +12,23 @@
 
 ## Categories
 
-### PDF Tools (8 tools, all client-side)
+### PDF Tools (all client-side)
 - [Unir PDF / Merge PDF](https://toolram.com/unir-pdf): Combines multiple PDF files into one. Uses pdf-lib in browser.
 - [Dividir PDF / Split PDF](https://toolram.com/dividir-pdf): Extracts specific pages from a PDF.
+- [Comprimir PDF / Compress PDF](https://toolram.com/comprimir-pdf): Reduces PDF size by reserializing object streams and stripping redundant metadata. Best gains on text PDFs (10-40%); for scanned PDFs, compress the images first.
+- [PDF a JPG / PDF to JPG](https://toolram.com/pdf-a-jpg): Renders each PDF page as a JPG image with pdf.js. Choose DPI (72 for thumbnails, 144 for web, 288 for print). One JPG per page.
 - [Rotar PDF / Rotate PDF](https://toolram.com/rotar-pdf): Rotates all pages 90/180/270 degrees.
 - [Marca de agua PDF / Watermark PDF](https://toolram.com/marca-agua-pdf): Adds diagonal text watermark.
 - [Numerar páginas PDF / Page numbers](https://toolram.com/numerar-pdf): Adds page numbers automatically.
-- [JPG/PNG a PDF / Image to PDF](https://toolram.com/imagenes-a-pdf): Converts images to PDF.
+- [JPG/PNG a PDF / Image to PDF](https://toolram.com/imagenes-a-pdf): Combines one or more JPG/PNG images into a single PDF, one image per page, in your chosen order. Ideal for phone-scanned documents.
 - [Proteger PDF / Protect PDF](https://toolram.com/proteger-pdf): Adds confidentiality marking.
 - [Información PDF / PDF Info](https://toolram.com/informacion-pdf): Inspects PDF metadata.
+
+### Image Tools (all client-side)
+- [Quitar fondo / Remove background](https://toolram.com/quitar-fondo-imagen): AI background removal (U²-Net) running in-browser, no upload.
+- [Comprimir imagen / Compress image](https://toolram.com/comprimir-imagen): Reduces JPG/PNG/WebP file size.
+- [Recortar imagen / Crop image](https://toolram.com/recortar-imagen): Crop with a draggable box; exports lossless PNG. Common ratios: 1:1 avatars, 16:9 YouTube, 9:16 Stories/Reels, 4:5 Instagram feed.
+- [Marca de agua imagen / Watermark image](https://toolram.com/marca-agua-imagen): Fixed-position or tiled anti-screenshot watermark.
 
 ### Text Tools
 - [Contador de palabras / Word counter](https://toolram.com/contador-palabras): Real-time word, character, paragraph, reading time count.
@@ -32,6 +40,7 @@
 - [Generador de contraseñas / Password generator](https://toolram.com/generador-passwords): Web Crypto API, configurable length and character sets.
 - [Generador UUID / UUID generator](https://toolram.com/generador-uuid): UUID v4 via crypto.randomUUID().
 - [Generador QR / QR code generator](https://toolram.com/generador-qr): Configurable size, color. Downloads as PNG.
+- [Generador de paleta de colores / Color palette generator](https://toolram.com/paleta-colores): Harmonic 5-color palettes by color theory (monochromatic, analogous, complementary, triadic, tetradic). Lock colors and regenerate; copy HEX values.
 
 ### Developer Tools
 - [JSON formatter](https://toolram.com/json-formatter): Pretty-prints, validates, minifies JSON.

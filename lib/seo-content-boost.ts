@@ -33,6 +33,224 @@ export type ContentBoost = {
 
 export const CONTENT_BOOST: Record<string, ContentBoost> = {
   // ============================================================
+  // HERO PDF · comprimir-pdf (pop 95)
+  // ============================================================
+  "comprimir-pdf": {
+    intro:
+      "Comprimir PDF reduce el peso de un archivo para que quepa en un adjunto de correo, en un formulario con límite de subida o simplemente ocupe menos en tu disco. Toolram lo hace 100% en tu navegador con pdf-lib: reorganiza los object streams, elimina metadata redundante y vuelve a serializar el documento. Tu PDF no viaja a ningún servidor.",
+    sections: [
+      {
+        heading: "¿Qué reduce realmente el tamaño de un PDF?",
+        paragraphs: [
+          "No todos los PDF se comprimen igual. Un PDF de texto (contratos, facturas, ebooks) baja de peso al eliminar metadata, fuentes no usadas y espacios muertos entre objetos. Un PDF hecho de fotos escaneadas casi todo su peso está en las imágenes embebidas, y ahí la ganancia por optimizar la estructura es pequeña.",
+          "Por eso, si tu PDF pesa mucho por imágenes, conviene <strong>comprimir esas imágenes antes</strong> (con la herramienta de comprimir imagen) y luego generar el PDF. Sobre un PDF de texto, en cambio, esta herramienta suele recortar entre un 10% y un 40% sin tocar la calidad visible."
+        ],
+        citableSummary:
+          "Comprimir PDF funciona mejor en documentos de texto (baja 10-40% quitando metadata y streams redundantes). En PDF escaneados el peso está en las imágenes: conviene comprimir las imágenes antes de armar el PDF."
+      },
+      {
+        heading: "Cuándo comprimir y cuándo no",
+        bullets: [
+          "<strong>Sí</strong>: tu adjunto supera el límite de Gmail (25 MB) o de un portal de trámites",
+          "<strong>Sí</strong>: vas a subir muchos PDF y quieres ahorrar almacenamiento",
+          "<strong>Con reservas</strong>: si el PDF ya está optimizado, la reducción puede ser mínima — es normal",
+          "<strong>No</strong>: para documentos legales donde no puedes alterar bytes por requisitos de firma digital"
+        ],
+        paragraphs: []
+      },
+      {
+        heading: "Privacidad frente a compresores online típicos",
+        paragraphs: [
+          "La mayoría de compresores populares suben tu PDF a sus servidores, lo procesan y te devuelven un enlace de descarga temporal. Eso implica que un contrato o un estado de cuenta pasa por infraestructura de terceros. Toolram corre pdf-lib con WebAssembly en tu propia pestaña: el archivo nunca sale de tu dispositivo y funciona incluso sin conexión tras la primera carga."
+        ]
+      }
+    ],
+    steps: [
+      { title: "Cargar el PDF", description: "Arrastra el archivo o selecciónalo desde tu equipo. Se abre en memoria, sin subida." },
+      { title: "Optimizar", description: "Toolram reserializa el documento eliminando metadata y comprimiendo streams." },
+      { title: "Descargar", description: "Comparamos el peso antes/después y descargas el PDF optimizado al instante." }
+    ]
+  },
+
+  // ============================================================
+  // HERO PDF · pdf-a-jpg (pop 94)
+  // ============================================================
+  "pdf-a-jpg": {
+    intro:
+      "Convertir un PDF a JPG transforma cada página en una imagen independiente que puedes subir a redes, insertar en una presentación o enviar por WhatsApp sin que el receptor necesite un lector de PDF. Toolram renderiza las páginas con pdf.js —el mismo motor que usan Chrome y Firefox para mostrar PDF— y todo ocurre en tu navegador.",
+    sections: [
+      {
+        heading: "¿Qué resolución (DPI) elegir?",
+        paragraphs: [
+          "El DPI define cuántos píxeles genera cada página. Más DPI = imagen más nítida pero archivo más pesado. La elección depende de a dónde va la imagen:"
+        ],
+        bullets: [
+          "<strong>72 DPI</strong> · miniaturas y previews rápidas",
+          "<strong>144 DPI</strong> · publicar en web, blog o redes sociales",
+          "<strong>216 DPI</strong> · presentaciones y pantallas de alta densidad",
+          "<strong>288 DPI</strong> · impresión de calidad de una página suelta"
+        ],
+        citableSummary:
+          "Para pasar PDF a JPG: usa 72 DPI para miniaturas, 144 DPI para web/redes, 288 DPI para impresión. Cada página del PDF se exporta como un JPG independiente."
+      },
+      {
+        heading: "JPG vs PNG para páginas de PDF",
+        paragraphs: [
+          "El JPG es ideal cuando la página tiene fotos o fondos con degradados: pesa poco y la pérdida es imperceptible. Si tu página es texto puro o un diagrama con líneas finas y quieres máxima nitidez sin artefactos, un formato sin pérdida rinde mejor —pero para compartir rápido, JPG es la opción práctica."
+        ]
+      },
+      {
+        heading: "Casos de uso frecuentes",
+        bullets: [
+          "Subir la página de un catálogo o menú como imagen a Instagram o Facebook",
+          "Insertar un diagrama de un PDF en una diapositiva sin recortar a mano",
+          "Enviar un comprobante por WhatsApp a alguien que no abre PDF en el móvil",
+          "Extraer una infografía de un informe para reutilizarla"
+        ],
+        paragraphs: []
+      }
+    ],
+    steps: [
+      { title: "Subir el PDF", description: "Selecciona el archivo. Se renderiza página por página con pdf.js en local." },
+      { title: "Elegir calidad", description: "Escoge el DPI según el destino: web, presentación o impresión." },
+      { title: "Descargar JPG", description: "Baja una página concreta o todas de golpe. Ninguna imagen se sube a un servidor." }
+    ]
+  },
+
+  // ============================================================
+  // HERO PDF · imagenes-a-pdf (pop 92)
+  // ============================================================
+  "imagenes-a-pdf": {
+    intro:
+      "Convertir imágenes a PDF junta varias fotos o capturas en un solo documento donde cada imagen ocupa una página. Es la forma más limpia de entregar fotos de un contrato firmado, comprobantes o tareas escaneadas con el móvil: un único archivo ordenado en lugar de un montón de JPG sueltos.",
+    sections: [
+      {
+        heading: "Por qué un PDF y no varias imágenes sueltas",
+        paragraphs: [
+          "Cuando envías fotos individuales, el receptor las recibe desordenadas, sin garantía de secuencia y a veces recomprimidas por la app de mensajería. Un PDF fija el orden, mantiene todo en un solo adjunto y es el formato que esperan portales de trámites, plataformas académicas y áreas de recursos humanos.",
+          "Toolram arma el PDF con pdf-lib directamente en tu navegador: puedes cargar JPG y PNG, ordenarlos como quieras, y cada imagen se coloca como una página completa. Tus fotos —que suelen incluir documentos personales— nunca se suben."
+        ],
+        citableSummary:
+          "Convertir imágenes a PDF agrupa varias fotos (JPG/PNG) en un solo documento, una imagen por página, con el orden que tú definas. Ideal para escaneos hechos con el móvil que hay que entregar como archivo único."
+      },
+      {
+        heading: "Consejos para un buen escaneo desde el móvil",
+        bullets: [
+          "Fotografía sobre superficie plana y con luz pareja para evitar sombras",
+          "Encuadra el documento recto: reduce la necesidad de recortar después",
+          "Nombra o reordena las imágenes antes de generar el PDF para respetar la secuencia",
+          "Si las fotos pesan mucho, comprímelas primero y el PDF final será más ligero"
+        ],
+        paragraphs: []
+      },
+      {
+        heading: "Casos de uso reales",
+        bullets: [
+          "Entregar identificación (frente y reverso) como un solo PDF en un trámite",
+          "Agrupar recibos y comprobantes de un mes para contabilidad",
+          "Enviar tarea o práctica escaneada a una plataforma que solo acepta PDF",
+          "Armar un mini-portfolio de fotos para adjuntar en un correo"
+        ],
+        paragraphs: []
+      }
+    ],
+    steps: [
+      { title: "Seleccionar imágenes", description: "Carga uno o varios JPG/PNG desde tu equipo o galería." },
+      { title: "Ordenar", description: "Arrastra las imágenes para fijar la secuencia de páginas del PDF." },
+      { title: "Generar y descargar", description: "Toolram crea el PDF en el navegador y lo descargas: una imagen por página." }
+    ]
+  },
+
+  // ============================================================
+  // HERO IMAGEN · recortar-imagen (pop 92)
+  // ============================================================
+  "recortar-imagen": {
+    intro:
+      "Recortar una imagen elimina los bordes que sobran y deja solo la parte que te interesa. Sirve para preparar un avatar cuadrado, ajustar un banner a las proporciones de una red, o quitar elementos molestos de una captura. Toolram lo hace arrastrando una caja de recorte y exporta en PNG sin pérdida, todo dentro de tu navegador.",
+    sections: [
+      {
+        heading: "Proporciones que conviene conocer",
+        paragraphs: [
+          "Cada plataforma tiene un encuadre preferido. Recortar a la proporción correcta evita que la red vuelva a recortar por su cuenta y te deje la imagen mal centrada:"
+        ],
+        bullets: [
+          "<strong>1:1</strong> · avatares y publicaciones cuadradas de Instagram",
+          "<strong>16:9</strong> · miniaturas de YouTube y portadas horizontales",
+          "<strong>9:16</strong> · Stories, Reels y TikTok vertical",
+          "<strong>4:5</strong> · el formato que más pantalla ocupa en el feed de Instagram"
+        ],
+        citableSummary:
+          "Recorta a 1:1 para avatares, 16:9 para miniaturas de YouTube, 9:16 para Stories/Reels y 4:5 para feed de Instagram. Toolram exporta en PNG sin pérdida y procesa la imagen en tu navegador."
+      },
+      {
+        heading: "Recortar no es lo mismo que redimensionar",
+        paragraphs: [
+          "Recortar <em>quita</em> parte de la imagen y cambia el encuadre; redimensionar mantiene toda la imagen pero cambia su tamaño en píxeles. Suelen usarse juntos: primero recortas para lograr la proporción y el encuadre, y luego redimensionas para ajustar el peso o las dimensiones exactas que pide una plataforma."
+        ]
+      },
+      {
+        heading: "Casos de uso frecuentes",
+        bullets: [
+          "Convertir una foto rectangular en un avatar cuadrado bien centrado",
+          "Quitar barras negras, marcas de agua en un borde o elementos de fondo",
+          "Aislar un detalle de una captura de pantalla para explicarlo",
+          "Ajustar una foto de producto al encuadre exacto de tu tienda online"
+        ],
+        paragraphs: []
+      }
+    ],
+    steps: [
+      { title: "Subir la foto", description: "Carga la imagen; se abre en el editor sin salir de tu navegador." },
+      { title: "Ajustar la caja", description: "Mueve y redimensiona el recuadro tirando de las esquinas hasta el encuadre deseado." },
+      { title: "Descargar PNG", description: "Exporta el resultado en PNG sin pérdida, listo para usar." }
+    ]
+  },
+
+  // ============================================================
+  // HERO DISEÑO · paleta-colores (pop 91)
+  // ============================================================
+  "paleta-colores": {
+    intro:
+      "Un generador de paletas propone combinaciones de colores que funcionan bien juntas según la teoría del color. En lugar de elegir tonos a ojo, partes de una regla de armonía (monocromática, análoga, complementaria, triádica…) y obtienes 5 colores coherentes con sus valores HEX listos para copiar a tu diseño.",
+    sections: [
+      {
+        heading: "Qué significa cada tipo de armonía",
+        bullets: [
+          "<strong>Monocromática</strong> · un mismo tono en distintas luminosidades. Elegante y muy segura",
+          "<strong>Análoga</strong> · tonos vecinos en el círculo cromático. Sensación natural y calmada",
+          "<strong>Complementaria</strong> · opuestos en el círculo. Máximo contraste, ideal para llamadas a la acción",
+          "<strong>Triádica</strong> · tres tonos equidistantes. Vibrante y equilibrada",
+          "<strong>Tetrádica</strong> · cuatro tonos en dos pares complementarios. Rica pero difícil de balancear"
+        ],
+        paragraphs: [],
+        citableSummary:
+          "Monocromática = un tono en varias luminosidades (segura); análoga = tonos vecinos (natural); complementaria = opuestos (alto contraste); triádica = 3 equidistantes (vibrante); tetrádica = 4 tonos (rica pero compleja)."
+      },
+      {
+        heading: "De la paleta al diseño real",
+        paragraphs: [
+          "Una regla práctica es la <strong>60-30-10</strong>: 60% un color dominante (normalmente el más neutro), 30% un secundario y 10% un acento para botones y detalles. Bloquea el color que ya te convence y regenera el resto hasta que el conjunto respire. Copia los HEX directamente a tu CSS, a Figma o a tu editor de presentaciones."
+        ]
+      },
+      {
+        heading: "Casos de uso",
+        bullets: [
+          "Definir los colores de marca de un proyecto o cliente nuevo",
+          "Elegir la paleta de una interfaz o landing sin recurrir a un diseñador",
+          "Armonizar los colores de una presentación o infografía",
+          "Explorar variantes de un color base que ya tienes fijado"
+        ],
+        paragraphs: []
+      }
+    ],
+    steps: [
+      { title: "Elegir armonía", description: "Selecciona el tipo de paleta: monocromática, análoga, complementaria, triádica o aleatoria." },
+      { title: "Generar y bloquear", description: "Pulsa espacio para regenerar; bloquea con el candado los colores que quieras conservar." },
+      { title: "Copiar HEX", description: "Copia los valores de cada color y llévalos a tu CSS, Figma o presentación." }
+    ]
+  },
+
+  // ============================================================
   // que-es-cps-test (30 impr, pos 15.1 — MAX prioridad)
   // ============================================================
   "que-es-cps-test": {
