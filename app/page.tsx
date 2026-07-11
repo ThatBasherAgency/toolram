@@ -18,8 +18,8 @@ const NEW_SLUGS = ["interes-compuesto", "calculadoras-marketing", "conversor-zon
  * y keyword-rich para concentrar autoridad interna en lo que está cerca de rankear.
  */
 const MOST_SEARCHED = [
-  { href: "/que-es-cps-test", label: "¿Qué es el CPS Test?", note: "Clicks por segundo, récords y técnicas" },
-  { href: "/cps-test", label: "Test de clics por segundo (CPS)", note: "Mídelo en 1, 5, 10, 30 y 60 s" },
+  { href: "/cps-test", label: "CPS Test", note: "Mide tus clics por segundo: 1, 5, 10, 30 y 60 s" },
+  { href: "/que-es-cps-test", label: "¿Qué es el CPS Test?", note: "Significado, buen CPS y récords mundiales" },
   { href: "/calculadora-propina", label: "Calculadora de propina", note: "Reparte la cuenta entre amigos" },
   { href: "/calculadora-regla-tres", label: "Calculadora de regla de tres", note: "Simple, inversa y compuesta" },
   { href: "/calculadora-iva-mexico", label: "Calculadora de IVA en México", note: "16% nacional y 8% frontera norte" },
