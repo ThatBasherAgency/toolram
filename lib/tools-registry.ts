@@ -275,6 +275,57 @@ export const TOOLS: Tool[] = [
     related: ["cps-test", "cps-test-10-segundos", "cps-test-5-segundos", "cronometro"]
   },
   {
+    slug: "cps-test-30-segundos",
+    category: "test",
+    name: "CPS Test 30 segundos",
+    shortDesc: "Test de 30 segundos: el punto medio entre velocidad y resistencia.",
+    longDesc:
+      "El test de 30 segundos mide cuánto aguantas antes de que la fatiga te baje el ritmo: es más exigente que el clásico de 10 segundos pero sin llegar al desgaste total del minuto completo. Ideal para entrenar consistencia, porque revela en qué segundo empieza a caer tu velocidad y te obliga a dosificar la mano. 100% en tu navegador, gratis y sin registro.",
+    keywords: ["cps test 30 segundos", "30 second click test", "test de clicks 30 segundos", "click test resistencia", "cps 30s"],
+    popularity: 88,
+    faqs: [
+      { q: "¿Qué mide el test de 30 segundos?", a: "El equilibrio entre velocidad y resistencia: es lo bastante largo para que aparezca la fatiga, pero no tanto como para volverse solo una prueba de aguante como el de 60s." },
+      { q: "¿Qué CPS es bueno en 30 segundos?", a: "Mantener 6-8 CPS durante 30 segundos es un buen resultado; los récords registrados públicamente rondan los 11-12 CPS sostenidos en esta duración." },
+      { q: "¿En qué segundo suele caer la velocidad?", a: "La mayoría cae entre el segundo 15 y 20, cuando la mano se tensa. Detectar tu punto de caída es justo lo que este test entrena." },
+      { q: "¿Cómo entrenar para el test de 30 segundos?", a: "Alterna series de 10s a ritmo alto con series de 30s a ritmo controlado. Mano relajada, codo apoyado y ritmo constante rinden más que salir a tope." }
+    ],
+    related: ["cps-test", "cps-test-10-segundos", "cps-test-60-segundos", "cps-test-5-segundos"]
+  },
+  {
+    slug: "contador-de-clicks",
+    category: "test",
+    name: "Contador de clicks",
+    shortDesc: "Cuenta clicks sin límite de tiempo, con promedio por segundo y récord.",
+    longDesc:
+      "Contador de clicks libre: sin cronómetro ni límite de tiempo, cada click suma uno y ves el total gigante en pantalla junto al promedio de clicks por segundo. Sirve como tally counter digital para contar lo que sea (personas en un evento, vueltas, repeticiones, inventario) y como modo de práctica relajada antes de un CPS test cronometrado. Funciona con mouse o tocando la pantalla en el móvil, gratis y sin registro.",
+    keywords: ["contador de clicks", "contador de clics", "click counter", "contador manual online", "tally counter", "test de clicks sin tiempo"],
+    popularity: 89,
+    faqs: [
+      { q: "¿En qué se diferencia del CPS test?", a: "El CPS test tiene un tiempo fijo (1, 5, 10, 30 o 60 segundos) y mide tu velocidad. Este contador no tiene límite: cuenta clicks indefinidamente y te muestra el promedio, ideal para contar cosas o practicar sin presión." },
+      { q: "¿Puedo usarlo para contar personas u objetos?", a: "Sí: funciona como un contador manual (tally counter) digital. Cada click o toque suma uno, y el botón Reiniciar lo pone a cero para el siguiente conteo." },
+      { q: "¿Funciona en el celular?", a: "Sí. En el móvil cada toque sobre el panel cuenta como un click. Todo corre en tu navegador, sin instalar nada." },
+      { q: "¿Se guarda mi récord?", a: "Sí, el récord de clicks de tu sesión se guarda localmente en tu navegador; nunca se envía a ningún servidor." }
+    ],
+    related: ["cps-test", "contador-barra-espaciadora", "cps-test-10-segundos", "cronometro"]
+  },
+  {
+    slug: "contador-barra-espaciadora",
+    category: "test",
+    name: "Contador de barra espaciadora",
+    shortDesc: "Spacebar counter: mide cuántas veces pulsas la barra en 10, 30 o 60 segundos.",
+    longDesc:
+      "El contador de barra espaciadora (spacebar counter) mide cuántas veces puedes pulsar la tecla espacio en 10, 30 o 60 segundos, o en modo libre sin límite. Es el reto viral entre gamers para comparar velocidad de pulsación, sirve para probar si la barra de tu teclado registra bien cada golpe y para entrenar el bunny hop y otras mecánicas que dependen del espacio. Todo corre en tu navegador, gratis y sin registro.",
+    keywords: ["contador barra espaciadora", "spacebar counter", "spacebar test", "contador de espacio", "test barra espaciadora", "presionar espacio rapido"],
+    popularity: 89,
+    faqs: [
+      { q: "¿Cuántas pulsaciones de espacio son un buen resultado?", a: "El promedio ronda 6-8 pulsaciones por segundo. Superar 10 por segundo en un test de 10 segundos es un resultado muy bueno; los récords virales superan las 100 pulsaciones en 10 segundos usando varios dedos." },
+      { q: "¿Sirve para probar mi teclado?", a: "Sí: si pulsas la barra y el contador no suma, tu tecla tiene un problema de registro (switch sucio o dañado). También revela ghosting en pulsaciones muy rápidas." },
+      { q: "¿Por qué los gamers entrenan la barra espaciadora?", a: "Mecánicas como el bunny hop (CS, Minecraft parkour, Fortnite) dependen de pulsar espacio con ritmo preciso. El contador ayuda a medir y entrenar esa cadencia." },
+      { q: "¿Funciona en el celular?", a: "En el móvil no hay barra física, así que puedes tocar el panel en pantalla y cuenta igual. En PC usa la barra espaciadora directamente." }
+    ],
+    related: ["cps-test", "contador-de-clicks", "typing-test", "cps-test-10-segundos"]
+  },
+  {
     slug: "jitter-click-test",
     category: "test",
     name: "Jitter Click Test",
