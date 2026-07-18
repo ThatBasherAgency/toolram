@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
-import { CATEGORIES, TOOLS } from "@/lib/tools-registry";
+import { CATEGORIES, TOOLS, TOOLS_BY_SLUG } from "@/lib/tools-registry";
 import { CALCULATORS } from "@/lib/calculators";
 import { SYMBOL_CATEGORIES } from "@/data/symbols";
-import { GLOSSARY } from "@/data/glossary";
+import { GLOSSARY, GLOSSARY_BY_SLUG } from "@/data/glossary";
 import { ALTERNATIVES } from "@/data/alternatives";
 import { TOOL_EN, GLOSSARY_EN } from "@/lib/i18n";
 import { ALL_POSTS as POSTS } from "@/data/blog";
@@ -142,7 +142,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       }
     }
   }];
-  const enToolPages: Entry[] = Object.keys(TOOL_EN).map((slug) => ({
+  // /en/[slug] returns 200 only when BOTH the EN translation AND the underlying ES tool exist
+  // (see app/en/[slug]/page.tsx: `if (!en || !tool) notFound()`). Some TOOL_EN keys have no
+  // matching tool slug (renamed/aliased tools), so emitting them produced 404s in the sitemap.
+  const enToolPages: Entry[] = Object.keys(TOOL_EN)
+    .filter((slug) => TOOLS_BY_SLUG[slug])
+    .map((slug) => ({
     url: `${SITE.url}/en/${slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
@@ -157,7 +162,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       }
     }
   }));
-  const enGlossPages: Entry[] = Object.keys(GLOSSARY_EN).map((slug) => ({
+  const enGlossPages: Entry[] = Object.keys(GLOSSARY_EN)
+    .filter((slug) => GLOSSARY_BY_SLUG[slug])
+    .map((slug) => ({
     url: `${SITE.url}/en/${slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
