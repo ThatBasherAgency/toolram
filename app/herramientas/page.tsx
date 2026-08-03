@@ -8,7 +8,16 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Todas las herramientas",
   description: "Listado completo de todas las herramientas online gratis en Toolram. PDF, SEO, IA, símbolos, conversores y más.",
-  alternates: { canonical: "/herramientas" }
+  alternates: {
+    canonical: "/herramientas",
+    languages: {
+      es: "/herramientas",
+      "es-MX": "/herramientas",
+      "es-ES": "/herramientas",
+      en: "/en/all-tools",
+      "x-default": "/herramientas"
+    }
+  }
 };
 
 export default function AllToolsPage() {

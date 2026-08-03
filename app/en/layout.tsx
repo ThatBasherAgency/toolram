@@ -23,5 +23,17 @@ export const metadata: Metadata = {
 };
 
 export default function EnLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      {/* El <html> lo renderiza el layout raíz, que es estático y fija lang="es".
+          Bajo /en el contenido es inglés, así que corregimos el atributo antes de
+          la primera pintura para no declarar español en 54 páginas en inglés. */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `document.documentElement.lang='en';`
+        }}
+      />
+      {children}
+    </>
+  );
 }

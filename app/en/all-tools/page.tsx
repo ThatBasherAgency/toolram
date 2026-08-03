@@ -6,7 +6,14 @@ import { TOOL_EN } from "@/lib/i18n";
 export const metadata: Metadata = {
   title: "All free online tools",
   description: "Complete list of all free online tools at Toolram. PDF, SEO, AI, symbols, converters and more.",
-  alternates: { canonical: "/en/all-tools" }
+  alternates: {
+    canonical: "/en/all-tools",
+    languages: {
+      en: "/en/all-tools",
+      es: "/herramientas",
+      "x-default": "/herramientas"
+    }
+  }
 };
 
 export default function AllToolsEn() {

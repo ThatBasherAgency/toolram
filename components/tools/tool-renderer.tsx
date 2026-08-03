@@ -168,7 +168,11 @@ const map = {
   "html-table-generator": dynamic(() => import("./html-table-gen").then((m) => m.HtmlTableGen), { ssr: false }),
   "ascii-art-generator": dynamic(() => import("./ascii-art").then((m) => m.AsciiArt), { ssr: false }),
   "cuenta-regresiva": dynamic(() => import("./countdown-timer").then((m) => m.CountdownTimer), { ssr: false }),
-  "frecuencia-palabras": dynamic(() => import("./word-frequency").then((m) => m.WordFrequency), { ssr: false })
+  "frecuencia-palabras": dynamic(() => import("./word-frequency").then((m) => m.WordFrequency), { ssr: false }),
+  "formato-texto-whatsapp": dynamic(() => import("./whatsapp-formatter").then((m) => m.WhatsappFormatter), { ssr: false }),
+  "generador-cron": dynamic(() => import("./cron-generator").then((m) => m.CronGenerator), { ssr: false }),
+  "validador-iban": dynamic(() => import("./iban-validator").then((m) => m.IbanValidator), { ssr: false }),
+  "generador-passphrase": dynamic(() => import("./passphrase-generator").then((m) => m.PassphraseGenerator), { ssr: false })
 } as const;
 
 export function ToolRenderer({ slug }: { slug: string }) {

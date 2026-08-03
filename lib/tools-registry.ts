@@ -1711,7 +1711,79 @@ export const TOOLS: Tool[] = [
   { slug: "html-table-generator", category: "developer", name: "Generador de Tabla HTML", shortDesc: "Tabla HTML lista para tu blog · Con estilos inline opcionales.", longDesc: "Editor visual de tabla HTML. Editá filas y columnas, agregá/quitá. Output HTML semántico (thead, tbody, th, td) con estilos inline opcionales (border, padding, alternating rows). Pegado directo en WordPress, Notion HTML, blog posts, emails HTML.", keywords: ["html table generator", "tabla html", "wordpress table", "html table maker"], popularity: 84, related: ["markdown-table-generator", "html-formatter", "css-formatter"] },
   { slug: "ascii-art-generator", category: "fancy-text", name: "Generador de ASCII Art", shortDesc: "Texto en arte ASCII estilo block · Para README y terminales.", longDesc: "Convertí cualquier texto (max 8 chars) en arte ASCII estilo block. 12 caracteres de relleno disponibles (█, ▓, ▒, #, $, @, *, ❤, etc). Para banners de README en GitHub, headers de scripts CLI, splash screens en aplicaciones de consola, decoración de comentarios.", keywords: ["ascii art generator", "texto ascii", "block letters", "github readme banner"], popularity: 83, related: ["fancy-text", "generador-logo-texto", "buscador-emojis"] },
   { slug: "cuenta-regresiva", category: "test", name: "Cuenta Regresiva Personalizable", shortDesc: "Countdown visual hacia cualquier fecha · Eventos, deadlines.", longDesc: "Cuenta regresiva visual hacia cualquier fecha y hora. Días, horas, minutos, segundos en tiempo real. Para Año Nuevo, cumpleaños, lanzamientos de producto, deadlines, vacaciones, eventos especiales. Diseño grande y legible para mostrar en pantalla durante eventos.", keywords: ["cuenta regresiva", "countdown timer", "tiempo restante", "countdown online"], popularity: 89, related: ["temporizador", "cronometro", "calculadora-edad"] },
-  { slug: "frecuencia-palabras", category: "text", name: "Análisis de Frecuencia de Palabras", shortDesc: "Top 50 palabras más usadas · Útil para SEO y writing.", longDesc: "Análisis de frecuencia de palabras en cualquier texto. Top 50 palabras más usadas con visualización en barras. Filtros: largo mínimo de palabra (2-8 chars) y exclusión opcional de stopwords (el, la, de, y, etc). Útil para SEO (densidad de keywords), análisis de ensayos, content writing, optimizar copy.", keywords: ["frecuencia palabras", "word frequency", "analisis texto", "densidad palabras"], popularity: 85, related: ["densidad-keywords", "contador-palabras", "generador-keywords-seo"] }
+  { slug: "frecuencia-palabras", category: "text", name: "Análisis de Frecuencia de Palabras", shortDesc: "Top 50 palabras más usadas · Útil para SEO y writing.", longDesc: "Análisis de frecuencia de palabras en cualquier texto. Top 50 palabras más usadas con visualización en barras. Filtros: largo mínimo de palabra (2-8 chars) y exclusión opcional de stopwords (el, la, de, y, etc). Útil para SEO (densidad de keywords), análisis de ensayos, content writing, optimizar copy.", keywords: ["frecuencia palabras", "word frequency", "analisis texto", "densidad palabras"], popularity: 85, related: ["densidad-keywords", "contador-palabras", "generador-keywords-seo"] },
+  {
+    slug: "formato-texto-whatsapp",
+    category: "text",
+    name: "Formato de texto para WhatsApp",
+    shortDesc: "Negrita, cursiva, tachado y monoespaciado · Vista previa en vivo.",
+    longDesc:
+      "Da formato a tus mensajes de WhatsApp sin memorizar los símbolos. Escribe el texto, selecciona la parte que quieras resaltar y pulsa Negrita, Cursiva, Tachado o Monoespaciado: la herramienta añade los marcadores correctos (*, _, ~, ```) y te muestra una vista previa igual a como se verá en el chat. Funciona en WhatsApp y WhatsApp Business, en Android, iPhone y WhatsApp Web. Todo ocurre en tu navegador: el mensaje no se envía a ningún servidor.",
+    keywords: ["negrita en whatsapp", "formato texto whatsapp", "cursiva whatsapp", "letra tachada whatsapp", "como poner negrita en whatsapp"],
+    popularity: 94,
+    faqs: [
+      { q: "¿Cómo se pone negrita en WhatsApp?", a: "Rodea el texto con asteriscos: *hola* se ve como hola en negrita. Con esta herramienta no hace falta escribirlos: seleccionas el texto, pulsas Negrita y copias el resultado." },
+      { q: "¿Cómo se escribe en cursiva en WhatsApp?", a: "Se rodea el texto con guiones bajos: _hola_. Sirve para dar énfasis suave o para citar." },
+      { q: "¿Y el texto tachado?", a: "Se usan virgulillas alrededor del texto: ~hola~. Es útil para marcar algo corregido o un precio anterior." },
+      { q: "¿Funciona en WhatsApp Web y en iPhone?", a: "Sí. Los marcadores de formato son los mismos en Android, iPhone, WhatsApp Web y WhatsApp Business, así que el texto copiado se ve igual en todos." },
+      { q: "¿Se puede combinar negrita y cursiva?", a: "Sí. Aplica un formato y después el otro sobre el mismo texto; quedará como *_hola_* y WhatsApp lo mostrará en negrita y cursiva a la vez." }
+    ],
+    related: ["whatsapp-link", "texto-decorado", "buscador-emojis", "contador-caracteres"]
+  },
+  {
+    slug: "generador-cron",
+    category: "developer",
+    name: "Generador de expresiones cron",
+    shortDesc: "Crea y traduce cron a español · Presets y referencia.",
+    longDesc:
+      "Escribe o pega una expresión cron y la herramienta te dice en español exactamente cuándo se va a ejecutar. Incluye presets para los casos más habituales (cada 5 minutos, cada día a medianoche, lunes a viernes a las 9) y una referencia de los cinco campos con sus comodines. Valida la sintaxis mientras escribes, así detectas el error antes de subir el crontab al servidor.",
+    keywords: ["generador cron", "expresion cron", "crontab generator", "cron a español", "sintaxis crontab"],
+    popularity: 86,
+    faqs: [
+      { q: "¿Qué significan los cinco campos de cron?", a: "En orden: minuto (0-59), hora (0-23), día del mes (1-31), mes (1-12) y día de la semana (0-6, donde 0 es domingo)." },
+      { q: "¿Cómo ejecuto algo cada 15 minutos?", a: "Con */15 * * * *. El */n significa «cada n unidades» dentro de ese campo." },
+      { q: "¿Cómo programo una tarea solo de lunes a viernes?", a: "Usa 1-5 en el último campo. Por ejemplo, 0 9 * * 1-5 se ejecuta a las 09:00 de lunes a viernes." },
+      { q: "¿El día de la semana empieza en domingo o en lunes?", a: "En cron estándar el 0 es domingo y el 6 es sábado. Algunos sistemas aceptan también el 7 como domingo." },
+      { q: "¿Sirve para GitHub Actions o Vercel Cron?", a: "Sí. Ambos usan la sintaxis cron de cinco campos, con la salvedad de que interpretan las horas en UTC." }
+    ],
+    related: ["timestamp-converter", "conversor-duracion", "conversor-zonas-horarias"]
+  },
+  {
+    slug: "validador-iban",
+    category: "finance",
+    name: "Validador de IBAN",
+    shortDesc: "Comprueba el IBAN con módulo 97 · 38 países.",
+    longDesc:
+      "Valida un número IBAN según la norma ISO 13616: comprueba que el país exista, que la longitud sea la correcta para ese país y que los dos dígitos de control cuadren con el cálculo de módulo 97. Cubre 38 países, incluidos España, Alemania, Francia, Italia, Portugal y Países Bajos. Te devuelve además el IBAN con el espaciado de bloques de cuatro que se usa al imprimirlo. El cálculo se hace en tu navegador: el número de cuenta no sale de tu dispositivo.",
+    keywords: ["validador iban", "comprobar iban", "iban valido", "verificar numero cuenta", "iban españa"],
+    popularity: 84,
+    faqs: [
+      { q: "¿Qué comprueba exactamente este validador?", a: "Que el IBAN esté bien escrito: código de país reconocido, longitud correcta para ese país y dígitos de control correctos según el módulo 97. No comprueba que la cuenta exista realmente ni si tiene saldo." },
+      { q: "¿Cuántos caracteres tiene un IBAN español?", a: "24: ES, dos dígitos de control, cuatro de entidad, cuatro de oficina, dos de control de la cuenta y diez de número de cuenta." },
+      { q: "¿Se envía mi número de cuenta a algún servidor?", a: "No. Toda la validación ocurre en tu navegador con JavaScript; el IBAN nunca se transmite ni se guarda." },
+      { q: "¿Puedo escribirlo con espacios?", a: "Sí. Los espacios y guiones se ignoran, así que puedes pegarlo tal como aparece en tu banco." },
+      { q: "¿Por qué mi IBAN da error si lo copié del banco?", a: "Casi siempre es un carácter mal copiado o una letra de más al principio. El mensaje de error indica si el fallo es de longitud, de país o de dígitos de control." }
+    ],
+    related: ["validador-clabe-cbu", "validador-rfc-curp", "validador-dni-nie", "calculadora-prestamo"]
+  },
+  {
+    slug: "generador-passphrase",
+    category: "generator",
+    name: "Generador de contraseñas memorables",
+    shortDesc: "Frases de palabras fáciles de recordar · Entropía calculada.",
+    longDesc:
+      "Genera contraseñas construidas con palabras en español en lugar de símbolos sueltos. Una frase como Luna-Roble-Faro-42 es más difícil de romper por fuerza bruta que una contraseña corta llena de símbolos, y muchísimo más fácil de recordar y de teclear en el móvil. Puedes elegir el número de palabras, el separador, si van con mayúscula inicial y si se añade un número al final; la herramienta te muestra la entropía real en bits. Se genera con crypto.getRandomValues en tu navegador y nunca se envía a ningún servidor.",
+    keywords: ["contraseña memorable", "generador passphrase", "contraseña facil de recordar", "frase de contraseña segura", "diceware español"],
+    popularity: 87,
+    faqs: [
+      { q: "¿Por qué una frase es más segura que una contraseña corta con símbolos?", a: "Porque la seguridad depende de la cantidad de combinaciones posibles, no de que parezca complicada. Cuatro palabras de un diccionario grande superan en entropía a ocho caracteres con símbolos, y además se recuerdan sin apuntarlas." },
+      { q: "¿Qué es la entropía en bits?", a: "Es la medida de cuántos intentos harían falta para adivinarla. Por debajo de 45 bits se considera débil; a partir de 77 bits es muy fuerte incluso frente a ataques con hardware dedicado." },
+      { q: "¿Las contraseñas se guardan en algún sitio?", a: "No. Se generan en tu navegador y no se envían ni se almacenan. Si cierras la pestaña, desaparecen." },
+      { q: "¿Cuántas palabras debería usar?", a: "Cuatro es un buen equilibrio para cuentas normales. Para el correo principal, el banco o el gestor de contraseñas, usa cinco o seis." },
+      { q: "¿Puedo usarla en un gestor de contraseñas?", a: "Sí, y es lo recomendable: usa una frase larga como contraseña maestra del gestor y deja que él genere las demás." }
+    ],
+    related: ["generador-passwords", "password-strength", "generador-uuid", "hash-md5-sha"]
+  }
 ];
 
 export const TOOLS_BY_SLUG = Object.fromEntries(TOOLS.map((t) => [t.slug, t]));
