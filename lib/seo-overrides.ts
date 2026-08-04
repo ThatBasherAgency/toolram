@@ -27,7 +27,7 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   // ============================================================
 
   "contador-palabras": {
-    title: "Contador de palabras online gratis — Cuenta palabras, caracteres y tiempo de lectura",
+    title: "Contador de palabras y caracteres gratis",
     description:
       "Cuenta palabras, caracteres con/sin espacios, párrafos, oraciones y tiempo de lectura al instante. Sin registro, sin límites. Funciona offline en tu navegador.",
     h1: "Contador de palabras y caracteres online",
@@ -43,7 +43,7 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   },
 
   "convertir-mayusculas": {
-    title: "Convertir mayúsculas y minúsculas online — Title case, MAYÚSCULAS, alternantes",
+    title: "Convertir mayúsculas a minúsculas online",
     description:
       "Cambia texto a MAYÚSCULAS, minúsculas, Title Case, oración o alternante con un click. Gratis, instantáneo, sin instalar nada. Procesado en tu navegador.",
     keywords: [
@@ -58,7 +58,7 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   },
 
   "rotar-pdf": {
-    title: "Rotar PDF online gratis — 90°, 180°, 270° sin subir el archivo",
+    title: "Rotar PDF gratis: 90°, 180° y 270° online",
     description:
       "Gira páginas PDF 90°, 180° o 270° desde tu navegador. El archivo no se sube a ningún servidor. Sin marca de agua, sin registro, gratis.",
     keywords: ["rotar pdf", "girar pdf", "rotar pdf online", "rotar paginas pdf", "rotar pdf gratis"],
@@ -75,7 +75,7 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   },
 
   "generador-qr": {
-    title: "Generador de QR online gratis — URL, WiFi, vCard, texto",
+    title: "Generador de códigos QR gratis, sin registro",
     description:
       "Genera códigos QR para URLs, WiFi, contactos, emails o cualquier texto. Descarga PNG o SVG en HD. Sin registro, sin marca de agua, en tu navegador.",
     keywords: ["generador qr", "codigo qr gratis", "crear qr", "qr code generator español", "qr online"],
@@ -83,7 +83,7 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   },
 
   "unir-pdf": {
-    title: "Unir PDF gratis online — Combina varios PDF sin subir archivos",
+    title: "Unir PDF gratis online sin subir archivos",
     description:
       "Une 2, 5, 10 o más PDFs en uno solo desde tu navegador. El archivo no se sube a servidores externos. Sin marca de agua, sin registro, sin tamaño máximo.",
     h1: "Unir PDF online gratis",
@@ -92,7 +92,7 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   },
 
   "dividir-pdf": {
-    title: "Dividir PDF gratis — Extraer páginas sin subir el archivo",
+    title: "Dividir PDF gratis y extraer páginas online",
     description:
       "Extrae páginas específicas o divide un PDF en varios documentos directamente en tu navegador. Sin marca de agua, sin tamaño máximo, gratis para siempre.",
     keywords: ["dividir pdf", "separar pdf", "extraer paginas pdf", "split pdf español", "dividir pdf gratis"],
@@ -108,7 +108,7 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   // ============================================================
 
   "calculadora-propina": {
-    title: "Calculadora de propina — Reparte la cuenta entre amigos al instante",
+    title: "Calculadora de propina y división de cuenta",
     description:
       "Calcula la propina (10%, 15%, 18%, 20%) y divide la cuenta entre el número de comensales. Sin registro, gratis, funciona offline.",
     keywords: ["calculadora propina", "calcular propina", "propina restaurante", "dividir cuenta"],
@@ -125,7 +125,7 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   },
 
   "calculadora-iva-mexico": {
-    title: "Calculadora de IVA México 2026 — 16% y 8% frontera norte",
+    title: "Calculadora de IVA México 16% al instante",
     description:
       "Calcula IVA en México: 16% nacional, 8% frontera norte. Suma o desglosa el impuesto sobre cualquier importe. Gratis, sin registro.",
     h1: "Calculadora de IVA México (16% y 8%)",
@@ -134,7 +134,7 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   },
 
   "calculadora-imc": {
-    title: "Calculadora de IMC online — Índice de masa corporal y categoría OMS",
+    title: "Calculadora de IMC con la fórmula de la OMS",
     description:
       "Calcula tu IMC con fórmula OMS. Conoce si tu peso es saludable, bajo, sobrepeso u obesidad. Gratis, sin registro, sin enviar tus datos a servidores.",
     keywords: ["calculadora imc", "indice masa corporal", "calcular imc", "imc online"],
@@ -146,7 +146,7 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   // ============================================================
 
   "que-es-cps-test": {
-    title: "Qué es el CPS Test: significado, buen CPS y récords",
+    title: "¿Qué es CPS? Clicks por segundo explicado",
     description:
       "Qué significa CPS (Clicks Per Second), cuánto es un buen CPS, el promedio humano y los récords mundiales, y las técnicas jitter, butterfly y drag. ¿Quieres medirlo? Haz tu CPS test gratis.",
     h1: "¿Qué es un CPS Test (Clicks Per Second)?",
@@ -179,7 +179,7 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   },
 
   "que-es-uuid": {
-    title: "¿Qué es un UUID? Versiones (v1, v4, v7), formato y cuándo usarlo",
+    title: "¿Qué es un UUID? Formato, versiones y usos",
     description:
       "UUID (Universally Unique Identifier) es un ID de 128 bits único globalmente. Aprende v1 vs v4 vs v7, formato hexadecimal y casos de uso en bases de datos y APIs.",
     h1: "¿Qué es un UUID (Universally Unique Identifier)?",
@@ -203,7 +203,7 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   },
 
   "que-es-jwt": {
-    title: "¿Qué es JWT? JSON Web Tokens explicados (estructura, firma, ejemplos)",
+    title: "¿Qué es JWT? JSON Web Tokens explicados",
     description:
       "JWT (JSON Web Token) es un estándar para transmitir datos entre cliente y servidor de forma segura. Aprende su estructura (header.payload.signature), uso en auth, ventajas y riesgos.",
     h1: "¿Qué es un JWT (JSON Web Token)?",
@@ -229,7 +229,7 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   // ============================================================
 
   "en/contador-palabras": {
-    title: "Word Counter Online Free — Words, Characters & Reading Time",
+    title: "Free Word Counter Online, No Signup Needed",
     description:
       "Count words, characters (with/without spaces), paragraphs and reading time instantly. No signup, no limits. Works offline in your browser.",
     h1: "Word & Character Counter",
@@ -244,7 +244,7 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   },
 
   "en/unir-pdf": {
-    title: "Merge PDF Free Online — Combine PDFs Without Upload",
+    title: "Merge PDF Free Online, No Upload Needed",
     description:
       "Merge 2, 5, 10+ PDFs into one directly in your browser. Files never leave your device. No watermark, no signup, no size limit.",
     h1: "Merge PDF Online Free"
