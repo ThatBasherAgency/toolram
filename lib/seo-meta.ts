@@ -21,25 +21,48 @@ export function clampTitle(s: string, max = 50): string {
   return cut.replace(/[\s—–·,:;(|-]+$/u, "").trim();
 }
 
-const TITLE_TEMPLATES: Record<string, (name: string) => string> = {
-  pdf: (n) => `${n} online ${YEAR} · 100% privado, sin subir archivos`,
-  image: (n) => `${n} gratis ${YEAR} — Sin marca de agua, en tu navegador`,
-  text: (n) => `${n} online · Gratis y sin registro (${YEAR})`,
-  developer: (n) => `${n} ${YEAR} — Rápido, gratis y privacy-first`,
-  generator: (n) => `${n} gratis ${YEAR} · Sin login ni marca de agua`,
-  calculator: (n) => `${n} ${YEAR} — Fórmula, ejemplos y tabla`,
-  finance: (n) => `${n} ${YEAR} — Fórmula y proyección año a año`,
-  design: (n) => `${n} visual ${YEAR} — Preview en vivo + código copiable`,
-  marketing: (n) => `${n} ${YEAR} — Métricas, benchmarks y feedback automático`,
-  network: (n) => `${n} ${YEAR} — Cálculo instantáneo gratis`,
-  seo: (n) => `${n} gratis ${YEAR} · Auditoría rápida sin registro`,
-  converter: (n) => `${n} online ${YEAR} — Conversión instantánea, sin servidor`,
-  symbols: (n) => `${n} ${YEAR} · Copiar y pegar al instante`,
-  "fancy-text": (n) => `${n} ${YEAR} — Para Instagram, TikTok, Discord, X`,
-  test: (n) => `${n} ${YEAR} — Mide tu rendimiento al instante`,
-  random: (n) => `${n} gratis ${YEAR} — Decisión imparcial al instante`,
-  ai: (n) => `${n} ${YEAR} — Asistido por IA, gratis y privado`
+/**
+ * Colas por categoría, de la más informativa a la más corta.
+ *
+ * `clampTitle` corta en el primer separador, así que una cola larga se perdía
+ * entera y el título acababa en 20-30 caracteres: media línea de SERP
+ * desaprovechada en todas las páginas. En vez de una sola plantilla fija,
+ * `composeTitle` prueba estas colas en orden y se queda con la primera que
+ * quepa en los 50 caracteres útiles (el layout añade " | Toolram"). Así los
+ * nombres cortos lucen el gancho completo y los largos degradan a una cola
+ * más breve en lugar de quedarse pelados.
+ */
+const TITLE_TAILS: Record<string, string[]> = {
+  pdf: [" online — sin subir el archivo", " online — 100% privado", " online gratis", " online"],
+  image: [" gratis — sin marca de agua", " gratis — sin watermark", " online gratis", " gratis"],
+  text: [" online — gratis y sin registro", " online — sin registro", " online gratis", " online"],
+  developer: [" online — rápido y sin registro", " online — sin registro", " online gratis", " online"],
+  generator: [" gratis — sin login ni watermark", " gratis — sin registro", " online gratis", " gratis"],
+  calculator: [" — con fórmula y ejemplos", " — fórmula y ejemplos", " online gratis", " online"],
+  finance: [" — fórmula y proyección anual", " — con fórmula y ejemplos", " online gratis", " online"],
+  design: [" — preview en vivo y código", " — preview en vivo", " online gratis", " online"],
+  marketing: [" — métricas y benchmarks", " — con benchmarks", " online gratis", " online"],
+  network: [" — cálculo instantáneo gratis", " — cálculo instantáneo", " online gratis", " online"],
+  seo: [" gratis — sin registro", ` gratis ${YEAR}`, " gratis", " online gratis", " online"],
+  converter: [" online — conversión instantánea", " online — al instante", " online gratis", " online"],
+  symbols: [" — copiar y pegar al instante", " — copiar y pegar", " online gratis", " online"],
+  "fancy-text": [" — Instagram, TikTok y Discord", " — para Instagram y TikTok", " online gratis", " online"],
+  test: [` ${YEAR} — mide tu marca al instante`, " — mide tu marca al instante", ` ${YEAR} — al instante`, " online gratis"],
+  random: [" gratis — decisión imparcial", " gratis — al azar", " online gratis", " gratis"],
+  ai: [" — con IA, gratis y privado", " — con IA, gratis", " online gratis", " online"]
 };
+
+const FALLBACK_TAILS = [" online gratis", " gratis", " online", ""];
+
+/** Compone `nombre + la cola más larga que quepa` en `max` caracteres. */
+function composeTitle(name: string, category: string, max = 50): string {
+  const tails = TITLE_TAILS[category] ?? FALLBACK_TAILS;
+  for (const tail of [...tails, ...FALLBACK_TAILS]) {
+    const candidate = `${name}${tail}`;
+    if (candidate.length <= max) return candidate;
+  }
+  return clampTitle(name, max);
+}
 
 const DESC_TEMPLATES: Record<string, (n: string, d: string) => string> = {
   pdf: (n, d) => `${d} 100% privado: el archivo se procesa en tu navegador, no se sube. Gratis, sin registro, sin marca de agua. Compatible con Chrome, Safari, Firefox y Edge.`,
@@ -65,8 +88,7 @@ export function toolSeoTitle(tool: Tool, lang: "es" | "en" = "es"): string {
   const overrideSlug = lang === "en" ? `en/${tool.slug}` : tool.slug;
   const override = getSeoOverride(overrideSlug);
   if (override) return clampTitle(override.title);
-  const fn = TITLE_TEMPLATES[tool.category];
-  return clampTitle(fn ? fn(tool.name) : `${tool.name} online gratis ${YEAR}`);
+  return composeTitle(tool.name, tool.category);
 }
 
 export function toolSeoDesc(tool: Tool, lang: "es" | "en" = "es"): string {
@@ -84,7 +106,7 @@ export function toolSeoDesc(tool: Tool, lang: "es" | "en" = "es"): string {
 export function calcSeoTitle(calc: Calculator): string {
   const override = getSeoOverride(calc.slug);
   if (override) return clampTitle(override.title);
-  return clampTitle(`${calc.name} ${YEAR} — Fórmula, ejemplos y resultado al instante`);
+  return composeTitle(calc.name, "calculator");
 }
 
 export function calcSeoDesc(calc: Calculator): string {

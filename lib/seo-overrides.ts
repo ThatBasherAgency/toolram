@@ -116,12 +116,12 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   },
 
   "calculadora-regla-tres": {
-    title: "Calculadora regla de tres — Simple, inversa y compuesta",
+    title: "Calculadora de regla de 3 simple e inversa",
     description:
-      "Resuelve la regla de tres simple, inversa y compuesta con explicación paso a paso. Gratis, sin registro, ideal para tareas escolares.",
-    h1: "Calculadora de regla de tres",
-    keywords: ["regla de tres", "calculadora regla de tres", "regla de 3", "regla de tres simple"],
-    notes: "GSC 90d: 10 impr · pos 75.6 — head term escolar muy buscado"
+      "Resuelve la regla de 3 (regla de tres) simple, inversa y compuesta con el resultado y el procedimiento paso a paso. Gratis, sin registro.",
+    h1: "Calculadora de regla de 3",
+    keywords: ["calculadora regla de 3", "regla de 3 calculadora", "calculadora regla de tres", "regla de tres simple", "regla de 3 simple"],
+    notes: "Bing 30d: ~190 impr agregadas · pos 6-9 · solo 1 clic. El title decía 'regla de tres' pero la query dominante es 'regla de 3' (75 impr) frente a 'regla de tres' (42). Se antepone la grafía con dígito y se deja la otra en desc/keywords."
   },
 
   "calculadora-iva-mexico": {
@@ -269,6 +269,52 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
     description:
       "Generate QR codes for URLs, WiFi, contacts, emails or any text. Download PNG or SVG in HD. No signup, no watermark, runs in your browser.",
     h1: "Free QR Code Generator"
+  },
+
+  // ============================================================
+  // Demanda medida en BING (30d), que es donde el sitio sí rankea.
+  // Google solo dio 24 impresiones en el mismo periodo, asi que las
+  // decisiones de CTR se toman con los datos de Bing Webmaster.
+  // ============================================================
+
+  "contador-tokens": {
+    title: "Contador de tokens para GPT, Claude y Gemini",
+    description:
+      "Cuenta los tokens de tu texto y estima el costo antes de enviarlo a GPT-4o, Claude o Gemini. Cálculo en tu navegador, sin registro y sin subir el prompt.",
+    keywords: ["contador de tokens", "contar tokens", "calculadora de tokens", "tokens gpt", "estimar tokens ia"],
+    notes: "Bing 30d: 58 impr · pos 7 · 0 clics. La query es exactamente 'contador de tokens'; el title tenía '2026' ocupando sitio en vez de los modelos, que es lo que decide el clic."
+  },
+
+  "validador-dni-nie": {
+    title: "Validador de DNI y NIE de España con letra",
+    description:
+      "Comprueba si un DNI o NIE español es válido y calcula la letra correcta al instante. El número se valida en tu navegador y no se envía a ningún servidor.",
+    keywords: ["validador dni españa", "validar dni", "letra del dni", "validador nie", "calcular letra dni"],
+    notes: "Bing 30d: 9 impr · pos 7-9 · 0 clics. Query 'validador dni españa'. Se antepone 'España' y se explicita 'con letra', que es lo que la gente busca resolver."
+  },
+
+  "barcode-generator": {
+    title: "Generador de código de barras EAN-13 gratis",
+    description:
+      "Crea códigos de barras EAN-13 válidos con su dígito verificador y descárgalos en PNG. Sin registro, sin marca de agua y sin subir datos a ningún servidor.",
+    keywords: ["generador de codigo de barras ean 13", "crear codigo ean 13", "generador ean", "ean 13 gratis", "codigo de barras online"],
+    notes: "Bing 30d: ~20 impr agregadas · pos 3-8 · 0 clics. Cluster EAN-13 claramente ganable; se quita el '2026' para dejar sitio a 'gratis', que es como se busca."
+  },
+
+  "buscador-emojis": {
+    title: "Buscador de emojis para copiar y pegar",
+    description:
+      "Busca cualquier emoji por nombre y cópialo con un click para WhatsApp, Instagram, TikTok o Discord. Sin instalar nada y sin registro.",
+    keywords: ["buscador de emojis", "buscar emojis", "emojis para copiar y pegar", "buscador emojis whatsapp", "copiar emoji"],
+    notes: "Bing 30d: ~11 impr · pos 6 · 1 clic. El title anterior eran 33 caracteres con '2026'; la intención real es copiar y pegar, y eso es lo que ahora promete."
+  },
+
+  "generador-username": {
+    title: "Generador de usernames para redes y gaming",
+    description:
+      "Genera nombres de usuario únicos y disponibles para Instagram, TikTok, Twitch, Discord o gaming. Ideas ilimitadas, gratis y sin registro.",
+    keywords: ["generador de usernames", "generador de nombres de usuario", "nombres para twitch", "username gaming", "nick generator"],
+    notes: "Bing 30d: 4 impr · pos 5 · 0 clics. Query 'generador de usernames'."
   }
 };
 
