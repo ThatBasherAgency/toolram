@@ -806,6 +806,14 @@ export const TOOLS: Tool[] = [
       "Pegá tu texto y elegí modelo. Te mostramos tokens estimados (basados en chars/token promedio del modelo), porcentaje del context window que ocupás y costo estimado en USD como input y output. Útil para presupuestar batch jobs o validar que tu prompt entra en el contexto.",
     keywords: ["contador tokens", "token counter", "tokenizer gpt claude"],
     popularity: 88,
+    faqs: [
+      { q: "¿Qué es un token en un modelo de IA?", a: "Un token es la unidad mínima que procesa el modelo: puede ser una palabra corta, parte de una palabra o un signo de puntuación. En español un token equivale de media a unos 3-4 caracteres, así que 1.000 palabras rondan los 1.400-1.600 tokens." },
+      { q: "¿Cuántos tokens tiene mi texto?", a: "Pega el texto arriba y elige el modelo: verás los tokens estimados, qué porcentaje de la ventana de contexto ocupan y el costo aproximado. El cálculo se hace en tu navegador, tu prompt no se envía a ningún servidor." },
+      { q: "¿Cuántas palabras son 1.000 tokens?", a: "En inglés, unas 750 palabras. En español, entre 600 y 700, porque nuestras palabras son más largas y acentuadas: el mismo texto traducido gasta entre un 15% y un 30% más de tokens." },
+      { q: "¿Los tokens de entrada y de salida cuestan lo mismo?", a: "No. En casi todos los modelos el output es varias veces más caro que el input. Por eso la herramienta muestra el costo estimado por separado: lo que gastas al enviar el prompt y lo que gastarías según la longitud de la respuesta." },
+      { q: "¿Cómo reducir el consumo de tokens?", a: "Quita ejemplos repetidos y contexto que el modelo no necesita, resume las conversaciones largas en vez de reenviarlas enteras, y limita la longitud de la respuesta. Medir antes de enviar es la forma más rápida de bajar la factura." },
+      { q: "¿El contador es exacto?", a: "Es una estimación muy cercana basada en la media de caracteres por token de cada modelo. Cada familia (GPT, Claude, Gemini) usa su propio tokenizador, así que puede haber una diferencia de pocos puntos porcentuales frente al conteo oficial." }
+    ],
     related: ["prompt-builder", "contador-palabras", "json-formatter"]
   },
   {
@@ -1044,6 +1052,14 @@ export const TOOLS: Tool[] = [
       "Convertidor de números a letras en español con 5 formatos simultáneos: texto general, pesos mexicanos, pesos argentinos, dólares y euros, todos con el formato XX/100 estándar para documentos formales. Soporta hasta cientos de miles de millones, con decimales de centavos.",
     keywords: ["numero a letras", "numero en letras", "convertidor numero texto"],
     popularity: 89,
+    faqs: [
+      { q: "¿Cómo se escribe una cantidad con letra en un pagaré?", a: "En un pagaré la cantidad va en letra, en mayúsculas y seguida de los centavos en fracción sobre cien. Por ejemplo, $300,000.00 se escribe TRESCIENTOS MIL PESOS 00/100 M.N. La cifra en número y la cifra en letra deben coincidir: si difieren, la ley mercantil da validez a la escrita con letra." },
+      { q: "¿Cómo lleno la cantidad con letra en un cheque?", a: "Escribe la cantidad completa en letra, sin dejar espacios en blanco que permitan añadir texto, y termina con los centavos en formato XX/100. Muchos bancos piden cerrar la línea con una raya para que nadie pueda agregar palabras después." },
+      { q: "¿Qué significa 00/100 M.N. al final de la cantidad?", a: "Es el estándar en documentos mercantiles: los dos primeros dígitos son los centavos sobre cien, y M.N. quiere decir Moneda Nacional. Así, MIL QUINIENTOS PESOS 50/100 M.N. equivale a $1,500.50 en pesos mexicanos." },
+      { q: "¿Se escribe \"veintiuno\" o \"veintiún\" pesos?", a: "Delante de un sustantivo masculino se apocopa: VEINTIÚN PESOS. Lo mismo pasa en las centenas concordadas, que sí varían en género: DOSCIENTAS UNIDADES pero DOSCIENTOS PESOS." },
+      { q: "¿La herramienta sirve para facturas y contratos?", a: "Sí. Genera a la vez el texto general y los formatos de pesos mexicanos, pesos argentinos, dólares y euros, todos con la fracción XX/100 que piden facturas, contratos, recibos y pagarés." },
+      { q: "¿Se envía la cantidad a algún servidor?", a: "No. La conversión ocurre por completo en tu navegador, así que puedes usarla con importes de documentos confidenciales sin que salgan de tu dispositivo." }
+    ],
     related: ["conversor-divisas", "conversor-unidades", "contador-palabras"]
   },
   {
@@ -1055,6 +1071,14 @@ export const TOOLS: Tool[] = [
       "Calculadora completa de edad: ingresá tu fecha de nacimiento y obtené años + meses + días, además de tu edad expresada en meses totales, semanas, días, horas, minutos y segundos. Bonus: tu signo zodiacal occidental, signo del horóscopo chino, día de la semana en que naciste y cuántos días faltan para tu próximo cumpleaños.",
     keywords: ["calculadora edad", "edad exacta", "cumpleaños", "horoscopo edad"],
     popularity: 92,
+    faqs: [
+      { q: "¿Cómo calculo mi edad exacta a partir de mi fecha de nacimiento?", a: "Introduce el día, mes y año en que naciste y la calculadora resta esa fecha de hoy: obtienes los años cumplidos más los meses y días que llevas del año en curso, no un decimal redondeado." },
+      { q: "¿Cuántos días he vivido?", a: "Además de años, meses y días, la herramienta convierte tu edad a meses totales, semanas, días, horas, minutos y segundos. Es el dato que se suele buscar para cumpleaños redondos: por ejemplo, los 10.000 días llegan poco antes de cumplir 28 años." },
+      { q: "¿Cómo se cuentan los años bisiestos?", a: "El cálculo va sobre el calendario real, no sobre años de 365 días, así que los 29 de febrero se cuentan tal cual ocurrieron. Por eso el total de días no coincide con multiplicar tu edad por 365." },
+      { q: "¿Qué día de la semana nací?", a: "La calculadora te lo dice junto a la edad, calculado con el calendario gregoriano. También muestra tu signo zodiacal occidental y tu animal del horóscopo chino según el año de nacimiento." },
+      { q: "¿Cuánto falta para mi próximo cumpleaños?", a: "Se muestra automáticamente en días, contando desde hoy hasta la siguiente vez que se repita tu fecha, incluidos los bisiestos intermedios." },
+      { q: "¿Se guarda mi fecha de nacimiento?", a: "No. El cálculo es local en tu navegador: la fecha no se envía ni se almacena en ningún servidor." }
+    ],
     related: ["calculadoras", "numero-a-letras", "cronometro"]
   },
   {
@@ -1635,6 +1659,14 @@ export const TOOLS: Tool[] = [
       "Generador de códigos de barras EAN-13 (estándar mundial retail desde 1977). Calcula automáticamente el 13º dígito verificador. Personaliza color de fondo y barras. Descarga en PNG en alta resolución. Para uso comercial real necesitás registrar tu prefijo en GS1 — para tests, etiquetas internas o aprendizaje funciona con cualquier código.",
     keywords: ["generador codigo barras", "ean 13 generator", "barcode online", "crear codigo barras"],
     popularity: 87,
+    faqs: [
+      { q: "¿Cómo genero un código de barras EAN-13 gratis?", a: "Escribe los 12 primeros dígitos y la herramienta calcula el decimotercero (el dígito de control) y dibuja el código al instante. Puedes cambiar los colores y descargarlo en PNG de alta resolución, sin registro." },
+      { q: "¿Qué es el dígito verificador y cómo se calcula?", a: "Es el último dígito del EAN-13 y sirve para detectar errores de lectura. Se obtiene sumando los dígitos en posición impar más el triple de los de posición par, y restando ese total a la decena superior más cercana. Aquí se calcula solo." },
+      { q: "¿Puedo usar estos códigos para vender en tiendas?", a: "Para venta comercial necesitas un prefijo propio registrado en GS1, porque los rangos identifican al fabricante. Los códigos generados aquí sirven para pruebas, etiquetas internas, inventario propio y aprendizaje." },
+      { q: "¿Qué diferencia hay entre EAN-13 y UPC-A?", a: "UPC-A tiene 12 dígitos y se usa sobre todo en Estados Unidos y Canadá; EAN-13 añade un dígito de país al inicio y es el estándar en Europa y Latinoamérica. Un lector moderno interpreta ambos." },
+      { q: "¿En qué resolución debo imprimir el código?", a: "Descarga el PNG en alta resolución e imprímelo a 300 ppp o más, sin escalarlo desde una imagen pequeña. Si las barras quedan borrosas o demasiado juntas, el escáner falla." },
+      { q: "¿Se sube mi código a algún servidor?", a: "No. El código se dibuja en tu navegador con Canvas y la descarga sale de tu propio dispositivo." }
+    ],
     related: ["generador-qr", "escaner-qr", "favicon-generator"]
   },
   {
