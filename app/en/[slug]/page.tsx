@@ -40,7 +40,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (enGloss) {
     return {
       title: clampTitle(`What is ${enGloss.term}? Definition & examples`),
-      description: enGloss.shortDef.slice(0, 155),
+      // Con FAQs, la descripción arranca por la primera respuesta: es la que
+      // responde la query long-tail por la que Bing ya nos rankea.
+      description: (enGloss.faqs?.[0]?.a ?? enGloss.shortDef).slice(0, 155),
       alternates: {
         canonical: `/en/${slug}`,
         languages: {
@@ -72,6 +74,17 @@ export default async function ToolPageEn({ params }: { params: Promise<{ slug: s
         url: `${SITE.url}/en/${slug}`
       }
     ];
+    if (enGloss.faqs && enGloss.faqs.length > 0) {
+      jsonLd.push({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: enGloss.faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a }
+        }))
+      } as unknown as (typeof jsonLd)[number]);
+    }
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -104,6 +117,19 @@ export default async function ToolPageEn({ params }: { params: Promise<{ slug: s
               ))}
             </ul>
           </section>
+          {enGloss.faqs && enGloss.faqs.length > 0 && (
+            <section className="mb-8">
+              <h2 className="text-xl font-bold mb-3">Frequently asked questions</h2>
+              <div className="space-y-4">
+                {enGloss.faqs.map((f, i) => (
+                  <div key={i}>
+                    <h3 className="font-semibold mb-1">{f.q}</h3>
+                    <p className="text-sm text-[color:var(--color-fg-soft)] leading-relaxed">{f.a}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
           <p className="text-sm text-[color:var(--color-fg-soft)]">
             🇲🇽 También disponible en <Link href={`/${slug}`} className="text-[color:var(--color-brand)] hover:underline">español</Link>
           </p>

@@ -478,7 +478,7 @@ export const TOOL_EN: Record<string, { name: string; shortDesc: string; longDesc
 };
 
 // Glossary EN translations
-export const GLOSSARY_EN: Record<string, { term: string; shortDef: string; longDef: string; example?: string; useCases: string[] }> = {
+export const GLOSSARY_EN: Record<string, { term: string; shortDef: string; longDef: string; example?: string; useCases: string[]; faqs?: { q: string; a: string }[] }> = {
   "que-es-base64": {
     term: "Base64",
     shortDef: "Base64 is an encoding scheme that converts binary data to an ASCII text string using 64 safe characters (A-Z, a-z, 0-9, +, /).",
@@ -505,6 +505,17 @@ export const GLOSSARY_EN: Record<string, { term: string; shortDef: string; longD
     shortDef: "CPS (Clicks Per Second) Test is a test that measures how many times you can click your mouse in a period of time, generally 5, 10, 30 or 60 seconds.",
     longDef: "The CPS Test became popular in the gaming community, especially Minecraft PvP, where click speed determines combat damage. Normal human average is between 6-8 CPS. Intermediate players reach 8-10 CPS. Pros using techniques like jitter clicking, butterfly clicking or drag clicking exceed 12-15 CPS. Anything above 25 CPS is physically improbable and usually indicates mouse macro or bug.",
     example: "10-second test with 75 clicks = 7.5 CPS",
-    useCases: ["Minecraft PvP combat training", "Verifying mouse speed after purchase", "Comparing normal clicks vs advanced techniques", "Diagnosing mouse double-click bug", "Online competitions among friends"]
+    useCases: ["Minecraft PvP combat training", "Verifying mouse speed after purchase", "Comparing normal clicks vs advanced techniques", "Diagnosing mouse double-click bug", "Online competitions among friends"],
+    // Answers written for the exact questions Bing already ranks this page for
+    // (positions 3-4, zero clicks): the "in Spanish", "in math" and
+    // "in computer skills" variants the previous copy never addressed.
+    faqs: [
+      { q: "What is a CPS test in Spanish?", a: "In Spanish a CPS test is called \"test de clics por segundo\" or \"prueba de velocidad de clic\". CPS stands for Clicks Per Second — in Spanish, \"clics por segundo\". The Spanish version of this page is at toolram.com/que-es-cps-test, and the test itself works the same in any language." },
+      { q: "What does CPS mean in math?", a: "CPS is not a mathematical constant: it is a rate, clicks divided by seconds, exactly like speed is distance divided by time. If you click 75 times in 10 seconds, your CPS is 75 ÷ 10 = 7.5. That simple division is the whole formula." },
+      { q: "What is a CPS test in computer skills?", a: "In a computer-skills or IT class, a CPS test measures mouse dexterity: how fast and how consistently a student can click. It is used alongside typing tests (WPM) to assess input speed, and it also reveals hardware problems such as a mouse that registers double clicks." },
+      { q: "What is a 1 second CPS test?", a: "The 1-second CPS test measures your burst speed: the highest number of clicks you can land in a single second, with no endurance involved. Scores come out higher and noisier than the 10-second test, which is the one people use to compare results." },
+      { q: "Is CPS used in Roblox and Minecraft?", a: "Yes. In Minecraft PvP click speed affects hit rate and knockback, which is why the 10-second Kohi test became the standard. Roblox players use it for clicker games and combat too, although many servers restrict techniques like drag clicking." },
+      { q: "What is a good CPS score?", a: "The human average is 6-8 CPS. Around 8-10 CPS is a good score, and 10-15 CPS is reached with techniques like jitter or butterfly clicking. Sustained results above 25 CPS normally mean an autoclicker rather than a human hand." }
+    ]
   }
 };
