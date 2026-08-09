@@ -87,6 +87,13 @@ export const TOOLS: Tool[] = [
       "Transforma tu texto entre 6 formatos: MAYÚSCULAS, minúsculas, Primera Letra En Mayúscula, Solo La Primera Palabra, aLtErNaDo (sarcástico) e InVeRsO. Útil para títulos, normalizar datos o crear texto irónico.",
     keywords: ["convertir mayúsculas", "title case", "uppercase converter"],
     popularity: 85,
+    faqs: [
+      { q: "¿Cómo paso un texto a mayúsculas online?", a: "Pega el texto y elige MAYÚSCULAS: la conversión es instantánea y respeta las tildes, así que Ángel se convierte en ÁNGEL y no en ANGEL." },
+      { q: "¿Qué es tipo oración y tipo título?", a: "Tipo oración pone en mayúscula solo la primera letra de cada frase, como se escribe normalmente en español. Tipo título pone en mayúscula la inicial de cada palabra, un estilo más común en inglés." },
+      { q: "¿Convierte bien la ñ y las tildes?", a: "Sí. La conversión usa las reglas de Unicode para español, de modo que ñ pasa a Ñ y las vocales acentuadas conservan su tilde en mayúscula, tal como pide la Real Academia Española." },
+      { q: "¿Hay límite de caracteres?", a: "No hay límite práctico: puedes pegar desde una frase hasta un documento entero. Todo se procesa en tu navegador, así que la velocidad depende solo de tu dispositivo." },
+      { q: "¿Se envía mi texto a algún servidor?", a: "No. La transformación ocurre localmente en tu navegador, por lo que puedes usarla con textos confidenciales sin que salgan de tu equipo." }
+    ],
     related: ["contador-palabras", "texto-invertido"]
   },
   {
@@ -1177,6 +1184,13 @@ export const TOOLS: Tool[] = [
       "Calcula la propina sobre el total de la cuenta y divide automáticamente entre el número de personas. Presets de 10/12/15/18/20/25%. Muestra cuánto paga cada uno y cuánto es la propina por persona. Soporta múltiples monedas.",
     keywords: ["calculadora propina", "calcular propina", "tip calculator", "dividir cuenta"],
     popularity: 90,
+    faqs: [
+      { q: "¿Cuánto se deja de propina normalmente?", a: "Depende del país: en México y Estados Unidos lo habitual es entre el 10% y el 20%, en España la propina es voluntaria y suele ser menor, y en Japón no se acostumbra dejar propina. La calculadora te deja fijar el porcentaje que prefieras." },
+      { q: "¿Cómo divido la cuenta entre varias personas?", a: "Indica el número de comensales y verás cuánto pone cada uno, con la propina ya incluida y repartida a partes iguales, sin tener que hacer la división a mano." },
+      { q: "¿La propina se calcula antes o después de impuestos?", a: "Lo más habitual y lo más justo para quien atiende es calcularla sobre el importe antes de impuestos. Si prefieres el total con impuestos, simplemente introduce esa cifra como base." },
+      { q: "¿Cómo redondeo el total a una cifra cómoda?", a: "Sube o baja unos puntos el porcentaje hasta que el total quede en una cifra redonda: es lo que se suele hacer al pagar en efectivo y evita andar buscando monedas." },
+      { q: "¿Funciona con cualquier moneda?", a: "Sí. El cálculo es un porcentaje, así que sirve igual para pesos, euros, dólares o cualquier otra moneda." }
+    ],
     related: ["calculadora-descuento", "calculadora-porcentaje", "conversor-divisas"]
   },
   {
@@ -1355,6 +1369,13 @@ export const TOOLS: Tool[] = [
       "Generador de nombres de usuario en 8 estilos diferentes: gaming (con números), aesthetic (con puntos), pro (CamelCase), underscore, X theme, 1337 (leet speak), uppercase, con números. Soporta nombre base personalizado o genera variedad aleatoria. Verifica disponibilidad en namechk.com antes de elegir.",
     keywords: ["generador username", "nombres de usuario", "username generator", "nick gaming", "nombres instagram"],
     popularity: 91,
+    faqs: [
+      { q: "¿Cómo creo un nombre de usuario original?", a: "Combina dos palabras que te representen y añade un giro corto: una inicial, un número con significado o una palabra en otro idioma. El generador propone combinaciones así para que no tengas que pensarlas una a una." },
+      { q: "¿Qué caracteres se pueden usar en un username?", a: "Casi todas las plataformas admiten letras, números, guion bajo y punto. Los espacios, los acentos y los símbolos suelen estar prohibidos, así que conviene evitarlos si quieres el mismo nombre en varias redes." },
+      { q: "¿Qué longitud es la adecuada?", a: "Entre 6 y 15 caracteres funciona bien en casi todas partes: X limita a 15 e Instagram a 30. Un nombre corto se recuerda y se teclea mejor, y cabe entero en el perfil." },
+      { q: "¿Cómo sé si el nombre está libre?", a: "Genera varias opciones y compruébalas en las redes que te interesen antes de decidirte. Registrar el mismo nombre en todas de golpe evita que alguien lo ocupe después." },
+      { q: "¿Los nombres generados son aleatorios y privados?", a: "Se generan en tu navegador y no se guardan ni se envían a ningún servidor, así que nadie más ve las sugerencias que obtienes." }
+    ],
     related: ["generador-nombres", "generador-passwords", "generador-anagrama"]
   },
   {
@@ -1593,6 +1614,13 @@ export const TOOLS: Tool[] = [
       "Calculadora de horas para freelancers, planilla y time tracking. Suma múltiples días con horario de entrada, salida, descanso (en minutos), calcula total de horas trabajadas y monto a cobrar según tarifa por hora. Soporta turnos que cruzan medianoche. Múltiples monedas.",
     keywords: ["calculadora horas trabajadas", "calcular sueldo hora", "timesheet calculator", "horas freelance"],
     popularity: 92,
+    faqs: [
+      { q: "¿Cómo calculo las horas trabajadas de la semana?", a: "Introduce la hora de entrada y de salida de cada día y resta la pausa de comida: la calculadora suma los tramos y te da el total en horas y minutos, sin que tengas que convertir a decimales a mano." },
+      { q: "¿Cómo se pasan los minutos a decimales para la nómina?", a: "Se divide el número de minutos entre 60: 30 minutos son 0,5 horas y 45 minutos son 0,75. Es el formato que piden las nóminas y las hojas de cálculo, y la herramienta lo muestra ya convertido." },
+      { q: "¿Puedo calcular el total a pagar además de las horas?", a: "Sí. Si indicas el importe por hora, además del total de horas obtienes el importe correspondiente, útil para facturar por horas o revisar una nómina." },
+      { q: "¿Cómo cuento un turno que cruza la medianoche?", a: "Un turno de 22:00 a 06:00 se calcula como 8 horas: al detectar que la salida es anterior a la entrada, el cálculo asume que el turno termina al día siguiente." },
+      { q: "¿Se guardan mis horarios?", a: "No. Todo el cálculo se hace en tu navegador y nada se envía ni se almacena en ningún servidor." }
+    ],
     related: ["calculadora-sueldo-neto", "conversor-divisas", "cronometro"]
   },
   {
@@ -1678,6 +1706,13 @@ export const TOOLS: Tool[] = [
       "Buscador de emojis organizados por 11 categorías (caras, corazones, manos, objetos, animales, naturaleza, comida, deportes, música, banderas LATAM/España/USA). Búsqueda por nombre o tags en español ('amor', 'fuego', 'fiesta'). Click para copiar al clipboard al instante. Funcionan en WhatsApp, Instagram, email, todos los sistemas modernos.",
     keywords: ["emojis", "buscar emojis", "emoji finder", "copiar emojis", "emoji español"],
     popularity: 93,
+    faqs: [
+      { q: "¿Qué emojis se pueden usar en la bio de Instagram sin que dé error?", a: "Los emojis del estándar Unicode se muestran bien en la bio. Los que fallan suelen ser secuencias muy nuevas o combinadas con ZWJ (familias, banderas regionales, profesiones), porque la app no siempre las soporta. Si uno se ve como un cuadrado, cámbialo por su versión simple." },
+      { q: "¿Cómo copio un emoji desde aquí?", a: "Escribe lo que buscas y toca el emoji: se copia al portapapeles al instante y ya puedes pegarlo en WhatsApp, Instagram, Word o donde quieras. No hace falta descargar nada." },
+      { q: "¿Puedo buscar emojis por su nombre en español?", a: "Sí. El buscador entiende términos en español como corazón rojo, fuego, llorar de risa o carita triste, además del nombre oficial Unicode en inglés." },
+      { q: "¿Por qué un emoji se ve distinto en iPhone y en Android?", a: "Cada sistema dibuja su propio set: Apple, Google, Samsung y WhatsApp tienen diseños diferentes para el mismo código Unicode. El emoji que envías es el mismo; solo cambia el dibujo que ve la otra persona." },
+      { q: "¿Los emojis afectan al SEO o a la accesibilidad?", a: "Un emoji puntual puede ayudar a que un texto destaque, pero los lectores de pantalla leen su nombre completo en voz alta, así que conviene no encadenar muchos seguidos ni usarlos en lugar de palabras importantes." }
+    ],
     related: ["fancy-text", "generador-bio-instagram", "whatsapp-link"]
   },
   {
@@ -1711,6 +1746,13 @@ export const TOOLS: Tool[] = [
       "Validador del Documento Nacional de Identidad (DNI: 8 dígitos + letra) y Número de Identificación de Extranjero (NIE: X/Y/Z + 7 dígitos + letra) español. Verifica si la letra de control es correcta usando el algoritmo módulo 23. Si es incorrecta, calcula y muestra cuál debería ser. Validación local sin enviar datos.",
     keywords: ["validador dni", "verificar nie", "letra dni", "calcular nif", "dni español valido"],
     popularity: 88,
+    faqs: [
+      { q: "¿Cómo se calcula la letra del DNI?", a: "Se divide el número de 8 cifras entre 23 y el resto indica la letra en una tabla oficial de 23 letras. Por eso una letra incorrecta se detecta al instante: solo hay una válida para cada número." },
+      { q: "¿Cómo se valida un NIE?", a: "El NIE empieza por X, Y o Z, que se sustituyen por 0, 1 y 2 respectivamente. Con ese número de 8 cifras se aplica el mismo cálculo del resto entre 23 que en el DNI." },
+      { q: "¿Qué letras no se usan nunca en el DNI?", a: "Se excluyen la I, la Ñ, la O y la U para evitar confusiones con el 1 y el 0 y con otras letras. La tabla oficial tiene 23 letras por ese motivo." },
+      { q: "¿Sirve para validar un CIF de empresa?", a: "No: el CIF de personas jurídicas usa otro algoritmo, con una letra inicial que indica el tipo de sociedad y un dígito o letra de control distinto. Esta herramienta valida DNI y NIE de personas físicas." },
+      { q: "¿Se envía el número que introduzco?", a: "No. La validación es una operación matemática que se ejecuta en tu navegador; el documento no se transmite ni se guarda en ningún sitio." }
+    ],
     related: ["validador-rfc-curp", "validador-clabe-cbu", "validador-email"]
   },
   { slug: "interes-compuesto", category: "finance", name: "Calculadora de Interés Compuesto", shortDesc: "El poder del interés compuesto · Aportes mensuales + capitalización · Tabla año por año.", longDesc: "Calculadora de interés compuesto con aportes mensuales recurrentes. Capitalización anual, semestral, trimestral o mensual. Muestra tabla detallada año por año del crecimiento del capital. Aplicá la regla del 72: tu dinero se duplica en aproximadamente 72/tasa años. Útil para planificar inversiones, fondos de jubilación, ahorros a largo plazo.", keywords: ["calculadora interes compuesto", "compound interest calculator", "calcular inversion", "interes anual"], popularity: 95, related: ["calculadora-prestamo", "calculadora-iva", "conversor-divisas"] },
