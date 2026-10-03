@@ -170,6 +170,20 @@ Una regla rápida que funciona bien para presupuestar:
 
 Cada empresa usa su propio tokenizador, así que la cifra cambia. Nuestra medición es solo de los tokenizadores públicos de OpenAI, porque son los que se pueden ejecutar en local sin llamar a una API. Para Claude y Gemini, la forma fiable de saberlo es la función de conteo de tokens de su propia API, o una estimación como la que hace el [contador de tokens de Toolram](/contador-tokens), que sirve para presupuestar antes de enviar un texto largo.
 
+## ¿Cuántas páginas son 200,000 tokens?
+
+Depende de cuántas palabras tenga tu página. Si tomamos una página A4 de unas 500 palabras (texto corrido a 12 puntos y espacio sencillo, una medida habitual pero no fija):
+
+| Tokens | Palabras en español (GPT-4o) | Páginas A4 de ~500 palabras |
+|---|---|---|
+| 8,000 | 5,700 | 11 |
+| 32,000 | 22,700 | 45 |
+| 128,000 | 90,900 | 182 |
+| 200,000 | 142,000 | 284 |
+| 1,000,000 | 710,100 | 1,420 |
+
+Con el tokenizador anterior (cl100k_base), 200,000 tokens son unas 119,500 palabras, unas 239 páginas.
+
 ## ¿Cuánto pesa un archivo de un millón de tokens?
 
 Con 4.4 caracteres por token (lo que medimos en español con o200k_base), un millón de tokens son unos 4.4 millones de caracteres. Guardado como texto plano en UTF-8, eso ronda los **4.5 MB**: las letras sin tilde ocupan un byte y las acentuadas y la ñ ocupan dos. Un PDF con el mismo texto pesará más por las fuentes y el formato.
@@ -197,6 +211,10 @@ El primer número son las palabras y el segundo los tokens. Divide el segundo en
       {
         q: "¿Cabe el Quijote en un millón de tokens?",
         a: "Sí. El texto completo (386,614 palabras) ocupa 592,079 tokens con el tokenizador de GPT-4o y 663,832 con el de GPT-4."
+      },
+      {
+        q: "¿Cuántas páginas son 200,000 tokens?",
+        a: "Unas 284 páginas A4 de 500 palabras con el tokenizador de GPT-4o (unas 142,000 palabras en español), o unas 239 con el tokenizador anterior de OpenAI."
       },
       {
         q: "¿Por qué el español gasta más tokens que el inglés?",

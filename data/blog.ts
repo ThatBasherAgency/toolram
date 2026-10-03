@@ -1160,6 +1160,7 @@ Espero esta comparativa te ayude a elegir bien. Si conocés alguna otra herramie
 import { POSTS_BATCH_2 } from "./blog-batch-2";
 import { POSTS_BATCH_3 } from "./blog-batch-3";
 import { POSTS_BATCH_4 } from "./blog-batch-4";
+import { POSTS_BATCH_5 } from "./blog-batch-5";
 
-export const ALL_POSTS: BlogPost[] = [...POSTS, ...POSTS_BATCH_2, ...POSTS_BATCH_3, ...POSTS_BATCH_4];
+export const ALL_POSTS: BlogPost[] = [...POSTS, ...POSTS_BATCH_2, ...POSTS_BATCH_3, ...POSTS_BATCH_4, ...POSTS_BATCH_5];
 export const POSTS_BY_SLUG = Object.fromEntries(ALL_POSTS.map((p) => [p.slug, p]));

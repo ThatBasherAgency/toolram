@@ -22,6 +22,16 @@ function validDNI(input: string): { ok: boolean; type: "DNI" | "NIE" | null; cal
     if (v[8] === expected) return { ok: true, type: "NIE", calculatedLetter: expected, msg: "NIE español válido" };
     return { ok: false, type: "NIE", calculatedLetter: expected, msg: `Letra incorrecta (debería ser ${expected})` };
   }
+  // 3-oct-2026: «completar la letra» (consulta real de Bing): con solo los números, se calcula la letra.
+  if (/^\d{8}$/.test(v)) {
+    const expected = DNI_LETTERS[parseInt(v, 10) % 23];
+    return { ok: true, type: "DNI", calculatedLetter: expected, msg: `Letra calculada: el DNI completo es ${v}${expected}` };
+  }
+  if (/^[XYZ]\d{7}$/.test(v)) {
+    const prefix = v[0] === "X" ? "0" : v[0] === "Y" ? "1" : "2";
+    const expected = DNI_LETTERS[parseInt(prefix + v.slice(1), 10) % 23];
+    return { ok: true, type: "NIE", calculatedLetter: expected, msg: `Letra calculada: el NIE completo es ${v}${expected}` };
+  }
   return { ok: false, type: null, msg: "Formato no reconocido (debe ser 8 dígitos + letra para DNI, o X/Y/Z + 7 dígitos + letra para NIE)" };
 }
 
@@ -40,7 +50,7 @@ export function DniValidator() {
 
       <div className="rounded-3xl border-2 border-[color:var(--color-border)] bg-[color:var(--color-bg)] p-6 md:p-8 mb-6">
         <input type="text" maxLength={9} className="w-full px-4 py-4 rounded-xl border-2 border-[color:var(--color-border)] bg-[color:var(--color-bg)] text-3xl font-mono tabular-nums text-center font-bold uppercase tracking-wider focus:outline-none focus:border-[color:var(--color-brand)]" value={val} onChange={(e) => setVal(e.target.value.toUpperCase().replace(/[^0-9A-Z]/g, ""))} placeholder="12345678Z" />
-        <div className="text-xs text-[color:var(--color-fg-soft)] text-center mt-2">DNI: 8 dígitos + letra · NIE: X/Y/Z + 7 dígitos + letra</div>
+        <div className="text-xs text-[color:var(--color-fg-soft)] text-center mt-2">DNI: 8 dígitos + letra · NIE: X/Y/Z + 7 dígitos + letra · Sin letra, la calcula</div>
       </div>
 
       {result && (

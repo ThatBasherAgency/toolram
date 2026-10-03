@@ -1682,15 +1682,23 @@ Generá tus letras en [/texto-decorado](/texto-decorado).
   },
   {
     slug: "blog/como-poner-checkmark-tick-word-2026",
-    title: "Cómo poner ✓ check / palomita en Word, Excel, Outlook, PowerPoint (2026)",
-    excerpt: "5 formas de insertar el check ✓ en Word: símbolo, atajo de teclado Alt+0252, fuente Wingdings, autocorrección y emoji. Funciona en Word desktop, Word web, Mac, Windows.",
+    title: "Cómo poner un check ✓ o palomita en Word y Excel",
+    excerpt: "En Word escribe 2713 y pulsa Alt+X: sale ✓. También Alt+0252 con Wingdings, la cruz ✗ (2717), la casilla ☑ (2611) y cómo hacerlo en Mac, Excel y con el teclado numérico.",
     publishedAt: "2026-05-08",
-    updatedAt: "2026-05-08",
+    updatedAt: "2026-10-03",
     author: "José Gaspard",
     category: "Símbolos",
     keywords: ["check word", "palomita word", "como poner check", "tick word", "checkmark excel", "simbolo check"],
     estimatedReadMinutes: 4,
     body: `
+## Respuesta rápida
+
+- **Word en Windows:** escribe **2713** y pulsa **Alt + X**. El número se convierte en ✓. Con 2714 sale ✔ (más grueso), con 2611 la casilla marcada ☑, con 2610 la casilla vacía ☐ y con 2717 la cruz ✗.
+- **Con el teclado numérico:** cambia la fuente a Wingdings y, con Bloq Num activado, mantén Alt y teclea 0252 en el teclado numérico: sale ✓. Con 0251 sale la cruz ✗. Los números de la fila de arriba no sirven para los códigos Alt.
+- **Con Wingdings 2:** pon esa fuente y pulsa Mayús + P para ✓ o Mayús + O para ✗.
+- **En Mac:** Control + Comando + Espacio abre el visor de emojis y símbolos; busca «check» y haz doble clic.
+- **Lo más rápido en cualquier sitio:** copia uno de estos y pégalo: ✓ ✔ ☑ ☐ ✗ ✘ ☒
+
 ## Las 5 formas de poner ✓ en Word (de más rápida a más completa)
 
 ### Método 1: Copiar y pegar (más rápido)
@@ -1855,7 +1863,10 @@ Algunas impresoras no incluyen ciertas fonts. Embeber la font en el documento (A
 Más símbolos en [/simbolos](/simbolos).
 `,
     faqs: [
-      { q: "¿Cómo pongo ✓ en una celda de Excel basado en condición?", a: "Usar fórmula =SI(condición, '✓', '✗'). Ejemplo: =SI(A1>10, '✓', '✗') pone check si A1 > 10, X si no. Funciona en Excel, Google Sheets y Numbers." },
+      { q: "¿Cuál es el atajo para poner un check en Word?", a: "Escribe 2713 y pulsa Alt + X: el número se convierte en ✓. Funciona en Word para Windows con cualquier fuente." },
+      { q: "¿Cuál es el símbolo contrario al check?", a: "La cruz o aspa: ✗ (Unicode 2717) o ✘ (2718). En Word escribe 2717 y pulsa Alt + X. Para una casilla tachada, ☒ (2612)." },
+      { q: "¿Cómo pongo un check con el teclado numérico?", a: "Cambia la fuente a Wingdings, activa Bloq Num, mantén Alt y teclea 0252 en el teclado numérico. Con 0251 sale la cruz." },
+      { q: "¿Cómo pongo ✓ en una celda de Excel según una condición?", a: "Con la función SI y el símbolo entre comillas dobles: =SI(A1>10,\"✓\",\"✗\") pone ✓ si A1 es mayor que 10 y ✗ si no. En Excel de España el separador es punto y coma." },
       { q: "¿Hay diferencia entre ✓ y ✔?", a: "Sí. ✓ (U+2713) es el 'check mark'. ✔ (U+2714) es 'heavy check mark', visualmente más grueso. En PDFs y documentos pequeños el pesado se ve más claro." },
       { q: "¿El check se ve igual en Mac y Windows?", a: "El carácter es el mismo (Unicode), pero el rendering depende de la fuente. En Windows con Calibri se ve un poco más fino que en Mac con Helvetica. Si necesitás consistencia visual exacta, conviene insertarlo como imagen SVG." },
       { q: "¿Cómo creo una checklist con cajas que se pueden marcar?", a: "En Word: pestaña 'Desarrollador' (debes activarla en Opciones) → Controles → Casilla. Inserta una caja real que se marca con click. Para Word formato simple: ☐ vacía y ☑ marcada (manual)." },

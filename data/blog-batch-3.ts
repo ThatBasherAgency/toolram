@@ -1530,7 +1530,7 @@ Toolram puede ser gratis porque corre client-side (cero costo de GPU server) y e
   // ============================================================
   {
     slug: "blog/que-es-un-uuid-cuando-usar-2026",
-    title: "Qué es un UUID y cuándo usarlo (v4 vs v7 explicado, 2026)",
+    title: "Qué es un UUID y cuántos caracteres tiene",
     excerpt: "UUIDs son identificadores únicos universales de 128 bits. Esta nota explica para qué sirven, las versiones (v1, v4, v7), y cuándo usar UUID vs auto-increment integer.",
     publishedAt: "2026-05-27",
     updatedAt: "2026-05-27",
@@ -1539,6 +1539,10 @@ Toolram puede ser gratis porque corre client-side (cero costo de GPU server) y e
     keywords: ["que es uuid", "uuid v4 v7", "generador uuid", "uuid vs auto increment"],
     estimatedReadMinutes: 5,
     body: `
+## ¿Cuántos caracteres tiene un UUID?
+
+**Un UUID tiene 36 caracteres**: 32 dígitos hexadecimales (0-9 y a-f) y 4 guiones, repartidos en grupos de 8-4-4-4-12. Por dentro son 128 bits, es decir, 16 bytes. Sin guiones quedan 32 caracteres. Puedes crear uno al instante con el [generador de UUID](/generador-uuid).
+
 ## La idea
 
 UUID = Universally Unique Identifier. Es un identificador de 128 bits expresado como 32 caracteres hex en 5 grupos: \`xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\`.

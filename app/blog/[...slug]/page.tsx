@@ -15,6 +15,15 @@ export function generateStaticParams() {
 }
 export const revalidate = 86400;
 
+const TOP_TOOLS = [
+  { href: "/cps-test", name: "Test de clicks por segundo", desc: "Mide tu CPS en 1, 5, 10, 30 o 60 segundos." },
+  { href: "/numero-a-letras", name: "Número a letras", desc: "Montos con letra para cheques, pagarés y facturas." },
+  { href: "/buscador-emojis", name: "Buscador de emojis", desc: "Encuentra cualquier emoji y cópialo con un clic." },
+  { href: "/convertir-mayusculas", name: "Mayúsculas a minúsculas", desc: "Cambia el texto de mayúsculas a minúsculas y al revés." },
+  { href: "/calculadora-regla-tres", name: "Calculadora de regla de tres", desc: "Simple, inversa y compuesta, con el procedimiento." },
+  { href: "/contador-tokens", name: "Contador de tokens", desc: "Cuenta tokens y estima el costo antes de usar una IA." }
+];
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> {
   const { slug } = await params;
   const fullSlug = `blog/${slug.join("/")}`;
@@ -105,6 +114,20 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             </div>
           </section>
         )}
+        {/* 3-oct-2026: enlazado interno fijo hacia las herramientas con más impresiones en Bing (90 d). */}
+        <nav aria-label="Herramientas más usadas" className="mt-10">
+          <h2 className="text-2xl font-bold mb-4">Herramientas más usadas</h2>
+          <ul className="grid sm:grid-cols-2 gap-2">
+            {TOP_TOOLS.filter((t) => !post.body.includes(`](${t.href})`)).map((t) => (
+              <li key={t.href}>
+                <Link href={t.href} className="card !p-3 block hover:border-[color:var(--color-brand)]">
+                  <span className="font-medium">{t.name}</span>
+                  <span className="block text-sm text-[color:var(--color-fg-soft)]">{t.desc}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </article>
     </>
   );

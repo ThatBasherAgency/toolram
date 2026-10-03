@@ -4,7 +4,7 @@ import { CALCULATORS } from "@/lib/calculators";
 import { SYMBOL_CATEGORIES } from "@/data/symbols";
 import { GLOSSARY, GLOSSARY_BY_SLUG } from "@/data/glossary";
 import { ALTERNATIVES } from "@/data/alternatives";
-import { TOOL_EN, GLOSSARY_EN } from "@/lib/i18n";
+import { TOOL_EN, GLOSSARY_EN, EN_INDEXABLE } from "@/lib/i18n";
 import { ALL_POSTS as POSTS } from "@/data/blog";
 import { SITE } from "@/lib/site";
 
@@ -86,7 +86,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.9,
-    alternates: withLanguagesIfEn(t.slug, !!TOOL_EN[t.slug])
+    alternates: withLanguagesIfEn(t.slug, !!TOOL_EN[t.slug] && EN_INDEXABLE.has(t.slug))
   }));
 
   // 16-ago-2026 · Siete calculadoras están dadas de alta EN LOS DOS REGISTROS
@@ -108,7 +108,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.75,
-    alternates: withLanguagesIfEn(g.slug, !!GLOSSARY_EN[g.slug])
+    alternates: withLanguagesIfEn(g.slug, !!GLOSSARY_EN[g.slug] && EN_INDEXABLE.has(g.slug))
   }));
 
   const altPages: Entry[] = ALTERNATIVES.map((a) => ({
@@ -171,7 +171,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // (see app/en/[slug]/page.tsx: `if (!en || !tool) notFound()`). Some TOOL_EN keys have no
   // matching tool slug (renamed/aliased tools), so emitting them produced 404s in the sitemap.
   const enToolPages: Entry[] = Object.keys(TOOL_EN)
-    .filter((slug) => TOOLS_BY_SLUG[slug])
+    .filter((slug) => TOOLS_BY_SLUG[slug] && EN_INDEXABLE.has(slug))
     .map((slug) => ({
     url: `${SITE.url}/en/${slug}`,
     lastModified: now,
@@ -188,7 +188,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }));
   const enGlossPages: Entry[] = Object.keys(GLOSSARY_EN)
-    .filter((slug) => GLOSSARY_BY_SLUG[slug])
+    .filter((slug) => GLOSSARY_BY_SLUG[slug] && EN_INDEXABLE.has(slug))
     .map((slug) => ({
     url: `${SITE.url}/en/${slug}`,
     lastModified: now,

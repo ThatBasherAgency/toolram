@@ -43,9 +43,9 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   },
 
   "convertir-mayusculas": {
-    title: "Convertir mayúsculas a minúsculas online",
+    title: "Convertir mayúsculas a minúsculas y viceversa",
     description:
-      "Cambia texto a MAYÚSCULAS, minúsculas, Title Case, oración o alternante con un click. Gratis, instantáneo, sin instalar nada. Procesado en tu navegador.",
+      "Pega tu texto y pásalo de MAYÚSCULAS a minúsculas, o al revés, con un clic. También tipo oración y tipo título, sin perder las tildes. Gratis y sin registro.",
     keywords: [
       "convertir mayúsculas",
       "convertir minúsculas",
@@ -66,12 +66,12 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   },
 
   "cps-test": {
-    title: "CPS Test — Test de clicks por segundo gratis (1-60s)",
+    title: "Test de clicks por segundo gratis (CPS Test)",
     description:
-      "Haz el test de clicks por segundo (CPS) gratis: modos 1s, 5s, 10s, 30s, 60s y Jitter. Resultado al instante, récord guardado, sin registro. Mide tu velocidad de click para Minecraft PvP.",
+      "¿Cuántos clicks haces por segundo? Haz clic lo más rápido que puedas en 1, 5, 10, 30 o 60 segundos y mira tu CPS al instante. Récord guardado, sin registro.",
     h1: "CPS Test — Mide tu velocidad de clicks por segundo",
     keywords: ["cps test", "cps tester", "test de clicks", "test cps", "clic test", "click speed test", "kohi click test", "clicks por segundo"],
-    notes: "GSC 90d: pos 23.6. De-canibalizado vs /que-es-cps-test (2026-06-26): esta pagina OWNS la query transaccional 'cps test'."
+    notes: "GSC 90d: pos 23.6. De-canibalizado vs /que-es-cps-test (2026-06-26): esta pagina OWNS la query transaccional 'cps test'. 3-oct-2026: Bing 90d 1.709 impr, 10 clics (CTR 0,6 %, pos 8,1); las consultas son en español ('test de clicks' 122, 'clicks por segundo test' 55) -> title empieza por 'Test de clicks por segundo'."
   },
 
   "generador-qr": {

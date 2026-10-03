@@ -5,7 +5,7 @@ import { ChevronRight, Home } from "lucide-react";
 import { TOOLS, TOOLS_BY_SLUG } from "@/lib/tools-registry";
 import { ToolRenderer } from "@/components/tools/tool-renderer";
 import { SITE } from "@/lib/site";
-import { TOOL_EN, GLOSSARY_EN } from "@/lib/i18n";
+import { TOOL_EN, GLOSSARY_EN, EN_INDEXABLE } from "@/lib/i18n";
 import { clampTitle } from "@/lib/seo-meta";
 import { metaDesc } from "@/lib/meta-desc";
 import { GLOSSARY, GLOSSARY_BY_SLUG } from "@/data/glossary";
@@ -43,12 +43,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description: metaDesc(`en/${slug}`, en.shortDesc),
       alternates: {
         canonical: `/en/${slug}`,
-        languages: {
-          en: `/en/${slug}`,
-          es: `/${slug}`,
-          "x-default": `/en/${slug}`
-        }
-      }
+        ...(EN_INDEXABLE.has(slug) && {
+          languages: {
+            en: `/en/${slug}`,
+            es: `/${slug}`,
+            "x-default": `/en/${slug}`
+          }
+        })
+      },
+      ...(!EN_INDEXABLE.has(slug) && { robots: { index: false, follow: true } })
     };
   }
   if (enGloss) {
@@ -65,12 +68,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description: metaDesc(`en/${slug}`, recortarLimpio(enGloss.shortDef || enGloss.faqs?.[0]?.a || "", 155)),
       alternates: {
         canonical: `/en/${slug}`,
-        languages: {
-          en: `/en/${slug}`,
-          es: `/${slug}`,
-          "x-default": `/en/${slug}`
-        }
-      }
+        ...(EN_INDEXABLE.has(slug) && {
+          languages: {
+            en: `/en/${slug}`,
+            es: `/${slug}`,
+            "x-default": `/en/${slug}`
+          }
+        })
+      },
+      ...(!EN_INDEXABLE.has(slug) && { robots: { index: false, follow: true } })
     };
   }
   return {};

@@ -15,7 +15,10 @@ export function TimestampConverter() {
 
   const tsNum = parseInt(ts, 10);
   const tsValid = !isNaN(tsNum) && tsNum > 0;
-  const tsDate = tsValid ? new Date(tsNum * 1000) : null;
+  // 3-oct-2026: un timestamp de 13 cifras (Date.now(), JavaScript, Java) viene en milisegundos.
+  // Antes se multiplicaba siempre por 1000 y «1784636109303» daba una fecha del año 58.000.
+  const tsIsMs = tsValid && tsNum > 1e11;
+  const tsDate = tsValid ? new Date(tsIsMs ? tsNum : tsNum * 1000) : null;
 
   const isoValid = !isNaN(Date.parse(iso));
   const isoTs = isoValid ? Math.floor(Date.parse(iso) / 1000) : 0;
@@ -42,6 +45,7 @@ export function TimestampConverter() {
           <input className="input" value={ts} onChange={(e) => setTs(e.target.value)} placeholder="1714505600" />
           {tsDate && (
             <div className="text-sm space-y-1">
+              <div><strong>Unidad detectada:</strong> {tsIsMs ? "milisegundos (13 cifras)" : "segundos"}</div>
               <div><strong>Local:</strong> {tsDate.toLocaleString("es-MX")}</div>
               <div><strong>UTC:</strong> {tsDate.toUTCString()}</div>
               <div><strong>ISO:</strong> {tsDate.toISOString()}</div>

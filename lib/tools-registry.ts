@@ -82,7 +82,7 @@ export const TOOLS: Tool[] = [
     slug: "convertir-mayusculas",
     category: "text",
     name: "Convertir mayúsculas/minúsculas",
-    shortDesc: "Cambia tu texto a MAYÚSCULAS, minúsculas, Title Case o aLtErNaDo.",
+    shortDesc: "Pega tu texto y pásalo de mayúsculas a minúsculas, o al revés, con un clic. También tipo oración, tipo título e invertido; las tildes se conservan.",
     longDesc:
       "Transforma tu texto entre 6 formatos: MAYÚSCULAS, minúsculas, Primera Letra En Mayúscula, Solo La Primera Palabra, aLtErNaDo (sarcástico) e InVeRsO. Útil para títulos, normalizar datos o crear texto irónico.",
     keywords: ["convertir mayúsculas", "title case", "uppercase converter"],
@@ -192,7 +192,7 @@ export const TOOLS: Tool[] = [
     slug: "cps-test",
     category: "test",
     name: "CPS Test (Clicks por segundo)",
-    shortDesc: "Mide tu velocidad de clicks. Modos 5s, 10s, 30s, 60s y 100s.",
+    shortDesc: "Haz clic lo más rápido que puedas: tu CPS es el número de clicks dividido entre los segundos. Elige 1, 5, 10, 30 o 60 s y mira el resultado al instante.",
     longDesc:
       "Test de velocidad de clicks (CPS = Clicks Per Second): clickea lo más rápido que puedas en el tiempo elegido (1, 5, 10, 30, 60 segundos o modo Jitter de 100 ms) y obtén tu CPS al instante. El CPS se calcula dividiendo el número de clicks entre los segundos. El promedio humano es 6-8 CPS; los gamers que practican llegan a 8-10 CPS; con técnicas como jitter, butterfly o drag clicking se superan los 12-15 CPS. Usado en Minecraft PvP, Fortnite y Roblox para entrenar dedos, y para evaluar el polling rate y la respuesta de tu mouse. 100% en tu navegador, sin registro.",
     keywords: ["cps test", "clicks per second", "click speed test", "test de clicks", "clicks por segundo", "kohi click test", "jitter click", "butterfly click"],

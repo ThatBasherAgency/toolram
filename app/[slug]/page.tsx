@@ -13,7 +13,7 @@ import { SITE } from "@/lib/site";
 import { ToolJsonLd } from "@/components/seo/tool-json-ld";
 import { CalculatorJsonLd } from "@/components/seo/calculator-json-ld";
 import { ContentBoost } from "@/components/seo/content-boost";
-import { TOOL_EN, GLOSSARY_EN } from "@/lib/i18n";
+import { TOOL_EN, GLOSSARY_EN, EN_INDEXABLE } from "@/lib/i18n";
 import { toolSeoTitle, toolSeoDesc, calcSeoTitle, calcSeoDesc, glossarySeoTitle, glossarySeoDesc, getH1Override, clampTitle } from "@/lib/seo-meta";
 import { getSeoOverride } from "@/lib/seo-overrides";
 import { metaDesc } from "@/lib/meta-desc";
@@ -30,7 +30,8 @@ export function generateStaticParams() {
 
 function buildLanguages(slug: string, kind: "tool" | "gloss" | "other"): Record<string, string> | undefined {
   const hasEn = kind === "tool" ? !!TOOL_EN[slug] : kind === "gloss" ? !!GLOSSARY_EN[slug] : false;
-  if (!hasEn) return undefined;
+  // Sin hreflang hacia traducciones noindex (ver EN_INDEXABLE en lib/i18n.ts).
+  if (!hasEn || !EN_INDEXABLE.has(slug)) return undefined;
   return {
     es: `/${slug}`,
     "es-MX": `/${slug}`,

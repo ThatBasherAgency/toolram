@@ -714,3 +714,21 @@ export const GLOSSARY_EN: Record<string, { term: string; shortDef: string; longD
     ]
   }
 };
+
+/**
+ * 3-oct-2026 · Traducciones /en/ que SÍ se indexan.
+ * Las /en/ son traducciones de ~150 palabras. 47 de 54 no tuvieron NI UNA impresión en Bing (90 días)
+ * ni en Google (16 meses). Google tiene el sitio entero en «rastreada: sin indexar» y estas páginas
+ * finas diluyen la valoración. Las que no están aquí pasan a noindex,follow, salen del sitemap y
+ * pierden el hreflang (en ambos sentidos). Siguen existiendo y enlazadas: es reversible añadiendo el slug.
+ * Datos: Bing GetPageStats + GSC searchAnalytics por página, 3-oct-2026.
+ */
+export const EN_INDEXABLE = new Set<string>([
+  "que-es-cps-test", // Bing 267 impr
+  "unir-pdf",        // Bing 2, Google 24
+  "generador-qr",    // Google 18
+  "contador-palabras", // Google 5
+  "cps-test",        // Google 5
+  "dividir-pdf",     // Google 2
+  "rotar-pdf"        // Google 1
+]);
