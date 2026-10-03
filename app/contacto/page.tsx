@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contacto",
-  description: "Sugerencias, bugs, propuestas o partnerships. Escribinos.",
+  description: "¿Falta una herramienta, encontraste un error o tienes una propuesta de colaboración? Escríbenos a contacto@nebu-lab.com y te respondemos.",
   alternates: { canonical: "/contacto" }
 };
 

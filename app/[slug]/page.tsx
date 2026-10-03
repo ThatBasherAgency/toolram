@@ -16,6 +16,7 @@ import { ContentBoost } from "@/components/seo/content-boost";
 import { TOOL_EN, GLOSSARY_EN } from "@/lib/i18n";
 import { toolSeoTitle, toolSeoDesc, calcSeoTitle, calcSeoDesc, glossarySeoTitle, glossarySeoDesc, getH1Override, clampTitle } from "@/lib/seo-meta";
 import { getSeoOverride } from "@/lib/seo-overrides";
+import { metaDesc } from "@/lib/meta-desc";
 import { defaultFaqs, defaultCalcFaqs } from "@/lib/default-faqs";
 
 export function generateStaticParams() {
@@ -47,7 +48,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const alt = ALTERNATIVES_BY_SLUG[slug];
   if (alt) {
     const title = clampTitle(`Alternativas a ${alt.competitor} en 2026 (gratis y privacy-first)`);
-    const desc = alt.shortDescription.slice(0, 155);
+    const desc = metaDesc(slug, alt.shortDescription.slice(0, 155));
     return {
       title,
       description: desc,

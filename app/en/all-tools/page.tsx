@@ -5,7 +5,7 @@ import { TOOL_EN } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "All free online tools",
-  description: "Complete list of all free online tools at Toolram. PDF, SEO, AI, symbols, converters and more.",
+  description: "Browse every free online tool at Toolram in one list: PDF, image, SEO, AI, developer, calculators, symbols and converters. No signup, runs in your browser.",
   alternates: {
     canonical: "/en/all-tools",
     languages: {

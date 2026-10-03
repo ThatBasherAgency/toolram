@@ -3537,16 +3537,16 @@ export const CONTENT_BOOST_AUTO: Record<string, ContentBoost> = {
       {
         "heading": "Por qué los documentos formales requieren número en letras",
         "paragraphs": [
-          "En México, el SAT y el Código de Comercio establecen que los cheques, pagarés y facturas en papel deben expresar el monto tanto en número como en letras. La razón histórica es prevenir alteraciones: es mucho más difícil modificar «DOCE MIL TRESCIENTOS CUARENTA Y CINCO PESOS 67/100 M.N.» que cambiar un dígito en «$12,345.67». La abreviatura <strong>M.N.</strong> (Moneda Nacional) aparece después del monto en pesos mexicanos.",
+          "En México, cheques y pagarés llevan el monto en número y en letra, y la Ley General de Títulos y Operaciones de Crédito (art. 16) dice que, si las dos cantidades no coinciden, vale la escrita con letra. La razón es prevenir alteraciones: es mucho más difícil modificar «DOCE MIL TRESCIENTOS CUARENTA Y CINCO PESOS 67/100 M.N.» que cambiar un dígito en «$12,345.67». La abreviatura <strong>M.N.</strong> (Moneda Nacional) aparece después del monto en pesos mexicanos.",
           "En contratos notariales, la escritura en letras del monto también es obligatoria. Un error tipográfico en la cantidad escrita puede invalidar el documento o generar conflictos legales si existe contradicción entre el número y la letra."
         ],
-        "citableSummary": "En México, cheques y facturas en papel requieren el monto en letras con formato XX/100 M.N. por obligación legal. Esta herramienta genera los 5 formatos más usados simultáneamente."
+        "citableSummary": "En México, cheques y pagarés llevan el monto en letra con formato XX/100 M.N.; si la letra y la cifra no coinciden, vale la letra (LGTOC, art. 16). Esta herramienta genera los 5 formatos más usados a la vez."
       },
       {
         "heading": "Formatos generados y sus diferencias",
         "paragraphs": [
-          "El formato <strong>pesos mexicanos</strong> usa «PESOS» y «CENTAVOS» con el sufijo «M.N.». Ejemplo para $15,230.50: <em>QUINCE MIL DOSCIENTOS TREINTA PESOS 50/100 M.N.</em>. El formato <strong>pesos argentinos</strong> usa la misma estructura pero sin «M.N.» y con las convenciones regionales de género gramatical («UN MILLÓN» vs «UNA MILLÓN» — la herramienta aplica la concordancia correcta automáticamente).",
-          "El formato <strong>dólares</strong> genera <em>QUINCE MIL DOSCIENTOS TREINTA DÓLARES 50/100 USD</em> o <em>US DOLLARS</em> según la convención del documento. El formato <strong>euros</strong> sigue la misma lógica con «EUROS». El formato <strong>texto general</strong> es útil para cualquier otro contexto: solo el número en palabras sin mención de moneda."
+          "El formato <strong>pesos mexicanos</strong> usa «PESOS» y «CENTAVOS» con el sufijo «M.N.». Ejemplo para $15,230.50: <em>QUINCE MIL DOSCIENTOS TREINTA PESOS 50/100 M.N.</em>. El formato <strong>pesos argentinos</strong> usa la misma estructura, sin el sufijo «M.N.». En todos los formatos de moneda la herramienta aplica el apócope ante el sustantivo («VEINTIÚN PESOS», «CIENTO UN PESOS») y el «de» tras los millones («UN MILLÓN DE PESOS»).",
+          "El formato <strong>dólares</strong> genera <em>QUINCE MIL DOSCIENTOS TREINTA DÓLARES 50/100</em>; si tu documento lo pide, añade «USD» al final. El formato <strong>euros</strong> sigue la misma lógica con «EUROS». El formato <strong>texto general</strong> es útil para cualquier otro contexto: solo el número en palabras sin mención de moneda."
         ]
       },
       {
@@ -3558,6 +3558,7 @@ export const CONTENT_BOOST_AUTO: Record<string, ContentBoost> = {
         "bullets": [
           "Rango soportado: hasta cientos de miles de millones (999,999,999,999.99)",
           "Los centavos se expresan siempre como XX/100, no como fracción decimal ni en letras",
+          "Montos menores a un peso: $0.13 se escribe CERO PESOS 13/100 M.N. en un cheque o pagaré; en texto corrido, «trece centavos»",
           "Para CFDI digitales, el SAT no exige monto en letras — es solo para documentos impresos y contratos"
         ]
       }

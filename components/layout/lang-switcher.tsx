@@ -7,7 +7,14 @@ import { LOCALES, LOCALE_FLAG, LOCALE_LABEL, type Locale } from "@/lib/i18n";
 export function LangSwitcher({ current }: { current: Locale }) {
   const pathname = usePathname() || "/";
   const stripped = pathname.replace(/^\/en(\/|$)/, "/");
-  const target = (loc: Locale) => loc === "en" ? `/en${stripped === "/" ? "" : stripped}` : stripped;
+  // Rutas cuyo nombre cambia entre idiomas (el resto comparte slug): sin este mapa
+  // el selector enlazaba a /en/herramientas y /en/index, que no existen (404).
+  const ES_A_EN: Record<string, string> = { "/herramientas": "/all-tools", "/index": "" };
+  const EN_A_ES: Record<string, string> = { "/all-tools": "/herramientas" };
+  const target = (loc: Locale) => {
+    if (loc === "en") { const m = ES_A_EN[stripped]; const tail = m !== undefined ? m : (stripped === "/" ? "" : stripped); return `/en${tail}`; }
+    return EN_A_ES[stripped] ?? stripped;
+  };
 
   return (
     <div className="relative group">

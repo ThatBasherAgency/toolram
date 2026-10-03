@@ -13,6 +13,10 @@ export default function CalcsIndex() {
     <div className="max-w-7xl mx-auto px-4 py-10">
       <h1 className="text-3xl md:text-4xl font-bold mb-2">Calculadoras online</h1>
       <p className="text-lg text-[color:var(--color-fg-soft)] mb-8">{CALCULATORS.length} calculadoras gratis para resolver problemas comunes.</p>
+      {/* 27-sep-2026 - JEV-010: esta pagina pasaba del h1 al h3 de las tarjetas sin h2 por
+          medio (1 de las 3 paginas con salto de nivel en la auditoria). El h2 de seccion
+          cierra el hueco y repite el patron que ya usan /herramientas y la portada. */}
+      <h2 className="text-2xl font-bold mb-4">Todas las calculadoras</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {CALCULATORS.map((c) => (
           <Link key={c.slug} href={`/${c.slug}`} className="card group">

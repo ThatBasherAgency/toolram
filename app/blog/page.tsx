@@ -5,7 +5,7 @@ import { ALL_POSTS as POSTS } from "@/data/blog";
 
 export const metadata: Metadata = {
   title: "Blog — Toolram",
-  description: "Guías técnicas y comparativas honestas: PDF, SEO, calculadoras, gaming, productividad. Sin clickbait, todo verificable.",
+  description: "Blog de Toolram: guías técnicas y comparativas honestas sobre PDF, SEO, calculadoras, gaming y productividad. Sin clickbait y con datos verificables.",
   alternates: { canonical: "/blog" }
 };
 

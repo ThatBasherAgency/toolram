@@ -31,8 +31,28 @@ function withLanguagesIfEn(slug: string, hasEn: boolean): Entry["alternates"] | 
  * Per-symbol pages (/simbolos/[categoria]/[simbolo]) are intentionally excluded: they are
  * noindex,follow to keep crawl/quality signal concentrated on valuable URLs.
  */
+/**
+ * 16-ago-2026 · `lastmod` TIENE QUE SER VERDAD O GOOGLE DEJA DE MIRARLO.
+ *
+ * Esto era `new Date()`. Con `revalidate = 3600`, cada regeneración del sitemap
+ * ponía la hora actual en TODAS las entradas: el 90% de las URLs (307 de 341)
+ * declaraba haber cambiado hace segundos, una y otra vez, sin que nadie hubiera
+ * tocado nada. Google usa `lastmod` para decidir a qué vuelve; si siempre dice
+ * «todo acaba de cambiar», la señal no vale nada y la ignora.
+ *
+ * Y aquí duele el doble: este sitio ya estaba muerto de rastreo (Google no pasaba
+ * por la mayoría de las URLs desde abril/mayo), así que estábamos quemando justo
+ * lo único que sirve para decirle qué merece una visita.
+ *
+ * Ahora: fecha real cuando el contenido la tiene (el blog trae `updatedAt`) y,
+ * si no, la fecha del último cambio de contenido del sitio. ESTA CONSTANTE SE
+ * SUBE A MANO cuando se publican o reescriben herramientas — no automáticamente,
+ * que es justo lo que la rompía.
+ */
+const CONTENT_UPDATED = new Date("2026-08-09T00:00:00.000Z");
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+  const now = CONTENT_UPDATED;
 
   const staticPages: Entry[] = [
     "",
@@ -69,7 +89,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     alternates: withLanguagesIfEn(t.slug, !!TOOL_EN[t.slug])
   }));
 
-  const calcPages: Entry[] = CALCULATORS.map((c) => ({
+  // 16-ago-2026 · Siete calculadoras están dadas de alta EN LOS DOS REGISTROS
+  // (TOOLS y CALCULATORS), así que el sitemap las emitía dos veces: 341 entradas
+  // para 334 URLs reales. Duplicados exactos: calculadora-edad, -imc, -porcentaje,
+  // -prestamo, -propina, -descuento y -ovulacion. Google los descarta, pero un
+  // sitemap que se contradice a sí mismo no ayuda a que te crean el resto.
+  const calcPages: Entry[] = CALCULATORS.filter((c) => !TOOLS_BY_SLUG[c.slug]).map((c) => ({
     url: `${SITE.url}/${c.slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,

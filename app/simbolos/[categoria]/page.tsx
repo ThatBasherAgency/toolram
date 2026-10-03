@@ -6,6 +6,7 @@ import { SYMBOL_CATEGORIES, SYMBOLS_BY_CATEGORY } from "@/data/symbols";
 import { SymbolsGrid } from "@/components/tools/symbols-grid";
 import { slugifySymbol } from "@/lib/symbol-slug";
 import { SITE } from "@/lib/site";
+import { metaDesc } from "@/lib/meta-desc";
 
 export const revalidate = 86400;
 
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ categoria
   if (!cat) return {};
   return {
     title: cat.name,
-    description: cat.description,
+    description: metaDesc(`simbolos/${cat.slug}`, cat.description),
     alternates: { canonical: `/simbolos/${cat.slug}` }
   };
 }

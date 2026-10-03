@@ -51,7 +51,8 @@ export const metadata: Metadata = {
     google: "Pb94jU8X9iYqyUJO7OFPAQttY1WEACieVFWPPliAB88"
   },
   other: {
-    "google-adsense-account": "ca-pub-5572962820995975"
+    "google-adsense-account": "ca-pub-5572962820995975",
+    "msvalidate.01": "773114F1A12EC7794C8882B80F0A011F"
   },
   alternates: {
     canonical: "/",

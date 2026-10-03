@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Política de privacidad",
-  description: "Cómo Toolram trata tus datos. Procesamiento local, sin trackers de terceros invasivos.",
+  description: "Política de privacidad de Toolram: qué datos se tratan, por qué la mayoría de herramientas procesa tus archivos en el navegador y qué cookies usamos.",
   alternates: { canonical: "/privacidad" }
 };
 

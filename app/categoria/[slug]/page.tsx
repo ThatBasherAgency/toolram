@@ -110,9 +110,16 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         {tools.length === 0 ? (
           <div className="card text-center !py-12 text-[color:var(--color-fg-soft)]">Próximamente más herramientas en esta categoría.</div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12">
-            {tools.map((t) => <ToolCard key={t.slug} tool={t} />)}
-          </div>
+          <>
+            {/* 27-sep-2026 - JEV-010: /categoria/texto y /categoria/seo saltaban del h1 al h3
+                de las tarjetas (2 de las 3 paginas con salto de nivel). El h3 de ToolCard no
+                se toca: el componente se reutiliza en la portada y en /herramientas, donde
+                cuelga de un h2 y ahi si es correcto. El h2 va aqui, en la pagina. */}
+            <h2 className="text-2xl font-bold mb-4">Las {tools.length} herramientas de {info.name}</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12">
+              {tools.map((t) => <ToolCard key={t.slug} tool={t} />)}
+            </div>
+          </>
         )}
 
         {content && (

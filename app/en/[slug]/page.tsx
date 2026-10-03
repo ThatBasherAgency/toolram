@@ -7,10 +7,24 @@ import { ToolRenderer } from "@/components/tools/tool-renderer";
 import { SITE } from "@/lib/site";
 import { TOOL_EN, GLOSSARY_EN } from "@/lib/i18n";
 import { clampTitle } from "@/lib/seo-meta";
+import { metaDesc } from "@/lib/meta-desc";
 import { GLOSSARY, GLOSSARY_BY_SLUG } from "@/data/glossary";
 
 const EN_TOOL_SLUGS = Object.keys(TOOL_EN);
 const EN_GLOSS_SLUGS = Object.keys(GLOSSARY_EN);
+
+
+/** Corta un texto por palabra entera y lo cierra. Un fragmento partido a media
+ *  palabra («…los pequeños explo») parece una página rota en los resultados. */
+function recortarLimpio(t: string, max: number): string {
+  const s = (t || "").trim();
+  if (s.length <= max) return s;
+  const corte = s.slice(0, max);
+  const punto = Math.max(corte.lastIndexOf(". "), corte.lastIndexOf("! "), corte.lastIndexOf("? "));
+  if (punto > max * 0.5) return corte.slice(0, punto + 1);
+  const esp = corte.lastIndexOf(" ");
+  return (esp > max * 0.5 ? corte.slice(0, esp) : corte).replace(/[ ,;:—-]+$/, "") + "…";
+}
 
 export function generateStaticParams() {
   return [
@@ -26,7 +40,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (en) {
     return {
       title: clampTitle(`${en.name} — Free online`),
-      description: en.shortDesc,
+      description: metaDesc(`en/${slug}`, en.shortDesc),
       alternates: {
         canonical: `/en/${slug}`,
         languages: {
@@ -40,9 +54,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (enGloss) {
     return {
       title: clampTitle(`What is ${enGloss.term}? Definition & examples`),
-      // Con FAQs, la descripción arranca por la primera respuesta: es la que
-      // responde la query long-tail por la que Bing ya nos rankea.
-      description: (enGloss.faqs?.[0]?.a ?? enGloss.shortDef).slice(0, 155),
+      /* 16-ago-2026 · La description salía de la PRIMERA FAQ, y en /en/que-es-cps-test
+         esa primera pregunta era «What is a CPS test in Spanish?». Resultado: el
+         fragmento que Bing enseñaba a un lector inglés hablaba de cómo se dice el
+         término en español. 256 impresiones y CERO clics — es la página con más
+         impresiones sin un solo clic del sitio, y Bing es quien de verdad sirve a
+         toolram (655 consultas con datos, frente a 1 en Google).
+         Ahora manda `shortDef`, que es la definición. Y se corta por palabra entera:
+         un fragmento cortado a media palabra parece una página rota. */
+      description: metaDesc(`en/${slug}`, recortarLimpio(enGloss.shortDef || enGloss.faqs?.[0]?.a || "", 155)),
       alternates: {
         canonical: `/en/${slug}`,
         languages: {
@@ -145,7 +165,7 @@ export default async function ToolPageEn({ params }: { params: Promise<{ slug: s
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       name: en.name,
-      description: en.shortDesc,
+      description: metaDesc(`en/${slug}`, en.shortDesc),
       url: `${SITE.url}/en/${slug}`,
       applicationCategory: "WebApplication",
       operatingSystem: "Any",
@@ -153,6 +173,21 @@ export default async function ToolPageEn({ params }: { params: Promise<{ slug: s
       inLanguage: "en"
     }
   ];
+
+  // 16-ago-2026 · Las fichas de glosario ya emitían FAQPage y las de herramienta no,
+  // aunque pintan las mismas preguntas en pantalla. Ahora que las 45 traducciones
+  // tienen FAQ de verdad (antes iban con `faqs: []`), merece la pena declararlas.
+  if (en.faqs && en.faqs.length > 0) {
+    jsonLd.push({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: en.faqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a }
+      }))
+    } as unknown as (typeof jsonLd)[number]);
+  }
 
   return (
     <>

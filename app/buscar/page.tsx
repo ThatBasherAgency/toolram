@@ -5,7 +5,7 @@ import { popularTools } from "@/lib/tools-registry";
 
 export const metadata: Metadata = {
   title: "Buscar herramienta",
-  description: "Busca entre todas las herramientas de Toolram",
+  description: "Busca entre todas las herramientas online gratis de Toolram: PDF, imagen, SEO, IA, calculadoras, símbolos y conversores. Escribe lo que necesitas y listo.",
   alternates: { canonical: "/buscar" }
 };
 

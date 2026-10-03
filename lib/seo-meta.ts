@@ -1,6 +1,7 @@
 import type { Tool } from "@/lib/tools-registry";
 import type { Calculator } from "@/lib/calculators";
 import { getSeoOverride } from "@/lib/seo-overrides";
+import { META_DESC } from "@/lib/meta-desc";
 
 const YEAR = new Date().getFullYear();
 
@@ -97,6 +98,7 @@ export function toolSeoDesc(tool: Tool, lang: "es" | "en" = "es"): string {
   if (override) {
     return override.description.length <= 158 ? override.description : override.description.slice(0, 155) + "...";
   }
+  if (lang === "es" && META_DESC[tool.slug]) return META_DESC[tool.slug];
   const fn = DESC_TEMPLATES[tool.category];
   const desc = tool.shortDesc.endsWith(".") ? tool.shortDesc : `${tool.shortDesc}.`;
   const out = fn ? fn(tool.name, desc) : `${desc} Gratis, sin registro y privacy-first.`;
@@ -114,6 +116,7 @@ export function calcSeoDesc(calc: Calculator): string {
   if (override) {
     return override.description.length <= 158 ? override.description : override.description.slice(0, 155) + "...";
   }
+  if (META_DESC[calc.slug]) return META_DESC[calc.slug];
   const desc = calc.shortDesc.endsWith(".") ? calc.shortDesc : `${calc.shortDesc}.`;
   const out = `${desc} Cálculo instantáneo en tu navegador, sin registro, gratis.`;
   return out.length <= 158 ? out : out.slice(0, 155) + "...";

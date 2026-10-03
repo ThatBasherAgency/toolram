@@ -7,7 +7,7 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Todas las herramientas",
-  description: "Listado completo de todas las herramientas online gratis en Toolram. PDF, SEO, IA, símbolos, conversores y más.",
+  description: "Listado completo de las herramientas online gratis de Toolram: PDF, imagen, SEO, IA, desarrollo, calculadoras, símbolos y conversores. Sin registro.",
   alternates: {
     canonical: "/herramientas",
     languages: {

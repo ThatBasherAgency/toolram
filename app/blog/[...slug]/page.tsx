@@ -8,6 +8,11 @@ import { clampTitle } from "@/lib/seo-meta";
 import { SITE } from "@/lib/site";
 
 export const dynamicParams = true;
+
+// Prerender de todos los posts: sin esto el <title> y el canonical salían fuera del <head>.
+export function generateStaticParams() {
+  return POSTS.map((p) => ({ slug: p.slug.replace(/^blog\//, "").split("/") }));
+}
 export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> {

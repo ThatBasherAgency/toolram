@@ -67,22 +67,30 @@ function numToWords(input: string): string {
   const abs = Math.abs(num);
   const intPart = Math.floor(abs);
   const decPart = Math.round((abs - intPart) * 100);
-  let words = sign + millardos(intPart);
+  let words = sign + (intPart === 0 ? "cero" : millardos(intPart));
   if (decPart > 0) {
-    words += ` con ${decenas(decPart) || decPart} centavos`;
+    words += ` con ${apocope(decenas(decPart) || String(decPart))} centavos`;
   }
   return words.charAt(0).toUpperCase() + words.slice(1);
 }
 
-function moneda(input: string, code: string, plural: string, centavos: string): string {
+// «veintiuno pesos» → «veintiún pesos», «ciento uno» → «ciento un»
+function apocope(w: string): string {
+  return w.replace(/veintiuno$/, "veintiún").replace(/uno$/, "un");
+}
+
+// Formato de cheque: «QUINCE MIL DOSCIENTOS TREINTA PESOS 50/100 M.N.»
+function moneda(input: string, code: string, plural: string, centavos: string, sufijo = ""): string {
   const cleaned = input.replace(/\s/g, "").replace(",", ".");
   const num = parseFloat(cleaned);
   if (isNaN(num) || num < 0) return "—";
+  if (num >= 1_000_000_000_000) return "Número fuera de rango";
   const intPart = Math.floor(num);
   const decPart = Math.round((num - intPart) * 100);
-  const main = intPart === 1 ? `un ${code}` : `${millardos(intPart)} ${plural}`;
-  if (decPart === 0) return main + " con 00/100";
-  return `${main} con ${decPart.toString().padStart(2, "0")}/100`;
+  let letras = intPart === 0 ? "cero" : apocope(millardos(intPart));
+  if (/(millón|millones)$/.test(letras)) letras += " de";
+  const main = intPart === 1 ? `un ${code}` : `${letras} ${plural}`;
+  return `${main} ${decPart.toString().padStart(2, "0")}/100${sufijo}`.toUpperCase();
 }
 
 export function NumberToWords() {
@@ -91,7 +99,7 @@ export function NumberToWords() {
 
   const variants = useMemo(() => ({
     "Texto general": numToWords(input),
-    "Pesos mexicanos": moneda(input, "peso mexicano", "pesos mexicanos", "centavos"),
+    "Pesos mexicanos": moneda(input, "peso", "pesos", "centavos", " M.N."),
     "Pesos argentinos": moneda(input, "peso argentino", "pesos argentinos", "centavos"),
     "Dólares": moneda(input, "dólar", "dólares", "centavos"),
     "Euros": moneda(input, "euro", "euros", "céntimos")
