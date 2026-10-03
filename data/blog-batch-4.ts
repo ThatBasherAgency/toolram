@@ -341,7 +341,7 @@ Si el texto está en un correo, en WhatsApp, en un formulario web o en el editor
 2. **Decide si es directa o inversa.** Pregúntate: si una cantidad sube, ¿la otra sube también? Si sí, es directa. Si baja, es inversa.
 3. **Opera.** Directa: multiplicas en cruz y divides. Inversa: multiplicas en línea y divides.
 
-Si solo quieres el resultado, la [calculadora de regla de tres](/calculadora-regla-tres) resuelve la simple, la inversa y la compuesta con el procedimiento. Aquí van los ejercicios hechos a mano para que entiendas qué hace.
+Si solo quieres el resultado, la [calculadora de regla de tres](/calculadora-regla-tres) resuelve la directa y la inversa y te enseña la operación. La compuesta se hace a mano con el método del ejercicio 8. Aquí van los ejercicios resueltos para que entiendas qué hace.
 
 ## Ejercicio 1. Receta para más personas (directa)
 

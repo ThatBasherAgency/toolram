@@ -51,7 +51,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const post = POSTS_BY_SLUG[fullSlug];
   if (!post) notFound();
 
-  const jsonLd = [
+  const jsonLd: Record<string, unknown>[] = [
     {
       "@context": "https://schema.org",
       "@type": "Article",
@@ -65,6 +65,15 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       url: `${SITE.url}/${post.slug}`,
       keywords: post.keywords.join(", "),
       inLanguage: "es"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Inicio", item: SITE.url },
+        { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE.url}/blog` },
+        { "@type": "ListItem", position: 3, name: post.title, item: `${SITE.url}/${post.slug}` }
+      ]
     }
   ];
   if (post.faqs && post.faqs.length > 0) {

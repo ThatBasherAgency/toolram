@@ -1,6 +1,8 @@
 "use client";
 import dynamic from "next/dynamic";
+import { TOOL_MOBILE_HEIGHT } from "@/lib/tool-heights";
 import { useMemo, useRef } from "react";
+import type { CSSProperties } from "react";
 import { trackToolUsed } from "@/lib/track";
 
 const map = {
@@ -186,10 +188,18 @@ export function ToolRenderer({ slug }: { slug: string }) {
   if (!Component) {
     return <div className="card text-center !py-10 text-[color:var(--color-fg-soft)]">🚧 Esta herramienta estará disponible muy pronto.</div>;
   }
-  // `contents` (display:contents) keeps zero layout impact while capturing the
-  // first real interaction (pointer / key / input) to fire `tool_used` once.
+  // Captura la primera interacción (pointer / key / input) para disparar `tool_used` una vez.
+  // 3-oct-2026: deja de ser `contents` para reservar en móvil el alto real de la herramienta
+  // (lib/tool-heights.ts) mientras llega su JS; así no hay CLS. En md+ no reserva nada.
+  const h = TOOL_MOBILE_HEIGHT[slug];
   return (
-    <div className="contents" onPointerDownCapture={onFirstUse} onKeyDownCapture={onFirstUse} onInputCapture={onFirstUse}>
+    <div
+      className={h ? "max-md:min-h-[var(--tool-h)]" : undefined}
+      style={h ? ({ "--tool-h": `${h}px` } as CSSProperties) : undefined}
+      onPointerDownCapture={onFirstUse}
+      onKeyDownCapture={onFirstUse}
+      onInputCapture={onFirstUse}
+    >
       <Component />
     </div>
   );

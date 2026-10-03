@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight, Home } from "lucide-react";
 import { CATEGORIES, TOOLS, TOOLS_BY_SLUG, relatedTools } from "@/lib/tools-registry";
-import { CALCULATORS, CALCS_BY_SLUG } from "@/lib/calculators";
+import { CALCULATORS, CALCS_BY_SLUG, CALC_CANONICAL_TWIN } from "@/lib/calculators";
 import { GLOSSARY, GLOSSARY_BY_SLUG } from "@/data/glossary";
 import { ALTERNATIVES, ALTERNATIVES_BY_SLUG } from "@/data/alternatives";
 import { ToolRenderer } from "@/components/tools/tool-renderer";
@@ -108,7 +108,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title,
       description: desc,
       keywords: calc.keywords,
-      alternates: { canonical: `/${calc.slug}` },
+      alternates: { canonical: `/${CALC_CANONICAL_TWIN[calc.slug] ?? calc.slug}` },
       openGraph: {
         title: `${title} | ${SITE.name}`,
         description: desc,
@@ -412,6 +412,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         <ToolRenderer slug={tool.slug} />
         <div className="border-t border-[color:var(--color-border)] bg-[color:var(--color-bg-soft)]/40 py-12 md:py-16 mt-8">
           <div className="max-w-3xl mx-auto px-4 space-y-8">
+            {/* 3-oct-2026: la cabecera de estas herramientas la pinta el cliente (ssr:false); esta es la respuesta directa en el HTML del servidor. */}
+            <p className="text-lg leading-relaxed"><strong>{tool.name}:</strong> {tool.shortDesc}</p>
             <ContentBoost slug={tool.slug} />
             <section>
               <h2 className="text-2xl font-bold mb-3">Sobre {tool.name}</h2>
@@ -449,6 +451,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         <ToolRenderer slug={tool.slug} />
         <div className="border-t border-[color:var(--color-border)] bg-[color:var(--color-bg-soft)]/40 py-12 md:py-16 mt-8">
           <div className="max-w-3xl mx-auto px-4 space-y-8">
+            {/* 3-oct-2026: la cabecera de estas herramientas la pinta el cliente (ssr:false); esta es la respuesta directa en el HTML del servidor. */}
+            <p className="text-lg leading-relaxed"><strong>{tool.name}:</strong> {tool.shortDesc}</p>
             <ContentBoost slug={tool.slug} />
             <section>
               <h2 className="text-2xl font-bold mb-3">Sobre {tool.name}</h2>

@@ -126,7 +126,7 @@ export const TOOLS: Tool[] = [
     slug: "generador-uuid",
     category: "generator",
     name: "Generador de UUID",
-    shortDesc: "Genera identificadores únicos universales (UUID v4) al instante.",
+    shortDesc: "Genera UUID v4 de 36 caracteres (32 hexadecimales y 4 guiones) con el generador criptográfico del navegador.",
     longDesc:
       "Crea UUIDs versión 4 (random) listos para usar en bases de datos, APIs o claves únicas. Generá uno o varios, copia con un click.",
     keywords: ["UUID generator", "GUID", "identificador único"],
@@ -567,7 +567,7 @@ export const TOOLS: Tool[] = [
     slug: "timestamp-converter",
     category: "developer",
     name: "Conversor de Timestamp Unix",
-    shortDesc: "Convierte timestamps Unix a fechas legibles y viceversa.",
+    shortDesc: "Un timestamp Unix cuenta los segundos desde el 1-ene-1970 UTC; con 13 cifras son milisegundos. Pégalo y ve la fecha en tu hora local, en UTC y en ISO.",
     longDesc:
       "Pegá un timestamp Unix (segundos desde 1970) y obtené la fecha en formato local, UTC e ISO. O pegá una fecha y obtené el timestamp en segundos y milisegundos. El reloj actual se actualiza en tiempo real.",
     keywords: ["unix timestamp converter", "epoch a fecha", "timestamp converter"],
@@ -808,7 +808,7 @@ export const TOOLS: Tool[] = [
     slug: "contador-tokens",
     category: "ai",
     name: "Contador de tokens IA",
-    shortDesc: "Estima tokens y costo para GPT-4o, Claude, Gemini y más.",
+    shortDesc: "Pega tu texto y estima sus tokens y su costo antes de enviarlo a GPT, Claude o Gemini. En español, cada palabra son unos 1.4 tokens con GPT-4o.",
     longDesc:
       "Pegá tu texto y elegí modelo. Te mostramos tokens estimados (basados en chars/token promedio del modelo), porcentaje del context window que ocupás y costo estimado en USD como input y output. Útil para presupuestar batch jobs o validar que tu prompt entra en el contexto.",
     keywords: ["contador tokens", "token counter", "tokenizer gpt claude"],
@@ -1054,7 +1054,7 @@ export const TOOLS: Tool[] = [
     slug: "numero-a-letras",
     category: "converter",
     name: "Número a Letras (en español)",
-    shortDesc: "Convierte números a texto en español. Ideal para cheques, facturas, contratos.",
+    shortDesc: "Escribe una cantidad y obtén el monto con letra listo para cheques y pagarés: 1,250.50 → MIL DOSCIENTOS CINCUENTA PESOS 50/100 M.N.",
     longDesc:
       "Convertidor de números a letras en español con 5 formatos simultáneos: texto general, pesos mexicanos, pesos argentinos, dólares y euros, todos con el formato XX/100 estándar para documentos formales. Soporta hasta cientos de miles de millones, con decimales de centavos.",
     keywords: ["numero a letras", "numero en letras", "convertidor numero texto"],
@@ -1152,7 +1152,7 @@ export const TOOLS: Tool[] = [
     slug: "calculadora-prestamo",
     category: "calculator",
     name: "Calculadora de Préstamo",
-    shortDesc: "Cuota mensual, intereses totales y tabla de amortización francesa.",
+    shortDesc: "Cuota = P × i ÷ (1 − (1 + i)^−n). Ejemplo: 100,000 al 24 % anual en 12 meses = 9,455.96 al mes. Con total de intereses y tabla de amortización.",
     longDesc:
       "Calcula tu cuota mensual fija usando el sistema francés (el más común para hipotecas y préstamos personales). Muestra capital total a pagar, intereses, y tabla de amortización detallada por mes (capital + interés + saldo). Soporta múltiples monedas (USD, EUR, MX$, AR$, CLP$, S/, COL$).",
     keywords: ["calculadora prestamo", "calcular cuota mensual", "calculadora hipoteca", "amortización francesa", "loan calculator"],
@@ -1682,7 +1682,7 @@ export const TOOLS: Tool[] = [
     slug: "barcode-generator",
     category: "generator",
     name: "Generador de Código de Barras EAN-13",
-    shortDesc: "Crea códigos de barras EAN-13 con dígito verificador · Descarga PNG.",
+    shortDesc: "Escribe 12 dígitos: se calcula el 13.º (dígito de control) y se dibuja el EAN-13 para descargar en PNG. Ejemplo: 978020137966 → 9780201379662.",
     longDesc:
       "Generador de códigos de barras EAN-13 (estándar mundial retail desde 1977). Calcula automáticamente el 13º dígito verificador. Personaliza color de fondo y barras. Descarga en PNG en alta resolución. Para uso comercial real necesitás registrar tu prefijo en GS1 — para tests, etiquetas internas o aprendizaje funciona con cualquier código.",
     keywords: ["generador codigo barras", "ean 13 generator", "barcode online", "crear codigo barras"],
@@ -1701,7 +1701,7 @@ export const TOOLS: Tool[] = [
     slug: "buscador-emojis",
     category: "symbols",
     name: "Buscador de Emojis",
-    shortDesc: "90+ emojis con búsqueda · Click para copiar al instante.",
+    shortDesc: "Escribe en español lo que buscas (corazón, risa, fuego) y copia el emoji con un clic para WhatsApp, Instagram o TikTok.",
     longDesc:
       "Buscador de emojis organizados por 11 categorías (caras, corazones, manos, objetos, animales, naturaleza, comida, deportes, música, banderas LATAM/España/USA). Búsqueda por nombre o tags en español ('amor', 'fuego', 'fiesta'). Click para copiar al clipboard al instante. Funcionan en WhatsApp, Instagram, email, todos los sistemas modernos.",
     keywords: ["emojis", "buscar emojis", "emoji finder", "copiar emojis", "emoji español"],
@@ -1741,7 +1741,7 @@ export const TOOLS: Tool[] = [
     slug: "validador-dni-nie",
     category: "developer",
     name: "Validador DNI · NIE España",
-    shortDesc: "Verifica DNI o NIE español · Calcula la letra correcta.",
+    shortDesc: "La letra del DNI es el resto de dividir el número entre 23, buscado en TRWAGMYFPDXBNJZSQVHLCKE. Escribe el DNI o NIE para validarlo, o solo los números para calcular la letra.",
     longDesc:
       "Validador del Documento Nacional de Identidad (DNI: 8 dígitos + letra) y Número de Identificación de Extranjero (NIE: X/Y/Z + 7 dígitos + letra) español. Verifica si la letra de control es correcta usando el algoritmo módulo 23. Si es incorrecta, calcula y muestra cuál debería ser. Validación local sin enviar datos.",
     keywords: ["validador dni", "verificar nie", "letra dni", "calcular nif", "dni español valido"],

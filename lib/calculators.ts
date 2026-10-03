@@ -77,7 +77,7 @@ export const CALCULATORS: Calculator[] = [
   {
     slug: "calculadora-prestamo",
     name: "Calculadora de préstamo",
-    shortDesc: "Calcula la cuota mensual, total a pagar y intereses de un préstamo.",
+    shortDesc: "Cuota = P × i ÷ (1 − (1 + i)^−n). Ejemplo: 100,000 al 24 % anual en 12 meses = 9,455.96 al mes. Con total de intereses y tabla de amortización.",
     longDesc: "Simulación de préstamo a tasa fija con cuota nivelada (sistema francés). Ingresá monto, plazo en meses y tasa anual nominal.",
     keywords: ["calculadora prestamo", "loan calculator", "cuota mensual"],
     fields: [
@@ -213,17 +213,26 @@ export const CALCULATORS: Calculator[] = [
   {
     slug: "calculadora-regla-tres",
     name: "Regla de tres simple",
-    shortDesc: "Resuelve la regla de tres directa: si A es B, entonces C es ¿X?",
-    longDesc: "Si A=B, ¿cuánto vale C? La calculadora resuelve regla de tres directa al instante.",
-    keywords: ["regla de tres", "regla 3 simple", "rule of three"],
+    shortDesc: "Si A es a B, C es a X. Directa: X = B × C ÷ A (si 4 porciones llevan 300 g, 10 llevan 750 g). Inversa: X = A × B ÷ C (si 6 obreros tardan 15 días, 9 tardan 10).",
+    longDesc: "Resuelve la regla de tres simple directa e inversa y muestra la operación. Es directa cuando, al aumentar una cantidad, la otra también aumenta (recetas, precios, porcentajes). Es inversa cuando una sube y la otra baja (obreros y días, velocidad y tiempo). Para la compuesta y más ejemplos, mira la guía de ejercicios resueltos de regla de tres.",
+    keywords: ["regla de tres", "regla de 3", "regla 3 simple", "regla de tres inversa", "calculadora regla de 3"],
     fields: [
-      { type: "number", key: "a", label: "A", default: 100 },
-      { type: "number", key: "b", label: "B", default: 50 },
-      { type: "number", key: "c", label: "C", default: 30 }
+      { type: "select", key: "tipo", label: "Tipo", options: [{ value: "directa", label: "Directa (más → más)" }, { value: "inversa", label: "Inversa (más → menos)" }], default: "directa" },
+      { type: "number", key: "a", label: "A", default: 4 },
+      { type: "number", key: "b", label: "B (lo que corresponde a A)", default: 300 },
+      { type: "number", key: "c", label: "C", default: 10 }
     ],
     compute: (v) => {
-      const x = (+v.b * +v.c) / +v.a;
-      return [{ label: `Si ${v.a} es ${v.b}, entonces ${v.c} es`, value: fmt(x, 4), emphasized: true }];
+      const a = +v.a, b = +v.b, c = +v.c;
+      if (!a || !c) return [{ label: "Error", value: "A y C no pueden ser 0" }];
+      const inversa = v.tipo === "inversa";
+      const x = inversa ? (a * b) / c : (b * c) / a;
+      const op = inversa ? `${a} × ${b} ÷ ${c}` : `${b} × ${c} ÷ ${a}`;
+      const xs = fmt(x, Number.isInteger(x) ? 0 : 2);
+      return [
+        { label: `Si ${a} es a ${b}, entonces ${c} es a`, value: xs, emphasized: true },
+        { label: inversa ? "Procedimiento (inversa: se multiplica en línea)" : "Procedimiento (directa: se multiplica en cruz)", value: `X = ${op} = ${xs}` }
+      ];
     }
   },
   {
@@ -244,12 +253,18 @@ export const CALCULATORS: Calculator[] = [
   {
     slug: "calculadora-velocidad-lectura",
     name: "Tiempo de lectura",
-    shortDesc: "Calcula cuánto tarda en leerse un texto.",
-    longDesc: "Estima el tiempo de lectura según cantidad de palabras y velocidad promedio (225 palabras/min para adulto promedio).",
-    keywords: ["tiempo de lectura", "reading time calculator"],
+    shortDesc: "Tiempo de lectura = palabras ÷ palabras por minuto. Un adulto lee en silencio unas 238 palabras por minuto, así que 1,000 palabras se leen en unos 4 minutos.",
+    longDesc: "Calcula cuánto se tarda en leer un texto a partir de su número de palabras y de la velocidad de lectura. La referencia más citada es el metaanálisis de Marc Brysbaert (Journal of Memory and Language, 2019), con 190 estudios: un adulto lee en silencio unas 238 palabras por minuto en textos de no ficción, unas 260 en ficción y unas 183 en voz alta. Úsalo para poner el tiempo de lectura en un artículo, calcular cuánto dura un discurso o planear un examen. Si no sabes cuántas palabras tiene tu texto, pégalo antes en el contador de palabras.",
+    keywords: ["tiempo de lectura", "calculadora de tiempo de lectura", "cuanto tardo en leer", "palabras por minuto", "velocidad de lectura promedio"],
+    faqs: [
+      { q: "¿Cuántas palabras por minuto lee una persona?", a: "Unas 238 en lectura silenciosa de no ficción y unas 260 en ficción, según el metaanálisis de Brysbaert (2019). En voz alta, unas 183." },
+      { q: "¿Cuánto se tarda en leer 1,000 palabras?", a: "Unos 4 minutos y 12 segundos en silencio (a 238 palabras por minuto) y unos 5 minutos y medio en voz alta (a 183)." },
+      { q: "¿Cuánto dura un discurso de 2,000 palabras?", a: "Leído en voz alta a unas 183 palabras por minuto, casi 11 minutos. Con pausas y énfasis, cuenta 12 o 13." },
+      { q: "¿Cómo calculo el tiempo de lectura de mi artículo?", a: "Cuenta las palabras y divide entre 238. Un artículo de 1,500 palabras se lee en unos 6 minutos y medio." }
+    ],
     fields: [
       { type: "number", key: "palabras", label: "Cantidad de palabras", default: 1000, step: 100 },
-      { type: "number", key: "wpm", label: "Velocidad", suffix: "ppm", default: 225, step: 5 }
+      { type: "number", key: "wpm", label: "Velocidad", suffix: "ppm", default: 238, step: 5 }
     ],
     compute: (v) => {
       const min = +v.palabras / +v.wpm;
@@ -318,24 +333,30 @@ export const CALCULATORS: Calculator[] = [
   },
   {
     slug: "calculadora-bmi-pulgadas-libras",
-    name: "BMI calculator (lb / inches)",
-    shortDesc: "Calcula tu BMI usando libras y pulgadas (US/UK system).",
-    longDesc: "Same as IMC, but using imperial units. Enter weight in pounds and height in inches.",
-    keywords: ["bmi calculator", "bmi pounds", "bmi inches"],
+    name: "Calculadora de IMC en libras y pulgadas",
+    shortDesc: "IMC = 703 × peso en libras ÷ (estatura en pulgadas)². Con 154 lb y 67 in (5 pies 7 pulgadas) sale 24.1, peso normal.",
+    longDesc: "Calcula el índice de masa corporal (IMC o BMI) con libras y pulgadas, las unidades de Estados Unidos. La fórmula es la misma que con kilos y metros, multiplicada por 703 para convertir unidades. Si sabes tu estatura en pies y pulgadas, multiplica los pies por 12 y suma las pulgadas: 5 pies 7 pulgadas son 67 pulgadas. Los rangos son los de la OMS: menos de 18.5 bajo peso, de 18.5 a 24.9 normal, de 25 a 29.9 sobrepeso y 30 o más obesidad.",
+    keywords: ["calculadora de imc en libras", "bmi en libras", "imc libras y pulgadas", "imc pies y pulgadas", "bmi calculator pounds"],
+    faqs: [
+      { q: "¿Cómo se calcula el IMC con libras y pulgadas?", a: "IMC = 703 × peso en libras ÷ (estatura en pulgadas)². Ejemplo: 154 lb y 67 in dan 703 × 154 ÷ 4,489 = 24.1." },
+      { q: "¿Por qué se multiplica por 703?", a: "Para convertir libras y pulgadas a kilos y metros: 1 lb = 0.4536 kg y 1 in = 0.0254 m, y 0.4536 ÷ 0.0254² ≈ 703. Así el resultado coincide con el IMC calculado en sistema métrico." },
+      { q: "¿Cómo paso mi estatura de pies a pulgadas?", a: "Multiplica los pies por 12 y suma las pulgadas. 5 pies 7 pulgadas = 5 × 12 + 7 = 67 pulgadas; 6 pies = 72 pulgadas." },
+      { q: "¿Qué IMC es normal?", a: "Según la OMS, entre 18.5 y 24.9. De 25 a 29.9 es sobrepeso y 30 o más, obesidad. El IMC no distingue músculo de grasa, así que en deportistas puede sobrestimar." }
+    ],
     fields: [
-      { type: "number", key: "peso", label: "Weight", suffix: "lb", default: 154, step: 0.1 },
-      { type: "number", key: "altura", label: "Height", suffix: "in", default: 67, step: 0.1 }
+      { type: "number", key: "peso", label: "Peso", suffix: "lb", default: 154, step: 0.1 },
+      { type: "number", key: "altura", label: "Estatura", suffix: "in", default: 67, step: 0.1 }
     ],
     compute: (v) => {
       const bmi = (703 * +v.peso) / Math.pow(+v.altura, 2);
       let cat = "";
-      if (bmi < 18.5) cat = "Underweight";
-      else if (bmi < 25) cat = "Normal";
-      else if (bmi < 30) cat = "Overweight";
-      else cat = "Obese";
+      if (bmi < 18.5) cat = "Bajo peso";
+      else if (bmi < 25) cat = "Peso normal";
+      else if (bmi < 30) cat = "Sobrepeso";
+      else cat = "Obesidad";
       return [
-        { label: "BMI", value: fmt(bmi, 1), emphasized: true },
-        { label: "Category", value: cat }
+        { label: "IMC", value: fmt(bmi, 1), emphasized: true },
+        { label: "Categoría (OMS)", value: cat }
       ];
     }
   },
@@ -368,3 +389,16 @@ export const CALCULATORS: Calculator[] = [
 ];
 
 export const CALCS_BY_SLUG = Object.fromEntries(CALCULATORS.map((c) => [c.slug, c]));
+
+/**
+ * 3-oct-2026 · Calculadoras que repiten una herramienta del registro (misma función, ~230 palabras
+ * de plantilla, 54-57 % de texto idéntico entre ellas y 0 impresiones en Bing y Google). En vez de
+ * inventar diferencias, se consolidan con canonical hacia la gemela más completa y salen del sitemap.
+ * NO es un 301: la URL sigue funcionando. Reversible borrando la línea.
+ */
+export const CALC_CANONICAL_TWIN: Record<string, string> = {
+  "calculadora-fecha-diferencia": "dias-entre-fechas",
+  "calculadora-interes-compuesto": "interes-compuesto",
+  "calculadora-conversion-temperatura": "conversor-temperatura",
+  "calculadora-tdee": "calculadora-calorias"
+};

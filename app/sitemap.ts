@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { CATEGORIES, TOOLS, TOOLS_BY_SLUG } from "@/lib/tools-registry";
-import { CALCULATORS } from "@/lib/calculators";
+import { CALCULATORS, CALC_CANONICAL_TWIN } from "@/lib/calculators";
 import { SYMBOL_CATEGORIES } from "@/data/symbols";
 import { GLOSSARY, GLOSSARY_BY_SLUG } from "@/data/glossary";
 import { ALTERNATIVES } from "@/data/alternatives";
@@ -94,7 +94,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // para 334 URLs reales. Duplicados exactos: calculadora-edad, -imc, -porcentaje,
   // -prestamo, -propina, -descuento y -ovulacion. Google los descarta, pero un
   // sitemap que se contradice a sí mismo no ayuda a que te crean el resto.
-  const calcPages: Entry[] = CALCULATORS.filter((c) => !TOOLS_BY_SLUG[c.slug]).map((c) => ({
+  const calcPages: Entry[] = CALCULATORS.filter((c) => !TOOLS_BY_SLUG[c.slug] && !CALC_CANONICAL_TWIN[c.slug]).map((c) => ({
     url: `${SITE.url}/${c.slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,

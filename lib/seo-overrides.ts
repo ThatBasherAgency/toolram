@@ -118,7 +118,7 @@ export const SEO_OVERRIDES: Record<string, SeoOverride> = {
   "calculadora-regla-tres": {
     title: "Calculadora de regla de 3 simple e inversa",
     description:
-      "Resuelve la regla de 3 (regla de tres) simple, inversa y compuesta con el resultado y el procedimiento paso a paso. Gratis, sin registro.",
+      "Resuelve la regla de 3 (regla de tres) simple directa e inversa con el resultado y la operación. Ejemplo: si 4 porciones llevan 300 g, 10 llevan 750 g. Gratis.",
     h1: "Calculadora de regla de 3",
     keywords: ["calculadora regla de 3", "regla de 3 calculadora", "calculadora regla de tres", "regla de tres simple", "regla de 3 simple"],
     notes: "Bing 30d: ~190 impr agregadas · pos 6-9 · solo 1 clic. El title decía 'regla de tres' pero la query dominante es 'regla de 3' (75 impr) frente a 'regla de tres' (42). Se antepone la grafía con dígito y se deja la otra en desc/keywords."

@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { AdsenseLoader } from "@/components/ads/adsense-loader";
 import { SITE } from "@/lib/site";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -85,11 +86,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme:dark)').matches;if(d)document.documentElement.classList.add('dark');}catch(e){}})();`
           }}
         />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5572962820995975"
-          crossOrigin="anonymous"
-        />
       </head>
       <body className="min-h-screen flex flex-col">
         <WebsiteJsonLd />
@@ -97,6 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1">{children}</main>
         <Footer />
         <Analytics />
+        <AdsenseLoader />
       </body>
     </html>
   );
