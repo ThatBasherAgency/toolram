@@ -33,7 +33,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
         }}
       >
         <div style={{ fontSize: 30, fontWeight: 700, opacity: 0.85, letterSpacing: 2 }}>
-          TOOLRAM{post?.category ? ` · ${post.category.toUpperCase()}` : ""}
+          {`TOOLRAM${post?.category ? ` · ${post.category.toUpperCase()}` : ""}`}
         </div>
         <div style={{ fontSize: cuerpo, fontWeight: 800, marginTop: 20, lineHeight: 1.15 }}>{titulo}</div>
         <div style={{ fontSize: 30, opacity: 0.9, marginTop: 24 }}>Gratis · sin registro · en tu navegador</div>
