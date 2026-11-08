@@ -40,7 +40,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       url: `${SITE.url}/${post.slug}`,
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt,
-      authors: [post.author]
+      authors: [post.author],
+      images: [{ url: `/og/${post.slug}`, width: 1200, height: 630, alt: post.title }]
     }
   };
 }

@@ -1,21 +1,14 @@
 import { ImageResponse } from "next/og";
 import { POSTS_BY_SLUG } from "@/data/blog";
 
-// 27-sep-2026 - JEV-008. De las 51 paginas sin og:image, 45 ya las cubren
-// app/[slug]/opengraph-image.tsx y app/categoria/[slug]/opengraph-image.tsx. Las 6
-// restantes son los posts del blog: app/blog/[...slug]/page.tsx declara su propio bloque
-// openGraph (title, description, type article, publishedTime...) y al hacerlo Next deja de
-// heredar la imagen del sitio (app/opengraph-image.tsx). Comprobado en vivo el 27-sep:
-// /blog/firmar-pdf-online-gratis-guia-2026 servia og:title pero NINGUN og:image.
-// El resto de secciones (/glosario, /alternativas, /calculadoras, /texto-decorado,
-// /simbolos, /buscar, /blog, /herramientas, /contacto, /sobre, /privacidad, /en) NO
-// declaran openGraph propio: heredan bien la imagen del sitio y no habia nada que tocar.
+// 7-nov-2026 - La imagen OG de los posts vivia en app/blog/[...slug]/opengraph-image.tsx,
+// pero `next start` (VPS) rechaza un catch-all que no es el ultimo segmento ("Catch-all must
+// be the last part of the URL"; Vercel lo toleraba). Se sirve aqui, con el catch-all al final,
+// y app/blog/[...slug]/page.tsx la declara en openGraph.images. Mismo diseno que antes.
 export const runtime = "edge";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
-export const alt = "Toolram — guía del blog";
+const size = { width: 1200, height: 630 };
 
-export default async function OG({ params }: { params: Promise<{ slug: string[] }> }) {
+export async function GET(_req: Request, { params }: { params: Promise<{ slug: string[] }> }) {
   const { slug } = await params;
   const post = POSTS_BY_SLUG[`blog/${slug.join("/")}`];
   // Los titulares del blog son largos (el mas corto de los 6 pasa de 70 caracteres), asi
