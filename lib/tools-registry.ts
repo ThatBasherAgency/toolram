@@ -1873,8 +1873,19 @@ export function popularTools(limit = 12): Tool[] {
 export function relatedTools(slug: string, limit = 4): Tool[] {
   const tool = TOOLS_BY_SLUG[slug];
   if (!tool) return [];
-  const explicit = (tool.related ?? []).map((s) => TOOLS_BY_SLUG[s]).filter(Boolean);
-  if (explicit.length >= limit) return explicit.slice(0, limit);
-  const sameCategory = TOOLS.filter((t) => t.category === tool.category && t.slug !== slug);
-  return [...explicit, ...sameCategory].slice(0, limit);
+  // 12-nov-2026: como mucho limit-1 manuales y el resto, las siguientes de su categoría en anillo.
+  // Antes se rellenaba siempre con las primeras de la categoría: 20 herramientas sin ningún enlace entrante.
+  const explicit = (tool.related ?? [])
+    .map((s) => TOOLS_BY_SLUG[s])
+    .filter((t) => t && t.slug !== slug)
+    .slice(0, limit - 1);
+  const sameCategory = TOOLS.filter((t) => t.category === tool.category);
+  const i = sameCategory.findIndex((t) => t.slug === slug);
+  const ring = [...sameCategory.slice(i + 1), ...sameCategory.slice(0, i)];
+  const out = [...explicit];
+  for (const t of ring) {
+    if (out.length >= limit) break;
+    if (!out.includes(t)) out.push(t);
+  }
+  return out;
 }
